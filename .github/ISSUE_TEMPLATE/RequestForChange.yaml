@@ -42,7 +42,7 @@ body:
       - label: Zorgkantoor
       - label: Zorginstituut
       - label: anders, (geef aan bij contactpersoon)
-  validationns:
+  validations:
     required: true
 - type: checkboxes
   id: impact_onderdelen
