@@ -2,7 +2,7 @@ name: "Wijzigingsverzoek"
 description: Issue voor het volgen van een RFC
 title: "RFC-#### - [onderwerp]"
 labels: ["iWlz"]
-projects: ["iWlz_Wijzigingsverzoeken"]
+projects: ["iWlz Wijzigingsverzoeken"]
 body:
 - type: input
   id: eDocsnr
