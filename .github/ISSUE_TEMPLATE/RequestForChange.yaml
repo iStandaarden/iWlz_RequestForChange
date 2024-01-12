@@ -1,22 +1,16 @@
-name: Request For Change
-description: Issue voor het volgen van een Request for Change
-title: "[onderwerp]"
-labels: ["netwerk"]
+name: Wijzigingsverzoek
+description: Issue voor het volgen van een RFC
+title: "RFC-#### - [onderwerp]"
+labels: ["iWlz"]
+projects: ["iWlz_Wijzigingsverzoeken"]
 body:
   - type: input
-    id: RFCid
-    attributes:
-      label: RFC nummer
-      placeholder: RFC nummer
-    validations:
-      required: true
-  - type: input
-    id: onderwerp
+    id: eDocsnr
     attributes: 
-      label: Onderwerp
-      placeholder: Onderwerp RFC
+      label: eDocs volgnummer
+      placeholder: eDocs volgnummer
     validations:
-      required: true
+      required: false
   - type: input
     id: versie
     attributes:
@@ -25,23 +19,44 @@ body:
       placeholder: Versienummer RFC
     validations:
       required: true
-  - type: input
+  - type: textarea
+    id: samenvatting
+    attributes:
+      label: Korte omschrijving
+      placeholder: Geef een korte omschrijving van het wijzigingsverzoek
+    validations:
+      required: true
+  - type: markdown
+  attributes:
+    value: "## Thank you for contributing to our project!"
+  - type: markdown
+  attributes:
+    value: |
+      Thanks for taking the time to fill out this bug report.
+  - type: dropdown
     id: indiener
     attributes:
       label: Indiener RFC
-      placeholder: Organisatienaam indiener RFC
-    validations:
-      required: true
+      options:
+        - label: CAK
+        - label: CIZ
+        - label: Softwareleverancier Zorgaanbieder
+        - label: Softwareleverancier Zorgkantoor
+        - label: Zorgaanbieder
+        - label: Zorgkantoor
+        - label: Zorginstituut
+        - label: anders, (geef aan bij contactpersoon)
+          required: true
   - type: checkboxes
     id: impact_onderdelen
     attributes:
-      label: RFC heeft impact op
+      label: RFC gevolgen voor
       options:
-        - label: Regels
         - label: Codelijsten
+        - label: Documentatie
+        - label: Regels
         - label: XSD
-        - label: Indicatieregister
-        - label: Bemiddelingsregister
+        - label: ERD
         - label: Koppelvlak specificatie 
         - label: anders, (geef hieronder aan)
           required: true
@@ -50,11 +65,3 @@ body:
     attributes:
       label: Welk ander onderdeel?
       description: voor welk ander onderdeel is de impact behoordeeld 
-  - type: checkboxes
-    id: project
-    attributes:
-      label: Selecteer in de kolom rechts het project "RFC-netwerkmodel"
-      description: onder 'Projects', klik op het 'tandwieltje'
-      options:
-        - label: done
-          required: true
