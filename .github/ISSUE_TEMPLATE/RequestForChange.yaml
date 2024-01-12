@@ -26,12 +26,12 @@ body:
   validations:
     required: true
 - type: markdown
-attributes:
-  value: "## Thank you for contributing to our project!"
+  attributes:
+    value: "## Thank you for contributing to our project!"
 - type: markdown
-attributes:
-  value: |
-    Thanks for taking the time to fill out this bug report.
+  attributes:
+    value: |
+      Thanks for taking the time to fill out this bug report.
 - type: dropdown
   id: indiener
   attributes:
@@ -45,7 +45,8 @@ attributes:
       - label: Zorgkantoor
       - label: Zorginstituut
       - label: anders, (geef aan bij contactpersoon)
-        required: true
+    validations:
+      required: true
 - type: checkboxes
   id: impact_onderdelen
   attributes:
@@ -58,7 +59,8 @@ attributes:
       - label: ERD
       - label: Koppelvlak specificatie 
       - label: anders, (geef hieronder aan)
-        required: true
+    validations:
+      required: true
 - type: textarea
   id: anders
   attributes:
