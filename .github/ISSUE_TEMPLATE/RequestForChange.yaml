@@ -1,7 +1,7 @@
-name: Wijzigingsverzoek
-description: Issue voor het volgen van een RFC
-title: "RFC-#### - [onderwerp]"
-labels: ["iWlz"]
+name: Request For Comments 2
+description: Issue voor het volgen van een Request for Comments
+title: "[neem de titel RFC hier over]"
+labels: ["netwerk"]
 body:
   - type: input
     id: eDocsnr
