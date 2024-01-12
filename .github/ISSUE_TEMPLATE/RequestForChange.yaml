@@ -5,63 +5,63 @@ labels: ["iWlz"]
 projects: ["iWlz_Wijzigingsverzoeken"]
 body:
 - type: input
-    id: eDocsnr
-    attributes: 
-      label: eDocs volgnummer
-      placeholder: eDocs volgnummer
-    validations:
-      required: false
-  - type: input
-    id: versie
-    attributes:
-      label: Versienummer
-      description: Versienummer RFC
-      placeholder: Versienummer RFC
-    validations:
-      required: true
-  - type: textarea
-    id: samenvatting
-    attributes:
-      label: Korte omschrijving
-      placeholder: Geef een korte omschrijving van het wijzigingsverzoek
-    validations:
-      required: true
-  - type: markdown
+  id: eDocsnr
+  attributes: 
+    label: eDocs volgnummer
+    placeholder: eDocs volgnummer
+  validations:
+    required: false
+- type: input
+  id: versie
   attributes:
-    value: "## Thank you for contributing to our project!"
-  - type: markdown
+    label: Versienummer
+    description: Versienummer RFC
+    placeholder: Versienummer RFC
+  validations:
+    required: true
+- type: textarea
+  id: samenvatting
   attributes:
-    value: |
-      Thanks for taking the time to fill out this bug report.
-  - type: dropdown
-    id: indiener
-    attributes:
-      label: Indiener RFC
-      options:
-        - label: CAK
-        - label: CIZ
-        - label: Softwareleverancier Zorgaanbieder
-        - label: Softwareleverancier Zorgkantoor
-        - label: Zorgaanbieder
-        - label: Zorgkantoor
-        - label: Zorginstituut
-        - label: anders, (geef aan bij contactpersoon)
-          required: true
-  - type: checkboxes
-    id: impact_onderdelen
-    attributes:
-      label: RFC gevolgen voor
-      options:
-        - label: Codelijsten
-        - label: Documentatie
-        - label: Regels
-        - label: XSD
-        - label: ERD
-        - label: Koppelvlak specificatie 
-        - label: anders, (geef hieronder aan)
-          required: true
-  - type: textarea
-    id: anders
-    attributes:
-      label: Welk ander onderdeel?
-      description: voor welk ander onderdeel is de impact behoordeeld 
+    label: Korte omschrijving
+    placeholder: Geef een korte omschrijving van het wijzigingsverzoek
+  validations:
+    required: true
+- type: markdown
+attributes:
+  value: "## Thank you for contributing to our project!"
+- type: markdown
+attributes:
+  value: |
+    Thanks for taking the time to fill out this bug report.
+- type: dropdown
+  id: indiener
+  attributes:
+    label: Indiener RFC
+    options:
+      - label: CAK
+      - label: CIZ
+      - label: Softwareleverancier Zorgaanbieder
+      - label: Softwareleverancier Zorgkantoor
+      - label: Zorgaanbieder
+      - label: Zorgkantoor
+      - label: Zorginstituut
+      - label: anders, (geef aan bij contactpersoon)
+        required: true
+- type: checkboxes
+  id: impact_onderdelen
+  attributes:
+    label: RFC gevolgen voor
+    options:
+      - label: Codelijsten
+      - label: Documentatie
+      - label: Regels
+      - label: XSD
+      - label: ERD
+      - label: Koppelvlak specificatie 
+      - label: anders, (geef hieronder aan)
+        required: true
+- type: textarea
+  id: anders
+  attributes:
+    label: Welk ander onderdeel?
+    description: voor welk ander onderdeel is de impact behoordeeld 
