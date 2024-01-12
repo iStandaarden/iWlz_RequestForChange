@@ -1,4 +1,4 @@
-name: Wijzigingsverzoek
+name: "Wijzigingsverzoek"
 description: Issue voor het volgen van een RFC
 title: "RFC-#### - [onderwerp]"
 labels: ["iWlz"]
