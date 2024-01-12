@@ -43,7 +43,8 @@ body:
 - type: textarea
   id: contactpersoon
   attributes:
-    placeholder: contactpersoon / andere organisatiex
+    label: Andere organisatie / contactpersoon
+    placeholder: Naam andere organisatie / contactpersoon
 - type: checkboxes
   id: impact_onderdelen
   attributes:
