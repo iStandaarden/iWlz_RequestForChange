@@ -45,7 +45,7 @@ body:
       - label: Zorgkantoor
       - label: Zorginstituut
       - label: anders, (geef aan bij contactpersoon)
-      required: true
+        required: true
 - type: checkboxes
   id: impact_onderdelen
   attributes:
@@ -58,7 +58,7 @@ body:
       - label: ERD
       - label: Koppelvlak specificatie 
       - label: anders, (geef hieronder aan)
-      required: true
+        required: true
 - type: textarea
   id: anders
   attributes:
