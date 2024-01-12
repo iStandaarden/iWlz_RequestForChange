@@ -34,16 +34,17 @@ body:
   attributes:
     label: Indiener RFC
     options:
-      - label: CAK
-      - label: CIZ
-      - label: Softwareleverancier Zorgaanbieder
-      - label: Softwareleverancier Zorgkantoor
-      - label: Zorgaanbieder
-      - label: Zorgkantoor
-      - label: Zorginstituut
-      - label: anders, (geef aan bij contactpersoon)
+      - CAK
+      - CIZ
+      - Softwareleverancier Zorgaanbieder
+      - Softwareleverancier Zorgkantoor
+      - Zorgaanbieder
+      - Zorgkantoor
+      - Zorginstituut
+      - anders, (geef aan bij contactpersoon)
   validations:
     required: true
+
 - type: checkboxes
   id: impact_onderdelen
   attributes:
