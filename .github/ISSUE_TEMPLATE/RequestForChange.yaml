@@ -4,7 +4,7 @@ title: "RFC-#### - [onderwerp]"
 labels: ["iWlz"]
 projects: ["iWlz_Wijzigingsverzoeken"]
 body:
-  - type: input
+- type: input
     id: eDocsnr
     attributes: 
       label: eDocs volgnummer
