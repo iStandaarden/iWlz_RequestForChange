@@ -25,10 +25,6 @@ body:
     placeholder: Geef een korte omschrijving van het wijzigingsverzoek
   validations:
     required: true
-- type: markdown
-  attributes:
-    value: |
-      Thanks for taking the time to fill out this bug report.
 - type: dropdown
   id: indiener
   attributes:
@@ -44,7 +40,10 @@ body:
       - anders, (geef aan bij contactpersoon)
   validations:
     required: true
-
+- type: textarea
+  id: contactpersoon
+  attributes:
+    placeholder: contactpersoon / andere organisatiex
 - type: checkboxes
   id: impact_onderdelen
   attributes:
@@ -63,3 +62,10 @@ body:
   attributes:
     label: Welk ander onderdeel?
     description: voor welk ander onderdeel is de impact behoordeeld 
+- type: markdown
+  attributes:
+    value: |
+      Thanks for taking the time to fill out this bug report.
+- type: markdown
+  attributes:
+    value: Controleer of het juist project en de juiste labels zijn gekoppeld
