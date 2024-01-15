@@ -14,8 +14,7 @@ body:
 - type: input
   id: versie
   attributes:
-    label: Versienummer
-    description: Versienummer RFC
+    label: Versienummer RFC
     placeholder: Versienummer RFC
   validations:
     required: true
@@ -33,7 +32,7 @@ body:
   id: wijziging
   attributes:
     label: Korte omschrijving voorgestelde oplossing
-    placeholder: Geef een korte omschrijving van de voorgestelde oplossing(srichting) of het gewenste resultaat
+    placeholder: Beschrijf de voorgestelde oplossing(srichting) of het gewenste resultaat
   validations:
     required: true
 - type: checkboxes
@@ -53,7 +52,7 @@ body:
   id: anders
   attributes:
     label: Welk ander onderdeel?
-    description: voor welk ander onderdeel is de impact behoordeeld 
+    description: Voor welk ander onderdeel heeft de RFC gevolgen
 - type: checkboxes
   id: impact_partij
   attributes:
