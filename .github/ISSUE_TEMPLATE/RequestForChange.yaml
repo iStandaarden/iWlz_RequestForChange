@@ -80,4 +80,4 @@ body:
 - type: markdown
   attributes:
     value: |
-    Controleer of het juist project en de juiste labels zijn gekoppeld en sla het issue vervolgens op.
+      Controleer of het juist project en de juiste labels zijn gekoppeld en sla het issue vervolgens op.
