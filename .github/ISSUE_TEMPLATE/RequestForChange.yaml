@@ -97,11 +97,10 @@ body:
   attributes:
     value: <hr>
 - type: checkboxes
-    id: project_values
-    attributes:
-      label: controleer project en labels van het issue
-      description: onder 'Projects', klik op het 'tandwieltje'
-      options:
-        - label: gecontroleerd
-          required: true
+  id: project_values
+  attributes:
+    label: controleer project en labels van het issue
+    options:
+      - label: gecontroleerd
+        required: true
 
