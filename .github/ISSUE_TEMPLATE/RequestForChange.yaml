@@ -21,7 +21,7 @@ body:
     required: true
 - type: markdown
   attributes:
-    value: "**Onderwerp wijzigingsverzoek**"
+    value: "#Onderwerp wijzigingsverzoek"
 - type: textarea
   id: samenvatting
   attributes:
@@ -56,7 +56,7 @@ body:
     description: voor welk ander onderdeel is de impact behoordeeld 
 - type: markdown
   attributes: 
-    value: Contactgegevens indiener
+    value: "#Contactgegevens indiener"
 - type: dropdown
   id: indiener
   attributes:
@@ -79,4 +79,5 @@ body:
     placeholder: Naam andere organisatie / contactpersoon
 - type: markdown
   attributes:
-    value: Controleer of het juist project en de juiste labels zijn gekoppeld en sla het issue vervolgens op.
+    value: |
+    Controleer of het juist project en de juiste labels zijn gekoppeld en sla het issue vervolgens op.
