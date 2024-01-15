@@ -54,9 +54,26 @@ body:
   attributes:
     label: Welk ander onderdeel?
     description: voor welk ander onderdeel is de impact behoordeeld 
+- type: checkboxes
+  id: impact_partij
+  attributes:
+    label: Betrokken partij RFC
+    options:
+      - label: CAK
+      - label: CIZ
+      - label: Zorgaanbieder
+      - label: Zorgkantoor
+      - label: Zorginstituut
+      - label: anders, (geef aan bij contactpersoon)
+        required: true
+- type: input
+  id: andere_partij
+  attributes:
+    label: Andere partij 
+    placeholder: Naam andere partij
 - type: markdown
   attributes: 
-    value: "## Contactgegevens indiener"
+    value: "# Contactgegevens indiener"
 - type: dropdown
   id: indiener
   attributes:
