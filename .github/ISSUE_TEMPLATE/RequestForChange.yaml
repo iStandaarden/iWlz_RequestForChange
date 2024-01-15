@@ -21,7 +21,7 @@ body:
     required: true
 - type: markdown
   attributes:
-    value: **Onderwerp wijzigingsverzoek**
+    value: "**Onderwerp wijzigingsverzoek**"
 - type: textarea
   id: samenvatting
   attributes:
