@@ -22,8 +22,15 @@ body:
 - type: textarea
   id: samenvatting
   attributes:
-    label: Korte omschrijving
-    placeholder: Geef een korte omschrijving van het wijzigingsverzoek
+    label: Korte probleem omschrijving
+    placeholder: Geef een korte omschrijving van het wijzigingsverzoek en het gewenste resultaat
+  validations:
+    required: true
+- type: textarea
+  id: wijziging
+  attributes:
+    label: Korte omschrijving voorgestelde oplossing
+    placeholder: Geef een korte omschrijving van de voorgestelde oplossing(srichting)
   validations:
     required: true
 - type: dropdown
@@ -66,8 +73,4 @@ body:
     description: voor welk ander onderdeel is de impact behoordeeld 
 - type: markdown
   attributes:
-    value: |
-      Thanks for taking the time to fill out this bug report.
-- type: markdown
-  attributes:
-    value: Controleer of het juist project en de juiste labels zijn gekoppeld
+    value: Controleer of het juist project en de juiste labels zijn gekoppeld en sla het issue vervolgens op.
