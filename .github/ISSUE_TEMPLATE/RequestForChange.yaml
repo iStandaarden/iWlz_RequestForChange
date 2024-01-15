@@ -95,5 +95,13 @@ body:
     placeholder: Naam andere organisatie / contactpersoon
 - type: markdown
   attributes:
-    value: |
-      Controleer of het juist project en de juiste labels zijn gekoppeld en sla het issue vervolgens op.
+    value: <hr>
+- type: checkboxes
+    id: project_values
+    attributes:
+      label: controleer project en labels van het issue
+      description: onder 'Projects', klik op het 'tandwieltje'
+      options:
+        - label: gecontroleerd
+          required: true
+
