@@ -19,40 +19,23 @@ body:
     placeholder: Versienummer RFC
   validations:
     required: true
+- type: markdown
+  attributes:
+    value: **Onderwerp wijzigingsverzoek**
 - type: textarea
   id: samenvatting
   attributes:
     label: Korte probleem omschrijving
-    placeholder: Geef een korte omschrijving van het wijzigingsverzoek en het gewenste resultaat
+    placeholder: Geef een korte omschrijving van het probleem
   validations:
     required: true
 - type: textarea
   id: wijziging
   attributes:
     label: Korte omschrijving voorgestelde oplossing
-    placeholder: Geef een korte omschrijving van de voorgestelde oplossing(srichting)
+    placeholder: Geef een korte omschrijving van de voorgestelde oplossing(srichting) of het gewenste resultaat
   validations:
     required: true
-- type: dropdown
-  id: indiener
-  attributes:
-    label: Indiener RFC
-    options:
-      - CAK
-      - CIZ
-      - Softwareleverancier Zorgaanbieder
-      - Softwareleverancier Zorgkantoor
-      - Zorgaanbieder
-      - Zorgkantoor
-      - Zorginstituut
-      - anders, (geef aan bij contactpersoon)
-  validations:
-    required: true
-- type: textarea
-  id: contactpersoon
-  attributes:
-    label: Andere organisatie / contactpersoon
-    placeholder: Naam andere organisatie / contactpersoon
 - type: checkboxes
   id: impact_onderdelen
   attributes:
@@ -71,6 +54,29 @@ body:
   attributes:
     label: Welk ander onderdeel?
     description: voor welk ander onderdeel is de impact behoordeeld 
+- type: markdown
+  attributes: 
+    value: Contactgegevens indiener
+- type: dropdown
+  id: indiener
+  attributes:
+    label: Indiener RFC
+    options:
+      - CAK
+      - CIZ
+      - Softwareleverancier Zorgaanbieder
+      - Softwareleverancier Zorgkantoor
+      - Zorgaanbieder
+      - Zorgkantoor
+      - Zorginstituut
+      - anders, (geef aan bij contactpersoon)
+  validations:
+    required: true
+- type: input
+  id: contactpersoon
+  attributes:
+    label: Andere organisatie / contactpersoon
+    placeholder: Naam andere organisatie / contactpersoon
 - type: markdown
   attributes:
     value: Controleer of het juist project en de juiste labels zijn gekoppeld en sla het issue vervolgens op.
