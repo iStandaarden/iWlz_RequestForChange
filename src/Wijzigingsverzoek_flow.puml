@@ -26,10 +26,9 @@ state Referentiegroep #CornflowerBlue {
     Backlog <-- refgrp_besluit : 09.
 
     Vervallen --> [*]
-    
 }
 
-state "Doorvoeren iWlz" as planned #MediumSeaGreen : RFC is ingepland voor een volgende release
+state "Doorvoeren iWlz" as planned #MediumSeaGreen : RFC is ingepland \nvoor een volgende release
 state "Informatiemodel" #MediumPurple : RFC is verwerkt in Informatiemodel \nen andere documentatie
 
     refgrp_besluit -right-> planned : 08.
@@ -38,4 +37,3 @@ state "Informatiemodel" #MediumPurple : RFC is verwerkt in Informatiemodel \nen 
     Informatiemodel --> [*]
 
 @enduml
-
