@@ -28,12 +28,14 @@ state Referentiegroep #CornflowerBlue {
     Vervallen --> [*]
 }
 
-state "Doorvoeren iWlz" as planned #MediumSeaGreen : RFC is ingepland \nvoor een volgende release
-state "Informatiemodel" #MediumPurple : RFC is verwerkt in Informatiemodel \nen andere documentatie
-
+state "Doorvoeren iWlz" as planned #Orange : RFC is ingepland \nvoor een volgende release
     refgrp_besluit -right-> planned : 08.
+
+state "Informatiemodel" #MediumPurple : RFC is verwerkt in Informatiemodel \nen andere documentatie
     planned --> Informatiemodel: 10.
 
-    Informatiemodel --> [*]
+state "Productie" #MediumSeaGreen : Release is voltooid; \nwijzingsverzoek is in Productie
+    Informatiemodel --> Productie : 11.
+    Productie --> [*]
 
 @enduml
