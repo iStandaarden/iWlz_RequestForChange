@@ -35,18 +35,20 @@ body:
     placeholder: Beschrijf de voorgestelde oplossing(srichting) of het gewenste resultaat
   validations:
     required: true
-- type: checkboxes
+- type: dropdown
   id: impact_onderdelen
   attributes:
     label: RFC gevolgen voor
+    multiple: true
     options:
-      - label: Codelijsten
-      - label: Documentatie
-      - label: Regels
-      - label: XSD
-      - label: ERD
-      - label: Koppelvlak specificatie 
-      - label: anders, (geef hieronder aan)
+      - Codelijsten
+      - Documentatie
+      - Regels
+      - XSD
+      - ERD
+      - Koppelvlak specificatie 
+      - anders, (geef hieronder aan)
+    validations:
         required: true
 - type: textarea
   id: anders
