@@ -1,0 +1,41 @@
+@startuml Workflow Request for Changes iStandaard
+
+state Backlog #LightGray : Verzameling van onderwerpen \n(alleen issue)
+
+ [*] --> Backlog : 01.
+
+state Referentiegroep #CornflowerBlue {
+    state Bespreken #LightBlue: Wijzigingsverzoek (in concept) \nvoor Referentiegroep
+    state refgrp <<choice>>
+    state "Uitwerken RFC" as uitwerken #LightYellow : RFC aanvullen en 
+    state Gereed #LightGreen : RFC compleet en kan opgenomen \nworden in een release
+    state refgrp_besluit <<choice>>
+    state Vervallen #LightCoral : RFC is vervallen of \ner is een alternatief
+
+    Backlog --> Bespreken : 02.
+    Bespreken -> refgrp : 03.
+
+    refgrp -> Gereed : 04.
+    refgrp -> uitwerken : 05.
+    refgrp --> Vervallen : 06.
+
+    uitwerken -up-> Bespreken
+
+    Gereed -> refgrp_besluit : 07.
+    
+    Backlog <-- refgrp_besluit : 09.
+
+    Vervallen --> [*]
+    
+}
+
+state "Doorvoeren iWlz" as planned #MediumSeaGreen : RFC is ingepland voor een volgende release
+state "Informatiemodel" #MediumPurple : RFC is verwerkt in Informatiemodel \nen andere documentatie
+
+    refgrp_besluit -right-> planned : 08.
+    planned --> Informatiemodel: 10.
+
+    Informatiemodel --> [*]
+
+@enduml
+
