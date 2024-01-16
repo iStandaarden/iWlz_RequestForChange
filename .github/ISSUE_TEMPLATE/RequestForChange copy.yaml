@@ -49,7 +49,7 @@ body:
       - Koppelvlak specificatie 
       - anders, (geef hieronder aan)
     validations:
-        required: true
+      required: true
 - type: textarea
   id: anders
   attributes:
