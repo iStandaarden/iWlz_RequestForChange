@@ -1,4 +1,4 @@
-name: Wijzigingsverzoek
+name: Wijzigingsverzoek iWlz
 description: Issue voor het volgen van een Wijzigingsverzoek
 title: "[RFC-#### - [onderwerp]]"
 labels: ["iWlz"]
@@ -35,36 +35,40 @@ body:
     placeholder: Beschrijf de voorgestelde oplossing(srichting) of het gewenste resultaat
   validations:
     required: true
-- type: checkboxes
+- type: dropdown
   id: impact_onderdelen
   attributes:
-    label: RFC gevolgen voor
+    label: RFC gevolgen voor het onderdeel/de onderdelen
+    multiple: true
     options:
-      - label: Codelijsten
-      - label: Documentatie
-      - label: Regels
-      - label: XSD
-      - label: ERD
-      - label: Koppelvlak specificatie 
-      - label: anders, (geef hieronder aan)
-        required: true
-- type: textarea
-  id: anders
+      - Codelijsten
+      - Documentatie
+      - Regels
+      - XSD
+      - ERD
+      - Koppelvlak specificatie 
+      - anders, (geef hieronder aan)
+  validations:
+    required: true
+- type: input
+  id: ander_onderdeel
   attributes:
     label: Welk ander onderdeel?
     description: Voor welk ander onderdeel heeft de RFC gevolgen
-- type: checkboxes
+- type: dropdown
   id: impact_partij
   attributes:
     label: Betrokken partij RFC
+    multiple: true
     options:
-      - label: CAK
-      - label: CIZ
-      - label: Zorgaanbieder
-      - label: Zorgkantoor
-      - label: Zorginstituut
-      - label: anders, (geef aan bij contactpersoon)
-        required: true
+      - CAK
+      - CIZ
+      - Zorgaanbieder
+      - Zorgkantoor
+      - het Zorginstituut
+      - anders, (geef aan bij contactpersoon)
+  validations:
+    required: true
 - type: input
   id: andere_partij
   attributes:
@@ -78,13 +82,14 @@ body:
   attributes:
     label: Indiener RFC
     options:
+      -
       - CAK
       - CIZ
       - Softwareleverancier Zorgaanbieder
       - Softwareleverancier Zorgkantoor
       - Zorgaanbieder
       - Zorgkantoor
-      - Zorginstituut
+      - het Zorginstituut
       - anders, (geef aan bij contactpersoon)
   validations:
     required: true
