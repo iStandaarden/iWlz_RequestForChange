@@ -90,7 +90,7 @@ body:
       - Zorgkantoor
       - het Zorginstituut
       - anders, (geef aan bij contactpersoon)
-    default: -1
+    default: 99
   validations:
     required: true
 - type: input
