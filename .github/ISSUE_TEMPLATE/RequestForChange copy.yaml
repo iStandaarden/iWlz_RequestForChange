@@ -48,8 +48,8 @@ body:
       - ERD
       - Koppelvlak specificatie 
       - anders, (geef hieronder aan)
-    validations:
-      required: true
+  validations:
+    required: true
 - type: textarea
   id: anders
   attributes:
