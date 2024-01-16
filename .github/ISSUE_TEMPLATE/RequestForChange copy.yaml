@@ -50,23 +50,25 @@ body:
       - anders, (geef hieronder aan)
   validations:
     required: true
-- type: textarea
-  id: anders
+- type: input
+  id: ander_onderdeel
   attributes:
     label: Welk ander onderdeel?
     description: Voor welk ander onderdeel heeft de RFC gevolgen
-- type: checkboxes
+- type: dropdown
   id: impact_partij
   attributes:
     label: Betrokken partij RFC
+    multiple: true
     options:
-      - label: CAK
-      - label: CIZ
-      - label: Zorgaanbieder
-      - label: Zorgkantoor
-      - label: Zorginstituut
-      - label: anders, (geef aan bij contactpersoon)
-        required: true
+      - CAK
+      - CIZ
+      - Zorgaanbieder
+      - Zorgkantoor
+      - het Zorginstituut
+      - anders, (geef aan bij contactpersoon)
+  validations:
+    required: true
 - type: input
   id: andere_partij
   attributes:
@@ -86,8 +88,9 @@ body:
       - Softwareleverancier Zorgkantoor
       - Zorgaanbieder
       - Zorgkantoor
-      - Zorginstituut
+      - het Zorginstituut
       - anders, (geef aan bij contactpersoon)
+    default: 0
   validations:
     required: true
 - type: input
