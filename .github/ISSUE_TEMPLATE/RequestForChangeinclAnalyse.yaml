@@ -100,6 +100,24 @@ body:
     placeholder: Naam andere organisatie / contactpersoon
 - type: markdown
   attributes:
+    value: "## Analyse"
+- type: textarea
+  id: analyse
+  attributes:
+    label: Analyse
+    placeholder: Ruimte voor analyse
+- type: textarea
+  id: oplossing
+  attributes:
+    label: Oplossing
+    value: |
+      | Oplossing | Voordeel / Nadeel | Overweging Referentiegroep |
+      | :-- | :-- | :-- |
+      | 1. .. | Voordeel: | |
+      || Nadeel: | | 
+      ...
+- type: markdown
+  attributes:
     value: <hr>
 - type: checkboxes
   id: project_values
