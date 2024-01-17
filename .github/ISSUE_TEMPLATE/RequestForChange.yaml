@@ -42,11 +42,11 @@ body:
     multiple: true
     options:
       - Codelijsten
-      - Documentatie
-      - Regels
-      - XSD
+      - Documentatie / Afsprakenstelsel
       - ERD (Register)
-      - Koppelvlak specificatie 
+      - Koppelvlak specificatie
+      - Regels
+      - XSD 
       - anders, (geef hieronder aan)
   validations:
     required: true
@@ -65,7 +65,7 @@ body:
       - CIZ
       - Zorgaanbieder
       - Zorgkantoor
-      - het Zorginstituut
+      - Zorginstituut
       - anders, (geef aan bij contactpersoon)
   validations:
     required: true
@@ -85,11 +85,11 @@ body:
       -
       - CAK
       - CIZ
-      - Softwareleverancier Zorgaanbieder
-      - Softwareleverancier Zorgkantoor
+      - Softwareleverancier zorgaanbieder
+      - Softwareleverancier zorgkantoor
       - Zorgaanbieder
       - Zorgkantoor
-      - het Zorginstituut
+      - Zorginstituut
       - anders, (geef aan bij contactpersoon)
   validations:
     required: true
