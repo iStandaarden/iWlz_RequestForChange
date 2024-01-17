@@ -100,7 +100,7 @@ body:
     placeholder: Naam andere organisatie / contactpersoon
 - type: markdown
   attributes:
-    value: "## Analyse"
+    value: "# Onderdelen analyse"
 - type: textarea
   id: analyse
   attributes:
@@ -111,10 +111,12 @@ body:
   attributes:
     label: Oplossing
     value: |
-      | Oplossing | Voordeel / Nadeel | Overweging Referentiegroep |
-      | :-- | :-- | :-- |
-      | 1. .. | Voordeel: | |
-      || Nadeel: | | 
+      | Oplossing     | Voordeel / Nadeel                | Overweging Referentiegroep |
+      | :------------ | :------------------------------- | :------------------------- |
+      | 1. ..         | Voordeel:                        |                            |
+      |               | Nadeel:                          |                            |
+      | #. Niets doen | Voordeel: geen wijziging nodig   |                            |
+      |               | Nadeel: probleem blijft aanwezig |                            |
       ...
 - type: markdown
   attributes:
