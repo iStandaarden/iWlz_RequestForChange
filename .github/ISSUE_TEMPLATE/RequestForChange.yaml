@@ -45,7 +45,7 @@ body:
       - Documentatie
       - Regels
       - XSD
-      - ERD
+      - ERD (Register)
       - Koppelvlak specificatie 
       - anders, (geef hieronder aan)
   validations:
