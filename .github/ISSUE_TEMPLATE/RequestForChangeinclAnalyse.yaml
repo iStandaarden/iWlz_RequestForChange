@@ -112,7 +112,9 @@ body:
   attributes:
     value: |
       <hr>
-      "# Analyse"
+- type: markdown
+  attributes:
+    value: "# Analyse en Oplossing"
 - type: textarea
   id: analyse
   attributes:
