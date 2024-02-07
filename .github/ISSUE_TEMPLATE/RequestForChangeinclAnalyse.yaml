@@ -142,8 +142,7 @@ body:
       <hr>
 - type: markdown
   attributes:
-    value: |
-      "# Conclusie en Planning"
+    value: "# Conclusie en Planning"
       Moment van publicatie en implementatie
 - type: dropdown
   id: conclusie
