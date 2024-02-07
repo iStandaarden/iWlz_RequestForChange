@@ -20,6 +20,9 @@ body:
     required: true
 - type: markdown
   attributes:
+    value: <hr>
+- type: markdown
+  attributes:
     value: "# Onderwerp wijzigingsverzoek"
 - type: textarea
   id: samenvatting
