@@ -143,7 +143,6 @@ body:
 - type: markdown
   attributes:
     value: "# Conclusie en Planning"
-      Moment van publicatie en implementatie
 - type: dropdown
   id: conclusie
   attributes:
@@ -159,12 +158,12 @@ body:
   id: publicatie
   attributes:
     label: Publicatiemoment
-    placeholder: "[yyyy-mm-dd]/zo snel mogelijk"
+    placeholder: "[yyyy-mm-dd]/zo snel mogelijk/nvt"
 - type: input
   id: implementatie
   attributes:
     label: Implementatiemoment
-    placeholder: "[yyyy-mm-dd]"
+    placeholder: "[yyyy-mm-dd]/zo snel mogelijk/nvt"
 - type: markdown
   attributes:
     value: <hr>
