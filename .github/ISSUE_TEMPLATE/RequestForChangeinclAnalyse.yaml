@@ -72,8 +72,12 @@ body:
 - type: input
   id: andere_partij
   attributes:
-    label: Andere partij 
+    label: Andere betrokken partij 
     placeholder: Naam andere partij
+- type: markdown
+  attributes:
+    value: |
+      <hr>
 - type: markdown
   attributes: 
     value: "# Contactgegevens indiener"
@@ -132,6 +136,25 @@ body:
       | #. Niets doen | Voordeel: geen wijziging nodig   |                            |
       |               | Nadeel: probleem blijft aanwezig |                            |
       ...
+- type: markdown
+  attributes:
+    value: |
+      <hr>
+- type: markdown
+  attributes:
+    value: |
+      "# Planning"
+      Moment van publicatie en implementatie
+- type:
+  id: publicatie
+  attributes:
+    label: Publicatiemoment
+    placeholder: [yyyy-mm-dd]/zo snel mogelijk
+- type:
+  id: publicatie
+  attributes:
+    label: Publicatiemoment
+    placeholder: [yyyy-mm-dd]
 - type: markdown
   attributes:
     value: <hr>
