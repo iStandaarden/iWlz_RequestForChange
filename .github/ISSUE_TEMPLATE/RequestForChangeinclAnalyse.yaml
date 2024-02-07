@@ -160,12 +160,12 @@ body:
   id: publicatie
   attributes:
     label: Publicatiemoment
-    placeholder: [yyyy-mm-dd]/zo snel mogelijk
+    placeholder: "[yyyy-mm-dd]/zo snel mogelijk"
 - type: input
   id: implementatie
   attributes:
-    label: implementatiemoment
-    placeholder: [yyyy-mm-dd]
+    label: Implementatiemoment
+    placeholder: "[yyyy-mm-dd]"
 - type: markdown
   attributes:
     value: <hr>
