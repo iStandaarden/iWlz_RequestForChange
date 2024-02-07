@@ -98,6 +98,16 @@ body:
   attributes:
     label: Andere organisatie / contactpersoon
     placeholder: Naam andere organisatie / contactpersoon
+- type: dropdown
+  id: Refgrp
+  attributes:
+    label: Rol referentiegroep (BRG)
+    options: 
+      - Geen
+      - Informeren
+      - Indienen
+  validations:
+    required: true
 - type: markdown
   attributes:
     value: "# Onderdelen analyse"
