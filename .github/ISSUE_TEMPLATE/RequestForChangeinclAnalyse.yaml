@@ -143,17 +143,28 @@ body:
 - type: markdown
   attributes:
     value: |
-      "# Planning"
+      "# Conclusie en Planning"
       Moment van publicatie en implementatie
+- type: dropdown
+  id: conclusie
+  attributes:
+    label: Conclusie
+    options:
+      - Doorvoeren oplossing
+      - Verwerpen (keuze Niets doen)
+- type: input
+  id: oplossing
+  attributes:
+    label: Gekozen oplossing
 - type:
   id: publicatie
   attributes:
     label: Publicatiemoment
     placeholder: [yyyy-mm-dd]/zo snel mogelijk
-- type:
-  id: publicatie
+- type: input
+  id: implementatie
   attributes:
-    label: Publicatiemoment
+    label: implementatiemoment
     placeholder: [yyyy-mm-dd]
 - type: markdown
   attributes:
