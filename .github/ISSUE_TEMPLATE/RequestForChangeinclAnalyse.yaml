@@ -110,7 +110,9 @@ body:
     required: true
 - type: markdown
   attributes:
-    value: "# Onderdelen analyse"
+    value: |
+      <hr>
+      "# Analyse"
 - type: textarea
   id: analyse
   attributes:
