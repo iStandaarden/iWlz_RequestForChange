@@ -156,7 +156,7 @@ body:
   id: oplossing
   attributes:
     label: Gekozen oplossing
-- type:
+- type: input
   id: publicatie
   attributes:
     label: Publicatiemoment
