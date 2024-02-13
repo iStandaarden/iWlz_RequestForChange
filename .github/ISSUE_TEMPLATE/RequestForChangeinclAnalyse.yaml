@@ -126,7 +126,29 @@ body:
   id: analyse
   attributes:
     label: Analyse
-    placeholder: Ruimte voor analyse
+    value: |
+      ## Analyse
+      **Huidige proces:**
+      <beschrijving huidige situatie>
+
+      **Bezwaren huidige proces**
+      <beschrijving bezwaren situatie>
+
+      ## Wijzigingsvoorstel
+      **Voorstel aanpassing proces**
+      <voorstel wijziging>
+
+      **Voordelen**
+      <voordelen>
+
+      ## Uitwerking wijzigingsvoorstel
+      **ERD**
+
+      **Regels**
+
+      **Proces**
+
+      **Gegevens**
 - type: textarea
   id: oplossing
   attributes:
