@@ -125,13 +125,13 @@ body:
 - type: textarea
   id: analyse
   attributes:
-    label: ## Analyse
+    label: Analyse
     value: |
       ## Analyse
-      **Huidige proces:**
+      **Huidige situatie**
       <beschrijving huidige situatie>
 
-      **Bezwaren huidige proces**
+      **Bezwaren huidige situatie**
       <beschrijving bezwaren situatie>
 
       ## Wijzigingsvoorstel
@@ -141,7 +141,7 @@ body:
       **Voordelen**
       <voordelen>
 
-      ## Uitwerking wijzigingsvoorstel
+      ## Uitwerking wijzigingsvoorstel per onderdeel
       **ERD**
 
       **Regels**
@@ -149,6 +149,8 @@ body:
       **Proces**
 
       **Gegevens**
+
+      **Koppelvlak**
 - type: textarea
   id: oplossing
   attributes:
