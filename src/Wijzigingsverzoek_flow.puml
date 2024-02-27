@@ -1,18 +1,30 @@
 @startuml Workflow Request for Changes iStandaard
 
+state Nieuw : Nieuw binnengekomen onderwerpen
 state Backlog #LightGray : Verzameling van onderwerpen \n(alleen issue)
+state grpchoice <<choice>>
+state TEG #DarkGray : Onderwerp voor Technische Expertgroep
+state Bevinding #OrangeRed : Bevindingen worden direct opgelost
 
- [*] --> Backlog : 01.
 
-state Referentiegroep #CornflowerBlue {
-    state Bespreken #LightBlue: Wijzigingsverzoek (in concept) \nvoor Referentiegroep
+[*] --> Nieuw : 00.
+Nieuw --> Backlog : 01.
+Backlog -down-> grpchoice : 02
+grpchoice -left-> TEG
+grpchoice -left-> Bevinding
+
+
+
+state "Referentiegroep / Werkgroep" as adviesgrp #CornflowerBlue {
+    state Bespreken #LightBlue: Wijzigingsverzoek (in concept) \nvoor Adviesgroep
     state refgrp <<choice>>
     state "Uitwerken RFC" as uitwerken #LightYellow : RFC aanvullen en 
     state Gereed #LightGreen : RFC compleet en kan opgenomen \nworden in een release
     state refgrp_besluit <<choice>>
     state Vervallen #LightCoral : RFC is vervallen of \ner is een alternatief
 
-    Backlog --> Bespreken : 02.
+    grpchoice --> Bespreken
+
     Bespreken -> refgrp : 03.
 
     refgrp -> Gereed : 04.
@@ -28,14 +40,15 @@ state Referentiegroep #CornflowerBlue {
     Vervallen --> [*]
 }
 
-state "Doorvoeren iWlz" as planned #Orange : RFC is ingepland \nvoor een volgende release
+state "Doorvoeren iWlz" as planned #MediumSeaGreen : RFC is ingepland \nvoor publicatie en implementatie
     refgrp_besluit -right-> planned : 08.
+    Bevinding --> planned
 
-state "Informatiemodel" #MediumPurple : RFC is verwerkt in Informatiemodel \nen andere documentatie
-    planned --> Informatiemodel: 10.
+state "iWlz Roadmap" as Roadmap #MediumPurple : RFC opnemen op \nproject iWlz Roadmap \nvoor realisatie planning
+    planned --> Roadmap: 10.
 
-state "Productie" #MediumSeaGreen : Release is voltooid; \nwijzingsverzoek is in Productie
-    Informatiemodel --> Productie : 11.
-    Productie --> [*]
+
+    Roadmap --> [*]
+
 
 @enduml
