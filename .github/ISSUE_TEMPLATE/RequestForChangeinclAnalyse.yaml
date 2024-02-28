@@ -1,6 +1,6 @@
 name: Wijzigingsverzoek iWlz + analyse
 description: Issue voor het volgen van een Wijzigingsverzoek
-title: "[RFC-#### - onderwerp]"
+title: "RFC #### - onderwerp"
 labels: ["iWlz"]
 projects: ["iStandaarden/9"]
 body:
