@@ -154,7 +154,7 @@ body:
 - type: textarea
   id: oplossing
   attributes:
-    label: Oplossing
+    label: Oplossingsrichting(en)
     value: |
       | Oplossing     | Voordeel / Nadeel                | Overweging Referentiegroep |
       | :------------ | :------------------------------- | :------------------------- |
