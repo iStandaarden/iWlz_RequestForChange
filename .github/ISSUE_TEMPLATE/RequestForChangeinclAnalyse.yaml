@@ -111,7 +111,7 @@ body:
       <hr>
 - type: markdown
   attributes:
-    value: "# Analyse en Oplossing"
+    value: "# Analyse en Overweging"
 - type: textarea
   id: analyse
   attributes:
