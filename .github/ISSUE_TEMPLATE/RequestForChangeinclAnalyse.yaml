@@ -118,29 +118,32 @@ body:
     label: Analyse
     value: |
       ## Analyse
-      **Huidige situatie**
+      ### Huidige situatie
       <beschrijving huidige situatie>
 
-      **Bezwaren huidige situatie**
+      ### Bezwaren huidige situatie
       <beschrijving bezwaren situatie>
 
       ## Wijzigingsvoorstel
-      **Voorstel aanpassing proces**
+      ### Voorstel aanpassing proces
       <voorstel wijziging>
 
       **Voordelen**
       <voordelen>
 
+      **Nadelen**
+      <nadelen>
+
       ## Uitwerking wijzigingsvoorstel per onderdeel
-      **ERD**
+      ### ERD
 
-      **Regels**
+      ### Regels
 
-      **Proces**
+      ### Proces
 
-      **Gegevens**
+      ### Gegevens
 
-      **Koppelvlak**
+      ### Koppelvlak
 - type: textarea
   id: oplossing
   attributes:
