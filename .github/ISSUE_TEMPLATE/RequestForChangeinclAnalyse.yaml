@@ -145,10 +145,12 @@ body:
 
       ### Koppelvlak
 - type: textarea
-  id: oplossing
+  id: overweging
   attributes:
-    label: Oplossingsrichting(en)
+    label: Overweging
     value: |
+      ## Overweging wijzigingsvoorstel(len)
+      
       | Oplossing     | Voordeel / Nadeel                | Overweging Referentiegroep |
       | :------------ | :------------------------------- | :------------------------- |
       | 1. ..         | Voordeel:                        |                            |
