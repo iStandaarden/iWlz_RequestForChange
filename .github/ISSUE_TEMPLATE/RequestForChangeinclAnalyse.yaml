@@ -11,13 +11,6 @@ body:
     placeholder: eDocs volgnummer
   validations:
     required: false
-- type: input
-  id: versie
-  attributes:
-    label: Versienummer RFC
-    placeholder: Versienummer RFC
-  validations:
-    required: true
 - type: markdown
   attributes:
     value: <hr>
