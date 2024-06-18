@@ -82,7 +82,6 @@ body:
   attributes:
     label: Indiener RFC
     options:
-      -
       - CAK
       - CIZ
       - Softwareleverancier zorgaanbieder
@@ -110,14 +109,14 @@ body:
   attributes:
     label: Analyse
     value: |
-      ## Analyse
+      # Analyse
       ### Huidige situatie
       <beschrijving huidige situatie>
 
       ### Bezwaren huidige situatie
       <beschrijving bezwaren situatie>
 
-      ## Wijzigingsvoorstel
+      # Wijzigingsvoorstel
       ### Voorstel aanpassing proces
       <voorstel wijziging>
 
@@ -142,7 +141,7 @@ body:
   attributes:
     label: Overweging
     value: |
-      ## Overweging wijzigingsvoorstel(len)
+      # Overweging wijzigingsvoorstel(len)
       
       | Oplossing     | Voordeel / Nadeel                | Overweging Referentiegroep |
       | :------------ | :------------------------------- | :------------------------- |
