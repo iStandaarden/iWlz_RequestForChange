@@ -43,6 +43,7 @@ body:
       - Koppelvlak specificatie
       - Regels
       - XSD 
+      - Autorisatie (policy/query)
       - anders, (geef hieronder aan)
   validations:
     required: true
@@ -117,7 +118,7 @@ body:
       <beschrijving bezwaren situatie>
 
       # Wijzigingsvoorstel
-      ### Voorstel aanpassing proces
+      ### Voorstel aanpassing
       <voorstel wijziging>
 
       **Voordelen**
@@ -143,7 +144,7 @@ body:
     value: |
       # Overweging wijzigingsvoorstel(len)
       
-      | Oplossing     | Voordeel / Nadeel                | Overweging Referentiegroep |
+      | Oplossing     | Voordeel / Nadeel                | Overweging                 |
       | :------------ | :------------------------------- | :------------------------- |
       | 1. ..         | Voordeel:                        |                            |
       |               | Nadeel:                          |                            |
