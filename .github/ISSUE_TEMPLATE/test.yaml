@@ -1,6 +1,6 @@
 name: Wijzigingsverzoek iWlz + analyse versie 2
 description: Issuetype voor indienen van een iWlz Wijzigingsverzoek
-title: "RFC #### - onderwerp"
+title: "RFC #### onderwerp"
 labels: ["iWlz", "Verbetering"]
 projects: ["iStandaarden/9"]
 body:
