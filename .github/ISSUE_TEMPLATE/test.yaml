@@ -1,4 +1,4 @@
-name: Wijzigingsverzoek iWlz + analyse versie 2
+name: Wijzigingsverzoek iWlz + analyse v2.0
 description: Issuetype voor indienen van een iWlz Wijzigingsverzoek door iStandaarden.
 title: "RFC #### onderwerp"
 labels: ["iWlz", "Verbetering"]
@@ -94,6 +94,7 @@ body:
   attributes:
     value: |
       <hr>
+      # Analyse
 - type: textarea
   id: analyse
   attributes:
@@ -175,57 +176,55 @@ body:
     placeholder: "[yyyy-mm-dd]/zo snel mogelijk/nvt"
 - type: markdown
   attributes:
-    value: <hr>
-- type: markdown
-  attributes:
     value: |
       <hr>
+      # Detail uitwerking gekozen oplossing per onderdeel
 - type: textarea
   id: detail-uitwerking
   attributes:
     label: <detail uitwerking in te vullen door iStandaarden>
     value: |
-      <Een mutatie = toevoegen/verwijderen/wijzigen>
+      <Een mutatie = toevoegen/verwijderen/wijzigen/geen>
 
       # Detail uitwerking gekozen oplossing
       ### ERD
 
       | Mutatie | Oude situatie | Nieuwe situatie |
       | :--- | :--- | :--- |
-      | toevoegen/wijzigen/verwijderen |   |   |
+      | toevoegen/wijzigen/verwijderen/geen |   |   |
 
       ### Gegevens en codelijsten
 
       | Mutatie | Oude situatie | Nieuwe situatie |
       | :--- | :--- | :--- |
-      | toevoegen/wijzigen/verwijderen |   |   |
+      | toevoegen/wijzigen/verwijderen/geen |   |   |
 
       ### Regels
 
       | Mutatie | Oude situatie | Nieuwe situatie |
       | :--- | :--- | :--- |
-      | toevoegen/wijzigen/verwijderen |   |   |
+      | toevoegen/wijzigen/verwijderen/geen |   |   |
 
       ### Autorisatiematrix
 
       | Mutatie | Oude situatie | Nieuwe situatie |
       | :--- | :--- | :--- |
-      | toevoegen/wijzigen/verwijderen |   |   |
+      | toevoegen/wijzigen/verwijderen/geen |   |   |
 
       ### Proces
 
       | Mutatie | Oude situatie | Nieuwe situatie |
       | :--- | :--- | :--- |
-      | toevoegen/wijzigen/verwijderen |   |   |
+      | toevoegen/wijzigen/verwijderen/geen |   |   |
 
       ### Koppelvlak-specificatie
 
       | Mutatie | Oude situatie | Nieuwe situatie |
       | :--- | :--- | :--- |
-      | toevoegen/wijzigen/verwijderen |   |   |
+      | toevoegen/wijzigen/verwijderen/geen |   |   |
 
       ### Autorisatie-policy en query-template
 
       | Mutatie | Oude situatie | Nieuwe situatie |
       | :--- | :--- | :--- |
-      | toevoegen/wijzigen/verwijderen |   |   |
+      | toevoegen/wijzigen/verwijderen/geen |   |   |
