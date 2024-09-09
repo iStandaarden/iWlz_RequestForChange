@@ -94,7 +94,7 @@ body:
   attributes:
     value: |
       <hr>
-      # Analyse
+      #Analyse
 - type: textarea
   id: analyse
   attributes:
@@ -150,6 +150,7 @@ body:
   attributes:
     value: |
       <hr>
+      #Conclusie en Planning
 - type: markdown
   attributes:
     value: "# Conclusie en Planning"
@@ -178,7 +179,7 @@ body:
   attributes:
     value: |
       <hr>
-      # Detail uitwerking gekozen oplossing per onderdeel
+      #Detail uitwerking gekozen oplossing per onderdeel (Mutiatieoverzicht)
 - type: textarea
   id: detail-uitwerking
   attributes:
