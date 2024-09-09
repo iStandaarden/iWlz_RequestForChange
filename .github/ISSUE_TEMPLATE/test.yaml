@@ -15,7 +15,7 @@ body:
   attributes:
     value: <hr>
 - type: textarea
-  id: samenvatting
+  id: probleem-omschrijving
   attributes:
     label: Probleem omschrijving
     placeholder: Geef een korte omschrijving van het probleem
@@ -24,8 +24,8 @@ body:
 - type: textarea
   id: wijziging
   attributes:
-    label: Voorgestelde oplossing
-    placeholder: Beschrijf de voorgestelde oplossing(srichting) of het gewenste resultaat
+    label: Gewenste resultaat
+    placeholder: Beschrijf het gewenste resultaat van de oplossing.
   validations:
     required: true
 - type: dropdown
