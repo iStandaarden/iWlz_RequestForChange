@@ -182,7 +182,7 @@ body:
       <hr>
 - type: markdown
   attributes:
-    value: "# Detail uitwerking gekozen oplossing per onderdeel (Mutiatieoverzicht)"
+    value: "# Detail uitwerking gekozen oplossing per onderdeel (Mutatieoverzicht)"
 - type: textarea
   id: detail-uitwerking
   attributes:
