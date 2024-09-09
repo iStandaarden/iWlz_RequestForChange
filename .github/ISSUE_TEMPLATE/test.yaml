@@ -180,7 +180,9 @@ body:
   attributes:
     value: |
       <hr>
-      "# Detail uitwerking gekozen oplossing per onderdeel (Mutiatieoverzicht)"
+- type: markdown
+  attributes:
+    value: "# Detail uitwerking gekozen oplossing per onderdeel (Mutiatieoverzicht)"
 - type: textarea
   id: detail-uitwerking
   attributes:
