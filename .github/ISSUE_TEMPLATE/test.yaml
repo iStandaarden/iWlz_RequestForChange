@@ -180,7 +180,7 @@ body:
   attributes:
     value: |
       <hr>
-      #Detail uitwerking gekozen oplossing per onderdeel (Mutiatieoverzicht)
+      "# Detail uitwerking gekozen oplossing per onderdeel (Mutiatieoverzicht)"
 - type: textarea
   id: detail-uitwerking
   attributes:
