@@ -94,7 +94,9 @@ body:
   attributes:
     value: |
       <hr>
-      #Analyse
+- type: markdown
+  attributes:
+    value: "#Analyse"
 - type: textarea
   id: analyse
   attributes:
@@ -150,10 +152,9 @@ body:
   attributes:
     value: |
       <hr>
-      #Conclusie en Planning
 - type: markdown
   attributes:
-    value: "# Conclusie en Planning"
+    value: "#Conclusie en Planning"
 - type: dropdown
   id: conclusie
   attributes:
