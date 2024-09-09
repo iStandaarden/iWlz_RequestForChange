@@ -17,14 +17,14 @@ body:
 - type: textarea
   id: samenvatting
   attributes:
-    label: Korte probleem omschrijving
+    label: Probleem omschrijving
     placeholder: Geef een korte omschrijving van het probleem
   validations:
     required: true
 - type: textarea
   id: wijziging
   attributes:
-    label: Korte omschrijving voorgestelde oplossing
+    label: Voorgestelde oplossing
     placeholder: Beschrijf de voorgestelde oplossing(srichting) of het gewenste resultaat
   validations:
     required: true
