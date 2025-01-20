@@ -1,7 +1,7 @@
 name: Bevinding iWlz
 description: Issue voor het opvoeren van een bevinding
 title: "[onderwerp]"
-labels: ["iWlz", "bevinding"]
+labels: ["iWlz", "Bevinding"]
 projects: ["iStandaarden/9"]
 body:
 - type: input
