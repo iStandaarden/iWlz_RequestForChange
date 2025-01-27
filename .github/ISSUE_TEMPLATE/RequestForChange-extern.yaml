@@ -3,6 +3,7 @@ description: Issuetype voor indienen van een iWlz Wijzigingsverzoek.
 title: "Onderwerp"
 labels: ["iWlz", "Verbetering", "Nieuw"]
 projects: ["iStandaarden/9"]
+type: "Wijzigingsverzoek"
 body:
 - type: textarea
   id: probleem-omschrijving
