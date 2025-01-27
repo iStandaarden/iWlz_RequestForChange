@@ -3,6 +3,7 @@ description: Issuetype voor indienen van een iWlz Wijzigingsverzoek door iStanda
 title: "RFC #### onderwerp"
 labels: ["iWlz", "Verbetering", "Nieuw"]
 projects: ["iStandaarden/9"]
+type: ["Wijzigingsverzoek"]
 body:
 - type: input
   id: eDocsnr
