@@ -3,6 +3,7 @@ description: Issue voor het opvoeren van een bevinding
 title: "[onderwerp]"
 labels: ["iWlz", "Bevinding"]
 projects: ["iStandaarden/9"]
+type: "Bevinding"
 body:
 - type: input
   id: topdesk
