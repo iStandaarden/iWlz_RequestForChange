@@ -1,6 +1,6 @@
-name: Bevinding iWlz
+name: Bevinding iWlz (v2)
 description: Issue voor het opvoeren van een bevinding
-title: "[onderwerp]"
+title: "[Onderwerp bevinding]"
 labels: ["iWlz", "Bevinding"]
 projects: ["iStandaarden/9"]
 type: "Bevinding"
@@ -12,30 +12,27 @@ body:
     placeholder: Topdesknummer
   validations:
     required: false
-- type: markdown
-  attributes:
-    value: <hr>
-- type: markdown
-  attributes:
-    value: "# Onderwerp Bevinding"
 - type: textarea
   id: probleem
   attributes:
-    label: Probleem omschrijving
-    placeholder: Geef omschrijving van het probleem
+    label: Probleem beschrijving
+    placeholder: | 
+      Geef een omschrijving van de bevinding, waarin het probleem, de situatie, of afwijking wordt beschreven.
+      Geef bijvoorbeeld een lijst van duidelijke, stapsgewijze instructies om het probleem opnieuw te kunnen zien en specifieke gegevens of inputs die nodig zijn om het probleem te reproduceren.
   validations:
     required: true
 - type: textarea
   id: wijziging
   attributes:
     label: Omschrijving verwachte resultaat
-    placeholder: Beschrijf het verwachte resultaat
+    placeholder: | 
+      Beschrijf het verwachte resultaat of geef eventueel een suggestie of idee om het probleem op te lossen (indien bekend).
   validations:
     required: true
 - type: dropdown
   id: impact_onderdelen
   attributes:
-    label: RFC gevolgen voor het onderdeel/de onderdelen
+    label: Op welk onderdeel / welke onderdelen heeft de bevinding betrekking?
     multiple: true
     options:
       - Codelijsten
@@ -51,7 +48,7 @@ body:
   id: ander_onderdeel
   attributes:
     label: Welk ander onderdeel?
-    description: Voor welk ander onderdeel heeft de RFC gevolgen
+    description: Op welk ander onderdeel heeft de bevinding gevolgen
 - type: dropdown
   id: impact_partij
   attributes:
@@ -63,7 +60,7 @@ body:
       - Zorgaanbieder
       - Zorgkantoor
       - Zorginstituut
-      - anders, (geef aan bij contactpersoon)
+      - anders, (geef aan bij andere partij)
   validations:
     required: true
 - type: input
@@ -71,19 +68,12 @@ body:
   attributes:
     label: Andere betrokken partij 
     placeholder: Naam andere partij
-- type: markdown
-  attributes:
-    value: |
-      <hr>
-- type: markdown
-  attributes: 
-    value: "# Contactgegevens indiener"
 - type: dropdown
   id: indiener
   attributes:
-    label: Indiener RFC
+    label: Indiener bevinding
+    multiple: true
     options:
-      -
       - CAK
       - CIZ
       - Softwareleverancier zorgaanbieder
@@ -104,7 +94,7 @@ body:
     value: <hr>
 - type: markdown
   attributes:
-    value: "# Conclusie en Oplossing"
+    value: "## Conclusie en Oplossing"
 - type: textarea
   id: oplossing
   attributes:
@@ -117,15 +107,5 @@ body:
     options:
       - Doorvoeren oplossing
       - Verwerpen (bevinding niet gegrond)
-- type: input
-  id: implementatie
-  attributes:
-    label: Implementatiemoment / Ingang gekozen oplossing
-    placeholder: "[yyyy-mm-dd]/zo snel mogelijk/nvt"
-- type: input
-  id: publicatie
-  attributes:
-    label: Publicatiemoment
-    placeholder: "[yyyy-mm-dd]/zo snel mogelijk/nvt"
 
 
