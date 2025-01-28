@@ -1,6 +1,6 @@
 name: Wijzigingsverzoek iWlz (v2.0)
 description: Issuetype voor indienen van een iWlz Wijzigingsverzoek.
-title: "Onderwerp van het wijzigingsverzoek"
+title: "[Onderwerp van het wijzigingsverzoek]"
 labels: ["iWlz", "Verbetering", "Nieuw"]
 projects: ["iStandaarden/9"]
 type: "Wijzigingsverzoek"
