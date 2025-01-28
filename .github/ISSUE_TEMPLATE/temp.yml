@@ -54,7 +54,7 @@ body:
 - type: dropdown
   id: impact_partij
   attributes:
-    label: Betrokken partij RFC
+    label: Betrokken partij wijzigingsverzoek
     multiple: true
     options:
       - CAK
@@ -73,7 +73,7 @@ body:
 - type: dropdown
   id: indiener
   attributes:
-    label: Indiener RFC
+    label: Indiener wijzigingsverzoek
     multiple: true
     options:
       - CAK
