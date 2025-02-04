@@ -23,15 +23,15 @@ De volgende wijzigingen zijn nodig in het ERD
 | **Mutatie** |  **Nieuwe situatie** |
 | :--- | :--- | 
 | Verwijderen |  `Entiteit` verwijderd |  
-| Toevoegen |   `Entiteit 1` toegevoegd (zie hieronder de samenstelling) |
+| Toevoegen |   `Entiteit` toegevoegd (zie hieronder de samenstelling) |
 
 
 **Toevoegen Entiteit:**
 | **Entiteit** | **Documentatie** |
 | :-- | :--- |
-| **`Entiteit 1`** | _Documentatie._ |
+| **`Entiteit`** | _Documentatie._ |
 
-**Samenstelling `Entiteit 1`:**
+**Samenstelling `Entiteit`:**
 | **Element** | **ID** | **Verplicht** | **LDT** | **primitive** | **Codelijst** | **Documentatie** | 
 |:---|---|---|---|---|---|---|
 | **Element 1** | ja | ja | LDT_UUID | string | | Technische sleutel Entiteit 1.  |
