@@ -34,8 +34,8 @@ De volgende wijzigingen zijn nodig in het ERD
 **Samenstelling `Entiteit`:**
 | **Element** | **ID** | **Verplicht** | **LDT** | **primitive** | **Codelijst** | **Documentatie** | 
 |:---|---|---|---|---|---|---|
-| **Element 1** | ja | ja | LDT_UUID | string | | Technische sleutel Entiteit 1.  |
-| **Element 2** | ja | ja | LDT_UUID | string | | Technische sleutel Entiteit 2.  |
+| **Element** | ja | ja | LDT_UUID | string | | Technische sleutel Entiteit 1.  |
+
 
 
 
