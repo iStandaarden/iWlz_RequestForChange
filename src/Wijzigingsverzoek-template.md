@@ -32,9 +32,9 @@ De volgende wijzigingen zijn nodig in het ERD
 | **`Entiteit`** | _Documentatie._ |
 
 **Samenstelling `Entiteit`:**
-| **Element** | **ID** | **Verplicht** | **LDT** | **primitive** | **Codelijst** | **Documentatie** | 
-|:---|---|---|---|---|---|---|
-| **Element** | ja | ja | LDT_UUID | string | | Technische sleutel Entiteit 1.  |
+| **Element** | **ID** | **Verplicht** | **LDT** | **primitive** | **Codelijst** | **Documentatie** |  **Regel** | 
+|:---|---|---|---|---|---|---|---|
+| **Element** | ja | ja | LDT_UUID | string | | Technische sleutel Entiteit.  | | 
 
 
 
@@ -46,7 +46,7 @@ De volgende wijzigingen zijn nodig op de gegevens (datatypen en codelijsten)
 | **Mutatie** | **type** | **Nieuwe situatie** |
 | :--- | :--- | :-- |
 | Toevoegen | Codelijst |  Codelijst **`CODxx1`** (zie hieronder voor samenstelling) |
-| Toevoegen |  LDT |  `LDT_Nieuw` - string(3) - koppelen aan RS010 - documentatie: (zie documentatie bij codelijst) |
+| Toevoegen |  LDT |  `LDT_Nieuw` - string(3) -  documentatie: (zie documentatie bij codelijst) |
 
 **Toevoegen Codelijst**
 | **Codelijst** | **Documentatie** |
@@ -80,9 +80,9 @@ De volgende wijzigingen zijn nodig op de regels.
 ## Wijzigingen AUTORISATIEMATRIX: 
 De volgende wijzigingen zijn nodig op de Autorisatiematrix.
 
-| **Mutatie** | **Oude situatie** | **Nieuwe situatie** |
-| :--- | :--- | :--- |
-|  |  |  | 
+| **Mutatie** | **Nieuwe situatie** |
+| :--- | :--- | 
+|  |  |  
 
 
 ## Wijzigingen NOTIFICATIE
@@ -113,12 +113,8 @@ De volgende wijzigingen zijn nodig op de notificaties.
 | **recordID** | | 
 
 
-
-
-
 ## Wijzigingen PROCES
 De volgende wijzigingen zijn nodig op het proces.
-
 
 
 
@@ -143,7 +139,6 @@ aanpassing
 ```
 Schematisch
     
-
 
 
 
