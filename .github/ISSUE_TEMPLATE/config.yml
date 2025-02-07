@@ -1,8 +1,11 @@
 blank_issues_enabled: false
 contact_links:
-  - name: GitHub Community Support
-    url: https://github.com/orgs/community/discussions
-    about: Please ask and answer questions here.
-  - name: GitHub Security Bug Bounty
-    url: https://bounty.github.com/
-    about: Please report security vulnerabilities here.
+  - name: Overzicht ingediende Wijzigingsverzoeken
+    url: https://github.com/orgs/iStandaarden/projects/9/views/5
+    about: Bekijk welke wijzigingsverzoeken zijn ingediend en wat de status is.
+  - name: Overzicht Bevindingen
+    url: https://github.com/orgs/iStandaarden/projects/9/views/12
+    about: Bekijk welke bevindingen er zijn. 
+  - name: Afgesloten wijzigingsverzoeken en bevindigen
+    url: https://github.com/orgs/iStandaarden/projects/9/views/11
+    about: Afgesloten wijzigingsverzoeken en bevindingen
