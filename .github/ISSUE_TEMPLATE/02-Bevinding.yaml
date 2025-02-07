@@ -89,23 +89,3 @@ body:
   attributes:
     label: Andere organisatie / contactpersoon
     placeholder: Naam andere organisatie / contactpersoon
-- type: markdown
-  attributes:
-    value: <hr>
-- type: markdown
-  attributes:
-    value: "## Conclusie en Oplossing"
-- type: textarea
-  id: oplossing
-  attributes:
-    label: Oplossing
-    placeholder: Ruimte voor beschrijving oplossing
-- type: dropdown
-  id: conclusie
-  attributes:
-    label: Conclusie
-    options:
-      - Doorvoeren oplossing
-      - Verwerpen (bevinding niet gegrond)
-
-
