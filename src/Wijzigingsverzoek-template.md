@@ -4,6 +4,20 @@
       
   Een mutatie kan zijn: Vervallen / Nieuw / Gewijzigd 
 -->
+# Analyse
+<!--  
+  Zet hieronder de nadere analyse van het wijzigingsverzoek. Huidige situatie en gewenste situatie
+-->
+Probleemanalyse als aanvulling op het ingediende voorstel nodig is.
+
+# Wijzingsvoorstel
+<!--  
+  Zet hieronder de functionele toelichting van de voorgestelde wijziging. Benoem voor- en nadelen.
+  Als er meer dan 1 wijzigingsvoorstellen zijn, nummer en beschrijf ze onder afzonderlijke hoofdstukken.
+-->
+Functionele beeschrijving van de benodigde wijziging(en). De detail uitwerking volgt hieronder.
+
+
 
 # Uitwerking wijzigingsvoorstel per onderdeel
 - [Uitwerking wijzigingsvoorstel per onderdeel](#uitwerking-wijzigingsvoorstel-per-onderdeel)
