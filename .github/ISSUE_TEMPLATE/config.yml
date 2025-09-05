@@ -6,6 +6,9 @@ contact_links:
   - name: Overzicht Bevindingen
     url: https://github.com/orgs/iStandaarden/projects/9/views/12
     about: Bekijk welke bevindingen er zijn. 
-  - name: Afgesloten wijzigingsverzoeken en bevindigen
+  - name: Afgesloten wijzigingsverzoeken en bevindingen
     url: https://github.com/orgs/iStandaarden/projects/9/views/11
     about: Afgesloten wijzigingsverzoeken en bevindingen
+  - name: Meer informatie over het proces wijzigingsverzoeken en bevindingen
+    url: https://github.com/iStandaarden/iWlz_RequestForChange/wiki
+    about: Ga naar de wiki en lees meer over het proces van afhandelen wijzigingsverzoeken en bevindingen, wat is het verschil, wat is een release etc. 
