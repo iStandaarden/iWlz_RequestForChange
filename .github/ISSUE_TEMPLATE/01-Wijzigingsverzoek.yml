@@ -2,7 +2,7 @@ name: Wijzigingsverzoek iWlz (v2.0)
 description: Issuetype voor indienen van een iWlz Wijzigingsverzoek.
 title: "[Onderwerp van het wijzigingsverzoek]"
 labels: ["iWlz", "Verbetering", "Nieuw"]
-projects: ["iStandaarden/9"]
+projects: ["iStandaarden/9", "iStandaarden/19", "iStandaarden/20" ]
 type: "Wijzigingsverzoek"
 body:
 - type: textarea
@@ -59,6 +59,8 @@ body:
     options:
       - CAK
       - CIZ
+      - Softwareleverancier
+      - VECOZO
       - Zorgaanbieder
       - Zorgkantoor
       - Zorginstituut
@@ -80,6 +82,7 @@ body:
       - CIZ
       - Softwareleverancier zorgaanbieder
       - Softwareleverancier zorgkantoor
+      - VECOZO
       - Zorgaanbieder
       - Zorgkantoor
       - Zorginstituut
@@ -98,6 +101,6 @@ body:
     multiple: false
     options:
       - nader te bepalen
-      - eerst volgende gelegendheid
+      - eerst volgende gelegenheid
   validations:
     required: true
