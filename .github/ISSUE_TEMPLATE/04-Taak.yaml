@@ -1,0 +1,29 @@
+name: Taak iWlz (v1)
+description: Issue voor het opvoeren van een taak t.b.v. Implementatie
+title: "[Onderwerp Taak]"
+labels: ["Taak", "Nieuw"]
+projects: ["iStandaarden/20" ]
+type: "Taak"
+body:
+- type: textarea
+  id: taak
+  attributes:
+    label: Taak beschrijving
+    placeholder: | 
+      Geef een omschrijving van de taak.
+  validations:
+    required: true
+- type: dropdown
+  id: impact_partij
+  attributes:
+    label: Betrokken partij RFC
+    multiple: true
+    options:
+      - CAK
+      - CIZ
+      - Zorgaanbieder
+      - Zorgkantoor
+      - Zorginstituut
+      - anders, (geef aan bij andere partij)
+  validations:
+    required: true
