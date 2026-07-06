@@ -1,0 +1,42 @@
+name: Request For Comments
+description: Issue voor het volgen van een Request for Comments
+title: "[Titel van de Request for Comment]"
+labels: ["Nieuw"]
+projects: ["iStandaarden/9", "iStandaarden/20"]
+type: "Request for Comment (RFC)"
+body:
+  - type: input
+    id: link
+    attributes:
+      label: Link naar RFC
+      placeholder: "plak hier de volledige link naar het RFC document, bijvoorbeeld: https://github.com/iStandaarden/iWlz-RFC/blob/main/RFC%20-%20Template.md"
+    validations:
+      required: true
+  - type: textarea
+    id: onderwerp
+    attributes:
+      label: Onderwerp
+      placeholder: Geef hier een korte omschrijving van het onderwerp van de RFC
+    validations:
+      required: true
+  - type: checkboxes
+    id: impact_onderdelen
+    attributes:
+      label: RFC heeft impact op
+      options:
+        - label: Indicatieregister
+        - label: Bemiddelingsregister
+        - label: Leveringsregister
+        - label: CIZ
+        - label: Zorgkantoor
+        - label: Zorgaanbieder
+        - label: CAK
+        - label: Toegangscontrole 
+        - label: Silvester
+        - label: anders, (geef hieronder aan)
+  - type: textarea
+    id: anders
+    attributes:
+      label: Welk ander onderdeel?
+      description: Op welk ander onderdeel is er impact
+

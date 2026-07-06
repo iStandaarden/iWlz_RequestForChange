@@ -1,7 +1,7 @@
 name: Taak iWlz (v1)
 description: Issue voor het opvoeren van een taak t.b.v. Implementatie
 title: "[Onderwerp Taak]"
-labels: ["Taak", "Nieuw"]
+labels: ["Nieuw"]
 projects: ["iStandaarden/9" ]
 type: "Taak"
 body:
