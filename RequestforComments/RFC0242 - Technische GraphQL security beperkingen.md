@@ -1,4 +1,4 @@
-![header](./src/ZinBanner.png "template_header")
+![header](../src/ZinBanner.png "template_header")
 
 # RFC0242 - Technische GraphQL security beperkingen
 
