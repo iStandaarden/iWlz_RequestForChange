@@ -1,6 +1,6 @@
 ![header](./src/ZinBanner.png "template_header")
 
-# RFC0242 - GraphQL security beperkingen
+# RFC0242 - Technische GraphQL security beperkingen
 
 <font size="4">**SAMENVATTING**</font>
 
