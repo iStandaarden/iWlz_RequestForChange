@@ -231,10 +231,7 @@ Dit schema kan worden gebruikt voor:
 - contractafspraken tussen partijen
 - implementatie in PEP gateway
 
-```
-Graag dit voorlopig negeren; afgesproken is om dit schema pas beschikbaar te stellen als H6 definitief is gereviewed.
-U kunt het schema [hier](./RFC0052-schema.json) downloaden.
-```
+
 
 ## 6.1 Structuur van het autorisatieverzoek
 
