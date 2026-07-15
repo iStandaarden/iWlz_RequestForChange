@@ -1,4 +1,4 @@
-![header](../../src/ZinBanner.png "template_header")
+![header](../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > **RFC is Vervallen**
@@ -124,13 +124,13 @@ Voor de overige rollen wordt het `role_type` “zinl” gebruikt.
 Een LedenadministratieCredential is openbaar en MOET via het trust-netwerk worden gepubliceerd. Alleen door de stelselbeheerder aangewezen DID’s MOGEN het LedenadministratieCredential uitgeven. De VC heeft geen andere vereisten en voegt ook geen vereisten toe aan andere VC's.
 
 # 5. Ondersteunde bewijzen
-Alleen de bewijzen (proofs) genoemd in [RFC004](/RFC/RFC0004%20-%20Verifiable%20Credentials.md) worden ondersteund.
+Alleen de bewijzen (proofs) genoemd in [RFC004](/RequestforComments/RFC0004%20-%20Verifiable%20Credentials.md) worden ondersteund.
 
 # 6. Vertrouwen
 De LedenadministratieCredential MOET handmatig worden vertrouwd. Binnen het iWlz-netwerkmodel wordt ervoor gekozen om alle LedenadministratieCredentials uitgegeven door een aantal door de stelselbeheerder van het iWlz-netwerkmodel aangewezen uitgevers (ledenadministraties) te vertrouwen.
 
 # 7. Herroeping
-De LedenadministratieCredential volgt de intrekkingsregels zoals vermeld in [RFC004](/RFC/RFC0004%20-%20Verifiable%20Credentials.md).
+De LedenadministratieCredential volgt de intrekkingsregels zoals vermeld in [RFC004](/RequestforComments/RFC0004%20-%20Verifiable%20Credentials.md).
 
 # 8. Use cases
 De LedenadministratieCredential KAN worden gebruikt als credential in de OAuth-flow zoals gespecificeerd in RFC007. De referentie KAN ook worden gebruikt als een manier om de juiste DID en diens diensten te vinden.

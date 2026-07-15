@@ -1,7 +1,8 @@
 ![header](../src/ZinBanner.png "template_header")
 
 > [!CAUTION]
-> Deze request for comment is **bevroren** en verwerkt in het afsprakenstelsel. 
+> > **Verwerkt in Afsprakenstelsel iWlz en wordt niet meer actief onderhouden**. 
+> 
 > Dat betekend dat **na dd. 07-05-2025** wijzigingen die van invloed kunnen zijn op de inhoud zijn niet meer verwerkt in deze RFC
 >
 > Ga voor de actuele uitwerking naar het Afsprakenstelsel iWlz
@@ -116,7 +117,7 @@ Voor alle activiteiten in het netwerkstelstel is autorisatie noodzakelijk, deze 
 
 In het onderstaande schema wordt de basis uitgelegd voor het aanvragen van autorisatie en hoe vervolgens een raadpleging (GraphQL request) verloopt.
 
-![aanvraag_autorisatie](../plantUMLsrc/rfc0014-01-aanvragen_autorisatie.svg "aanvraag_autorisatie")
+![aanvraag_autorisatie](plantUMLsrc/rfc0014-01-aanvragen_autorisatie.svg "aanvraag_autorisatie")
 
 _rfc0014-01-aanvragen\_autorisatie\_flow_
 
@@ -551,7 +552,7 @@ query Bemiddelingspecificatie(
 > Het overzicht geeft de mogelijke HTTP Error responses vanuit voornamelijk de PEP. Dezelfde fouten kunnen ook voorkomen bij de Resource-server. Een onderscheid in afzender moet mogelijk zijn.  In een volgende update zal er afzenderinformatie in de message-body moeten worden toegevoegd. 
 
 
-![foutmeldingen_overzicht](../plantUMLsrc/rfc0014-02-foutmeldingen_overzicht.svg "foutmeldingen_overzicht")
+![foutmeldingen_overzicht](plantUMLsrc/rfc0014-02-foutmeldingen_overzicht.svg "foutmeldingen_overzicht")
 
 
 ## 6.1 Foutmeldingen Aanvraag van Autorisatie

@@ -1,4 +1,4 @@
-![header](../../src/ZinBanner.png "template_header")
+![header](../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > RFC is VERVALLEN
@@ -162,7 +162,7 @@ Voorbeeld:
 # 4. Toegangsbeheer
 
 ## 4.1 Access policy
-Een bronhouder gebruikt de AutorisatieCredential om de toegangsrechten van een afnemer te controleren. De regels voor het bepalen van toegang zijn een combinatie van een dienst-specifiek toegangsbeleid en eventuele aanvullende informatie uit de AutorisatieCredential. Identificatie en authenticatie vallen onder RFC007 OAuth-flow. Het toegangsbeleid vermeldt de bewerkingen en resourcetypen waartoe toegang kan worden verkregen. Zie ook RFC007 §7. Een toegangsbeleid **KAN** ook bepaalde parameters vereisen. Als er bijvoorbeeld een query-actie wordt uitgevoerd op een GraphQL-endpoint, kan het toegangsbeleid een regel hebben die een queryparameter vereist die het `subject`-veld (zijnde een bsn) van de AutorisatieCredential gebruikt. Alle beperkingen en beleidsregels **MOETEN** paden gebruiken die relatief zijn ten opzichte van het endpoint voor de gegeven service. [RFC0003](/RFC/RFC0003%20-%20Adresboek.md) Adresboek iWlz-netwerkmodel heeft betrekking op de registratie van services. Als er `resources` aanwezig zijn in de AutorisatieCredential, kan de bronhouder de operation en het relatieve pad van het request vergelijken met de `resources` die aanwezig zijn in de AutorisatieCredential.
+Een bronhouder gebruikt de AutorisatieCredential om de toegangsrechten van een afnemer te controleren. De regels voor het bepalen van toegang zijn een combinatie van een dienst-specifiek toegangsbeleid en eventuele aanvullende informatie uit de AutorisatieCredential. Identificatie en authenticatie vallen onder RFC007 OAuth-flow. Het toegangsbeleid vermeldt de bewerkingen en resourcetypen waartoe toegang kan worden verkregen. Zie ook RFC007 §7. Een toegangsbeleid **KAN** ook bepaalde parameters vereisen. Als er bijvoorbeeld een query-actie wordt uitgevoerd op een GraphQL-endpoint, kan het toegangsbeleid een regel hebben die een queryparameter vereist die het `subject`-veld (zijnde een bsn) van de AutorisatieCredential gebruikt. Alle beperkingen en beleidsregels **MOETEN** paden gebruiken die relatief zijn ten opzichte van het endpoint voor de gegeven service. [RFC0003](/RequestforComments/RFC0003%20-%20Adresboek.md) Adresboek iWlz-netwerkmodel heeft betrekking op de registratie van services. Als er `resources` aanwezig zijn in de AutorisatieCredential, kan de bronhouder de operation en het relatieve pad van het request vergelijken met de `resources` die aanwezig zijn in de AutorisatieCredential.
 
 ## 4.2 Access token request
 De volgende validaties moeten worden uitgevoerd door de autorisatieserver tijdens een verzoek om een access token. Deze zijn een aanvulling op degene die worden vermeld in §5.2.1.7 van RFC007.
@@ -179,13 +179,13 @@ Hoewel AutorisatieCredentials deel uitmaken van de OAuth-flow van RFC007, wordt 
 Een AutorisatieCredential is een privé document dat gebruikt wordt voor autorisatie van toegang tot gegevens binnen het iWlz-netwerkmodel. Het wordt gepubliceerd via een trust-netwerk en alleen de bronhouder en afnemer hebben toegang tot de inhoud van de transactie. Elke DID kan een AutorisatieCredential uitgeven en voegt ook geen vereisten toe aan andere Verifiable Credentials die in het iWlz-netwerkmodel worden gebruikt.
 
 # 6. Ondersteunde bewijzen
-Alleen de bewijzen (profs) genoemd in [RFC004](/RFC/RFC0004%20-%20Verifiable%20Credentials.md) worden ondersteund.
+Alleen de bewijzen (profs) genoemd in [RFC004](/RequestforComments/RFC0004%20-%20Verifiable%20Credentials.md) worden ondersteund.
 
 # 7. Vertrouwen
 De AutorisatieCredential heeft alleen invloed op de afnemer en bronhouder. Het **MOET** automatisch worden vertrouwd.
 
 # 8. Herroeping
-De AutorisatieCredential volgt de intrekkingsregels zoals vermeld in [RFC004](/RFC/RFC0004%20-%20Verifiable%20Credentials.md).
+De AutorisatieCredential volgt de intrekkingsregels zoals vermeld in [RFC004](/RequestforComments/RFC0004%20-%20Verifiable%20Credentials.md).
 
 # 9. Use cases
 De AutorisatieCredential MOET worden gebruikt in de OAuth-flow, zoals vermeld in RFC007.

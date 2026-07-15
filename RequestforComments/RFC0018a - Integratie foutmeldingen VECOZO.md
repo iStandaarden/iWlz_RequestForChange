@@ -3,13 +3,13 @@
 # RFC0018a - Addendum A: Integratie foutmeldingen VECOZO
 
 > [!IMPORTANT]
-> Deze Request for Comment is een aanvulling op [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) 
+> Deze Request for Comment is een aanvulling op [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) 
 
 <font size="4">**SAMENVATTING**</font>
 
 **Huidige situatie:**
 
-De [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) beschrijft de basis voor het doen van meldingen in het Netwerkmodel iWlz. In de basis RFC is beschreven hoe geconstateerde fouten in gegevens volgens de iStandaard iWlz gemeld kunnen worden aan de bronhouder. Dit principe is generiek van opzet waardoor er meerdere functionele toepassingen mogelijk zijn op dezelfde basis.
+De [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) beschrijft de basis voor het doen van meldingen in het Netwerkmodel iWlz. In de basis RFC is beschreven hoe geconstateerde fouten in gegevens volgens de iStandaard iWlz gemeld kunnen worden aan de bronhouder. Dit principe is generiek van opzet waardoor er meerdere functionele toepassingen mogelijk zijn op dezelfde basis.
 
 **Beoogde situatie**
 
@@ -36,7 +36,7 @@ Volg deze [link](https://github.com/iStandaarden/iWlz-RFC/issues/16) om de actue
 
 ---
 # 1. Inleiding
-De [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) beschrijft de basis voor het doen van meldingen in het Netwerkmodel iWlz. In de basis RFC is ook beschreven hoe geconstateerde fouten in gegevens volgens de iStandaard iWlz gemeld kunnen worden aan de bronhouder. Dit principe is generiek van opzet waardoor er meerdere functionele toepassingen mogelijk zijn op dezelfde basis.
+De [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) beschrijft de basis voor het doen van meldingen in het Netwerkmodel iWlz. In de basis RFC is ook beschreven hoe geconstateerde fouten in gegevens volgens de iStandaard iWlz gemeld kunnen worden aan de bronhouder. Dit principe is generiek van opzet waardoor er meerdere functionele toepassingen mogelijk zijn op dezelfde basis.
 
 Bij de overgang naar het netwermodel iWlz is de voorziening Silvester de brug tussen een register en het estafettemodel dat werkt op basis van xml-berichten. VECOZO faciliteert deze voorziening. Bij de verzending van uit de registers samengestelde xml-berichten kunnen fouten ontstaan die niet door de ontvanger van een bericht worden geconstateerd, maar door VECOZO (bijvoorbeeld bericht kan niet worden afgeleverd). 
 
@@ -45,15 +45,15 @@ Dit moet VECOZO kunnen terugmelden aan de bronhouder. Deze RFC beschrijft hoe di
 
 
 ## 1.1. Uitgangspunten
-  - Het meldingen principe beschreven in [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) is geimplementeerd.
+  - Het meldingen principe beschreven in [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) is geimplementeerd.
   - VECOZO foutmeldingen gaan uit van de foutcodes in het Berichtenloket van VECOZO: zie [Lijst met foutcodes](https://www.vecozo.nl/berichtloket/lijst-met-foutcodes/)
 
 ## 1.2 Relatie andere RFC's
 Deze RFC heeft de volgende relatie met andere RFCs:
 | RFC                                                               | onderwerp                    | relatie<sup>*</sup> | toelichting                                                   | issue                                                   |
 |:------------------------------------------------------------------|:-----------------------------|:--------------------|:--------------------------------------------------------------|:--------------------------------------------------------|
-| [RFC0008](/RFC/RFC0008%20-%20Notificaties%20en%20Abonnementen.md) | Notificaties en abonnementen | gerelateerd         | Notificaties is de berichtgeving van bronhouder aan deelnemer | [#2](https://github.com/iStandaarden/iWlz-RFC/issues/2) |
-| [RFC0018](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) | Meldingen: Melden van iWlz gegevensfouten | afhankelijk | beschrijft het stroom van raadpleger aan bronhouder | [#16](https://github.com/iStandaarden/iWlz-RFC/issues/16) |
+| [RFC0008](/RequestforComments/RFC0008%20-%20Notificaties%20en%20Abonnementen.md) | Notificaties en abonnementen | gerelateerd         | Notificaties is de berichtgeving van bronhouder aan deelnemer | [#2](https://github.com/iStandaarden/iWlz-RFC/issues/2) |
+| [RFC0018](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) | Meldingen: Melden van iWlz gegevensfouten | afhankelijk | beschrijft het stroom van raadpleger aan bronhouder | [#16](https://github.com/iStandaarden/iWlz-RFC/issues/16) |
 
 <sup>*</sup>voorwaardelijk,*voor andere RFC* / afhankelijk, *van andere RFC*
 
@@ -74,13 +74,13 @@ Opsomming van de in dit document gebruikte termen.
 
 # 3. Meldingen
 
-De algemene werking van *Meldingen*, de structuur, voorbeelden etc is beschreven in [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md)
+De algemene werking van *Meldingen*, de structuur, voorbeelden etc is beschreven in [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md)
 
 
 
 # 4. Melden van berichtfouten door VECOZO
 
-De flow is gebaseerd op de algemene beschrijving zoals beschreven in [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md)
+De flow is gebaseerd op de algemene beschrijving zoals beschreven in [RFC0018 - Melden van fouten in gegevens volgens iStandaard iWlz](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md)
 
 ![melding_notificatie](/plantUMLsrc/rfc0018-a-01-meldingflow-Silverster.svg "meldingflow_Silvester")
 <details>

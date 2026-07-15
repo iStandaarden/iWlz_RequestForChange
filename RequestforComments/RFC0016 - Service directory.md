@@ -1,10 +1,12 @@
-![header](../../src/ZinBanner.png "template_header")
-
-# RFC0016 - Service Directory
+![header](../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > RFC is Vervallen
 > 
+
+# RFC0016 - Service Directory
+
+
 
 @@todo
  - [ ] De interface van de Service Directory moet nog worden gespecificeerd evenals de concrete invulling van dit generieke component.

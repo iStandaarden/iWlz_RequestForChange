@@ -1,10 +1,12 @@
-![header](../../src/ZinBanner.png "template_header")
-
-# RFC0019 - Logging
+![header](../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > RFC is Vervallen
 > 
+
+# RFC0019 - Logging
+
+
 
 <font size="4">**SAMENVATTING**</font>
 
@@ -12,8 +14,8 @@
 >```VEROUDERD DOCUMENT```<br>
 Dit document met de titel "Logging" is verouderd en niet langer actueel. De reden hiervoor is dat het is gesplitst in twee afzonderlijke documenten: één gericht op de technische aspecten van traceerbaarheid en export, en de andere gericht op loggingvereisten en gegevensspecificaties.<br><br>
 >```WAAR TE VINDEN```
-<br>- Voor technische aspecten van traceerbaarheid en export, raadpleeg de RFC getiteld "[RFC0021 - Logging - Vereisten en Gegevensspecificaties](https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RFC/RFC0021%20-%20Logging%20-%20Vereisten%20en%20Gegevensspecificaties.md)".
-<br>- Voor loggingvereisten en gegevensspecificaties, raadpleeg het document getiteld "[RFC0022 - Logging - Traceerbaarheid en Export](https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RFC/RFC0022%20-%20Logging%20-%20Traceerbaarheid%20en%20Export.md)".<br><br>
+<br>- Voor technische aspecten van traceerbaarheid en export, raadpleeg de RFC getiteld "[RFC0021 - Logging - Vereisten en Gegevensspecificaties](https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RequestforComments/RFC0021%20-%20Logging%20-%20Vereisten%20en%20Gegevensspecificaties.md)".
+<br>- Voor loggingvereisten en gegevensspecificaties, raadpleeg het document getiteld "[RFC0022 - Logging - Traceerbaarheid en Export](https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RequestforComments/RFC0022%20-%20Logging%20-%20Traceerbaarheid%20en%20Export.md)".<br><br>
 Voor actuele informatie en richtlijnen wordt u geadviseerd de nieuwe documenten te raadplegen. Dit verouderde document zal niet langer worden bijgewerkt of onderhouden.
 
 **Huidige situatie:**
@@ -273,7 +275,7 @@ Een flow kan bijvoorbeeld een raadpleging zijn naar aanleiding van een notificat
 
 <font color=red>LET OP: Onderstaande schema moet nog correct  worden aangepast.</font>
 
-![voorbeeld_flow](../plantUMLsrc/rfc0019-01-voorbeeld_flow.svg "voorbeeld_flow")
+![voorbeeld_flow](plantUMLsrc/rfc0019-01-voorbeeld_flow.svg "voorbeeld_flow")
 
 <details>
 <summary>plantUML-source</summary>
@@ -351,7 +353,7 @@ deactivate Client
 ## 5.1 Algemeen
 <font color=red>LET OP: In onderstaande schema moet nog de trace informatie worden toegevoegd.</font>
 
-![gegevensvelden](../plantUMLsrc/rfc0019-02-gegevensvelden.svg "gegevensvelden")
+![gegevensvelden](plantUMLsrc/rfc0019-02-gegevensvelden.svg "gegevensvelden")
 
 <details>
 <summary>plantUML-source</summary>

@@ -78,7 +78,7 @@ Voor het kunnen versturen van een vrijwillige notificatie aan een deelnemer is h
 Het abonneren van een deelnemer voor een <span style="text-decoration:underline;">iWlz-vrijwillige</span> notificatie is een actie van de deelnemer zelf. De deelnemer mag zelf bepalen of een notificatie wenselijk is en om dan een abonnement te plaatsen. De deelnemer mag zich abonneren op een iWlz-Vrijwillig abonnement mits is voldaan aan de eisen van het abonnement en bijvoorbeeld het bezit van een geldige AgbCode, het identificatie kenmerk past binnen de toegestane van de deelnemer voldoet aan de set aan idTypeAbonnee’s voor dat abonnement. 
 
 
-![abonneren](../plantUMLsrc/rfc0025-01-abonneren_iwlz-vrijwillig.svg "abonneren")
+![abonneren](plantUMLsrc/rfc0025-01-abonneren_iwlz-vrijwillig.svg "abonneren")
 
 <details>
   <summary> plant_uml_source</summary>
@@ -199,7 +199,7 @@ HTTP/1.1 400 Bad Request
 
 Wanneer een deelnemer bij een iWlz-vrijwillig abonnement ervoor kiest geen notificaties meer te ontvangen naar aanleiding van dat abonnement, kan de deelnemer zelf het abonnement opzeggen door het te verwijderen bij de bronhouder. 
 
-![verwijderen abonnement](../plantUMLsrc/rfc0025-02-verwijderen_abonnement.svg "verwijderen abonnement")
+![verwijderen abonnement](plantUMLsrc/rfc0025-02-verwijderen_abonnement.svg "verwijderen abonnement")
 
 <details>
   <summary> plant_uml_source</summary>

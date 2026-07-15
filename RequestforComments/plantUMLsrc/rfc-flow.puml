@@ -1,0 +1,65 @@
+@startuml Workflow Request for Comments Netwerkmodel
+title Workflow Request for Comments Netwerkmodel
+
+state Backlog #LightGray : Verzameling van onderwerpen \n(alleen issue)
+state Draft #Orange : Eerste vulling per onderwerp \n(issue + markdown)
+
+ [*] -> Backlog
+ Backlog -> Draft 
+
+
+state Dialoog #MediumPurple {
+    state Opstellen : Opstellen van RFC
+    state "Review" as tr #LightBlue : RFC is gereed voor review
+    state c1 <<choice>>
+    state "Review verwerken" as rv #LightYellow :  review commentaar \ningediend
+    state Gereed #LightGreen : RFC klaar \nvoor beoordeling \nKoplopers
+    state c2 <<choice>>
+
+    Opstellen --> tr
+    tr --> c1
+    c1 --> rv 
+    c1 --> Gereed 
+    rv -> tr
+    Gereed --> c2
+    c2 --> rv 
+}
+
+ Draft -> Opstellen
+
+state "Eerst volgende versie" as ev #CornflowerBlue {
+    state Concept #LightYellow : Impact is bepaald door koplopers \nen onderwerp voor \neerst volgende implementatie
+    state c3 <<choice>>
+    state Definitief #LightBlue : RFC is akkoord en \nonderdeel van implementatie en \nimplemenatie moment is bepaald
+
+    Concept --> c3
+    c3 --> Definitief
+}
+
+ c2 -> Concept
+
+state "Lopende versie" as lv #MediumSeaGreen {
+    state "In productie" as ip #LightGreen : RFC is geimplementeerd
+}
+
+ Definitief -> ip
+
+state Afsprakenstelsel #HotPink {
+    state Verwerken #LightYellow : Inhoud RFC moet verwerkt \nworden in Afsprakenstelsel
+    state Verwerkt #LightGreen : Inhoud RFC verwerkt \nin Afsprakenstelsel
+
+    Verwerken --> Verwerkt
+    Verwerkt --> [*]
+}
+ ip -> Verwerken
+
+state Vervallen #LightCoral : RFC is vervallen of \ner is een alternatief
+
+c2 --> Vervallen 
+c3 -> Vervallen
+Vervallen --> [*]
+
+ 
+
+@enduml
+

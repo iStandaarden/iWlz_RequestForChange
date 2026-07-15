@@ -172,7 +172,7 @@ HTTP/1.1 400 Bad Request
 
 ### 3.1.5 Flow Fase 1:
 
-![Flow Fase 1](../plantUMLsrc/rfc0022-01-Fase1_flow.svg "Flow Fase 1")
+![Flow Fase 1](plantUMLsrc/rfc0022-01-Fase1_flow.svg "Flow Fase 1")
 
 
 
@@ -251,7 +251,7 @@ deactivate Client
 </details>
 
 **Nieuwe versie:**
-![voorbeeld_flow](../plantUMLsrc/rfc0022-01-voorbeeldflow_v2.svg "voorbeeld_flow")
+![voorbeeld_flow](plantUMLsrc/rfc0022-01-voorbeeldflow_v2.svg "voorbeeld_flow")
 
 ## 3.3 Fase 3: Beschikbaar stellen van tracing-data
 > [!IMPORTANT]

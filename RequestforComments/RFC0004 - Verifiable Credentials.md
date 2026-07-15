@@ -1,4 +1,4 @@
-![header](../../src/ZinBanner.png "template_header")
+![header](../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > Deze RFC is vervallen

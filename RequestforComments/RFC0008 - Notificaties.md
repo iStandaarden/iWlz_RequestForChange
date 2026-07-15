@@ -1,12 +1,14 @@
 ![header](../src/ZinBanner.png "template_header")
 
-# RFC0008 - Functionele uitwerking notificaties
-
-> [!NOTE]
-> **Verwerkt in Afsprakenstelsel iWlz**. 
+> [!CAUTION]
+> **Verwerkt in Afsprakenstelsel iWlz en wordt niet meer actief onderhouden**. 
 > 
 > Ga voor een actuele beschrijving naar [Afsprakenstelsel iWlz > Applicatie > Diensten > Notificeren en Melden](https://wlz.atlassian.net/wiki/spaces/IWLZAS/pages/23071204/Notificeren+en+Melden)
 > 
+
+# RFC0008 - Functionele uitwerking notificaties
+
+
 
 
 
@@ -72,9 +74,9 @@ Deze RFC beschrijft de werking van notificeren in het iWlz Netwerkmodel.
 Deze RFC heeft een relatie met de volgende andere RFC(s):
 | RFC | onderwerp | relatie<sup>\*</sup> | toelichting | issue |
 |---|---|---|---|---:|
-| [RFC0003](/RFC/RFC0003%20-%20Adresboek.md) | Adresboek | afhankelijk | beschrijft realisatie Adresboek | [#4](https://github.com/iStandaarden/iWlz-RFC/issues/4) |
-| [RFC0018](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) | Meldingen: Melden van iWlz gegevensfouten | gerelateerd | beschrijft het stroom van raadpleger aan bronhouder | [#16](https://github.com/iStandaarden/iWlz-RFC/issues/16) |
-| [RFC0014](/RFC/RFC0014%20-%20Functionele%20uitwerking%20aanvragen%20van%20autorisatie.md) | Functionele uitwerking aanvragen autorisatie | afhankelijk |Toegang en autorisatie voor verzenden notificatie | [#9](https://github.com/iStandaarden/iWlz-RFC/issues/9) |
+| [RFC0003](/RequestforComments/RFC0003%20-%20Adresboek.md) | Adresboek | afhankelijk | beschrijft realisatie Adresboek | [#4](https://github.com/iStandaarden/iWlz-RFC/issues/4) |
+| [RFC0018](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md) | Meldingen: Melden van iWlz gegevensfouten | gerelateerd | beschrijft het stroom van raadpleger aan bronhouder | [#16](https://github.com/iStandaarden/iWlz-RFC/issues/16) |
+| [RFC0014](/RequestforComments/RFC0014%20-%20Functionele%20uitwerking%20aanvragen%20van%20autorisatie.md) | Functionele uitwerking aanvragen autorisatie | afhankelijk |Toegang en autorisatie voor verzenden notificatie | [#9](https://github.com/iStandaarden/iWlz-RFC/issues/9) |
 
 ## 1.3 Code-repository
 
@@ -82,7 +84,7 @@ De benodigde code staat in [https://github.com/iStandaarden/iWlz-generiek/tree/m
 
 # 2. Notificatie of melding wat is het verschil
 
-![notificatie_melding](../plantUMLsrc/rfc0008-01-notificatie_melding.svg "notificatie_melding")
+![notificatie_melding](plantUMLsrc/rfc0008-01-notificatie_melding.svg "notificatie_melding")
 
 <details>
 <summary>plantUML-source</summary>
@@ -129,7 +131,7 @@ end
 | Notificatie | Bronhouder | Deelnemer  | op de hoogte stellen van een deelnemer over dat er nieuwe (of gewijzigde) informatie in een bron beschikbaar is die directe of afgeleide betrekking heeft op die deelnemer. |
 | Melding     | Deelnemer  | Bronhouder | verzoek tot muteren of het beschikbaar stellen van nieuwe informatie naar aanleiding van een gebeurtenis van een deelnemer aan een bron                                     |
 
-Het onderdeel Melding is verder uitgewerkt in [**RFC0018 - (Fout-)meldingen iWlz Netwerkmodel**](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md).
+Het onderdeel Melding is verder uitgewerkt in [**RFC0018 - (Fout-)meldingen iWlz Netwerkmodel**](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md).
 
 # 3. Notificaties
 
@@ -177,7 +179,7 @@ Zie voor de actuele lijst het [Informatiemodel iWlz](https://informatiemodel.ist
 
 ## 3.3 Inhoud notificatie
 
-De notificatie is in structuur gelijk aan de melding (zie [RFC0018](/RFC/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md)). Op basis van de inhoud van een notificatie moet de ontvanger van de notificatie onder andere kunnen bepalen:
+De notificatie is in structuur gelijk aan de melding (zie [RFC0018](/RequestforComments/RFC0018%20-%20Melden%20van%20fouten%20in%20gegevens%20volgens%20iStandaard%20iWlz.md)). Op basis van de inhoud van een notificatie moet de ontvanger van de notificatie onder andere kunnen bepalen:
 
 - wat is de trigger, wat is de reden van de notificatie
 - van welke bronhouder is de notificatie afkomstig
@@ -206,7 +208,7 @@ De notificatie bevat de volgende gegevens:
 
 [^2]: Zie Informatiemodel iWlz onder het kopje Notificaties https://informatiemodel.istandaarden.nl/iWlz-Bemiddeling-1/ of https://informatiemodel.istandaarden.nl/iWlz-Indicatie-2/
 
-![notificatie_erd](../plantUMLsrc/rfc0008-06-message-erd.svg "notificatie_erd")
+![notificatie_erd](plantUMLsrc/rfc0008-06-message-erd.svg "notificatie_erd")
 
 <details>
   <summary>plantUML-source</summary>
@@ -250,9 +252,9 @@ Notification "1" *-- "1..*" SubjectList: contains
 ## 3.4 Notificatie-flow
 
 > [!NOTE]
-> De hier beschreven flow beschrijft alleen het notificeren zelf.Voor het notificeren is autorisatie nodig. Het aanvragen van autorisatie en de bijbehorende flow is beschreven in [RFC0014 - Functionele uitwerking aanvragen autorisatie](https://github.com/iStandaarden/iWlz-RFC/blob/main/RFC/RFC0014%20-%20Functionele%20uitwerking%20aanvragen%20van%20autorisatie.md) .
+> De hier beschreven flow beschrijft alleen het notificeren zelf.Voor het notificeren is autorisatie nodig. Het aanvragen van autorisatie en de bijbehorende flow is beschreven in [RFC0014 - Functionele uitwerking aanvragen autorisatie](https://github.com/iStandaarden/iWlz-RFC/blob/main/RequestforComments/RFC0014%20-%20Functionele%20uitwerking%20aanvragen%20van%20autorisatie.md) .
 
-![notificatie_melding](../plantUMLsrc/rfc0008-02-notificatie_sequence_v2.svg "notificatie_sequence")
+![notificatie_melding](plantUMLsrc/rfc0008-02-notificatie_sequence_v2.svg "notificatie_sequence")
 
 <details>
   <summary>plantUML-source</summary>
@@ -436,7 +438,7 @@ Hieronder wordt een tabel weergegeven met de mogelijke response codes, foutberic
 De hieronder beschreven foutcodes ontstaan bij het valideren van de ingezonden GraphQL in nID, onderdeel PDP (zie [4 Referenties](#4-referenties) onderdeel van RFC0014)
 
 Schematisch:
-![notificatie_errors](../plantUMLsrc/rfc0008-04-error-flow.svg "notificatie_errors")
+![notificatie_errors](plantUMLsrc/rfc0008-04-error-flow.svg "notificatie_errors")
 
 <details>
   <summary>plantUML-source</summary>
@@ -529,7 +531,7 @@ Met deze informatie kunnen deelnemers snel vaststellen wat er gebeurt binnen het
 
 | Onderwerp                                   | Verwijzing                                                                                                                                     |
 | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| RFC 0014 - autorisatie oAuth2.0             | https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RFC/RFC0014%20-%20Functionele%20uitwerking%20aanvragen%20van%20autorisatie.md |
+| RFC 0014 - autorisatie oAuth2.0             | https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RequestforComments/RFC0014%20-%20Functionele%20uitwerking%20aanvragen%20van%20autorisatie.md |
 | Informatiemodel iWlz - Indicatieregister 2  | https://informatiemodel.istandaarden.nl/iWlz-Indicatie-2/                                                                                      |
 | Informatiemodel iWlz - Bemiddelingsregister | https://informatiemodel.istandaarden.nl/iWlz-Bemiddeling-1/                                                                                    |
 | Koppelvlakspecificatie notificeren          | https://github.com/iStandaarden/iWlz-generiek                                                                                                  |

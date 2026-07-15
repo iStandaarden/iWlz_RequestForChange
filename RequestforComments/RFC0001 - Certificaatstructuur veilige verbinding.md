@@ -1,4 +1,4 @@
-![header](../../src/ZinBanner.png "template_header")
+![header](../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > RFC is Vervallen
@@ -18,7 +18,7 @@ Deze RFC beschrijft welke certificaten binnen het iWlz-netwerkmodel worden gebru
 
 Naast het gebruik van certificaten voor een veilige verbinding maakt het iWlz-netwerkmodel voor ondertekenings- en validatiebewerkingen gebruik van een combinatie van Decentralized Identifiers, certificaten en Verifiable Credentials.
 
-![Alt text](../images/rfc0001-01-SysteemrolGegevensgids.png)
+![Alt text](images/rfc0001-01-SysteemrolGegevensgids.png)
 
 <font size="4">**Status RFC**</font>
 

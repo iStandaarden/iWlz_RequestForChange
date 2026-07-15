@@ -62,7 +62,7 @@ Opsomming van de in dit document gebruikte termen.
 # plant-uml embedding
 Neem een verwijzing op naar het gegenereerde diagram
  ```
-    ![notificatie_melding](../plantUMLsrc/rfc008-01-notificatie_melding.svg "notificatie_melding")
+    ![notificatie_melding](plantUMLsrc/rfc008-01-notificatie_melding.svg "notificatie_melding")
 ```
 
 verberg de plant-Uml source tussen de tags: 

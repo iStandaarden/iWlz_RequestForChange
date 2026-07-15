@@ -51,7 +51,7 @@ Deze RFC beschrijft de werking van de *Dienstencatalogus* binnen het iWLZ netwer
 Deze RFC is noodzakelijk voor de volgende RFC's en daar een relatie mee. 
 |RFC | onderwerp | relatie<sup>*</sup> | toelichting |issue |
 |:--|:--|:--| :--|:--|
-|[RFC0008](/RFC/RFC0008%20-%20Notificaties.md) | Notificaties | voorwaardelijk voor de ondersteuning van (iWlz) vrijwille notificaties | <ul><li>Er is een ***Dienstencatalogus*** waarin notificatietypen gepubliceerd kunnen worden.</li> <li>Netwerkdeelnemers raadplegen de ***Dienstencatalogus*** om op te halen welke abonnementen geplaatst kunnen worden en welke voorwaarden hier aan zitten. </li></ul>|[#2](https://github.com/iStandaarden/iWlz-RFC/issues/2) |
+|[RFC0008](/RequestforComments/RFC0008%20-%20Notificaties.md) | Notificaties | voorwaardelijk voor de ondersteuning van (iWlz) vrijwille notificaties | <ul><li>Er is een ***Dienstencatalogus*** waarin notificatietypen gepubliceerd kunnen worden.</li> <li>Netwerkdeelnemers raadplegen de ***Dienstencatalogus*** om op te halen welke abonnementen geplaatst kunnen worden en welke voorwaarden hier aan zitten. </li></ul>|[#2](https://github.com/iStandaarden/iWlz-RFC/issues/2) |
 
 
 <sup>*</sup>Relatie andere RFC = voorwaardelijk, *voor andere RFC* / afhankelijk, *van andere RFC*
@@ -69,11 +69,11 @@ Opsomming van de in dit document gebruikte termen.
 # 3 *Dienstencatalogus* voor Notificatie-typen
 
 ## 3.1 Inleiding
-In [RFC-0008 - Notificaties](/RFC/RFC0008%20-%20Notificaties.md) is beschreven hoe notificaties een belangrijk onderdeel vormen in de werking van het iWlz-netwerkmodel. Deelnemers worden in dat netwerk door middel van notificaties op de hoogte gebracht van nieuwe of gewijzigde informatie die relevant is voor die deelnemer. Daarna en met gegevens uit de notificatie kan een deelnemer de informatie raadplegen. Het soort notificatie of de reden van een notificatie wordt bepaald door het verantwoordelijke **notificatie-type**.  Zo is er bijvoorbeeld een notificatie die het Zorgkantoor op de hoogte stelt van een nieuwe Wlz indicatie van een client die volgens de postcode in het BRP woont in de regio van dat zorgkantoor. 
+In [RFC-0008 - Notificaties](/RequestforComments/RFC0008%20-%20Notificaties.md) is beschreven hoe notificaties een belangrijk onderdeel vormen in de werking van het iWlz-netwerkmodel. Deelnemers worden in dat netwerk door middel van notificaties op de hoogte gebracht van nieuwe of gewijzigde informatie die relevant is voor die deelnemer. Daarna en met gegevens uit de notificatie kan een deelnemer de informatie raadplegen. Het soort notificatie of de reden van een notificatie wordt bepaald door het verantwoordelijke **notificatie-type**.  Zo is er bijvoorbeeld een notificatie die het Zorgkantoor op de hoogte stelt van een nieuwe Wlz indicatie van een client die volgens de postcode in het BRP woont in de regio van dat zorgkantoor. 
 
 De ***Dienstencatalogus*** faciliteert het vastleggen van de beschikbare notificatie-typen in het netwerk zodat een deelnemer informatie hierover centraal kan raadplegen. 
 
-![publiceer_raadpleeg](../plantUMLsrc/rfc0008-03-publiceren_raadplegen_notificatietype.svg "publiceer_raadpleeg_nt")
+![publiceer_raadpleeg](plantUMLsrc/rfc0008-03-publiceren_raadplegen_notificatietype.svg "publiceer_raadpleeg_nt")
 
 <details>
   <summary>plantUML-source</summary>
@@ -130,9 +130,9 @@ De ***Dienstencatalogus*** faciliteert het vastleggen van de beschikbare notific
 
 
 ## 3.2 Vastleggen notificatie-typen
-De verschillende notificatie-typen die een organisatie aanbiedt worden gepubliceerd in de *Dienstencatalogus*. In de iStandaard iWlz (informatiemodel/afsprakenstelsel) worden alleen die notificatie-typen beschreven die relevant zijn voor de Wlz en volgens afspraak met alle deelnemers van de iWlz door een bronhouder van een register moet(en) worden gerealiseerd. Zie hiervoor [4.2 Typen notificatie in RFC0008](/RFC/RFC0008%20-%20Notificaties%20en%20Abonnementen.md)
+De verschillende notificatie-typen die een organisatie aanbiedt worden gepubliceerd in de *Dienstencatalogus*. In de iStandaard iWlz (informatiemodel/afsprakenstelsel) worden alleen die notificatie-typen beschreven die relevant zijn voor de Wlz en volgens afspraak met alle deelnemers van de iWlz door een bronhouder van een register moet(en) worden gerealiseerd. Zie hiervoor [4.2 Typen notificatie in RFC0008](/RequestforComments/RFC0008%20-%20Notificaties%20en%20Abonnementen.md)
 
-![publiceren notificatietype](../plantUMLsrc/rfc0024-02-publiceren_notificatietype.svg "publiceren notificatietype")
+![publiceren notificatietype](plantUMLsrc/rfc0024-02-publiceren_notificatietype.svg "publiceren notificatietype")
 
 <details>
   <summary>plantUML-source</summary>

@@ -433,7 +433,7 @@ Deze attributen sluiten aan op de codelijsten in paragraaf 6.7.
 
 ### Richtlijnen
 
-- Het type attribuut is conform de specificaties van [RFC0008](https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RFC/RFC0008%20-%20Notificaties.md#331-afzender-en-ontvanger-lijst).
+- Het type attribuut is conform de specificaties van [RFC0008](https://github.com/iStandaarden/iWlz-RequestForComment/blob/main/RequestforComments/RFC0008%20-%20Notificaties.md#331-afzender-en-ontvanger-lijst).
 - Domeinspecifieke attributen worden onder `properties` geplaatst.
 - De betekenis van attributen in `properties` is consistent met de codelijsten.
 - Het moet mogelijk zijn om de waarden van het subject te herleiden naar een betrouwbare bron (bijv. een access-token of een externe bron).

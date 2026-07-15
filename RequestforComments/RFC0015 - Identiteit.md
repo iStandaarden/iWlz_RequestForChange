@@ -1,10 +1,12 @@
-![header](../../src/ZinBanner.png "template_header")
-
-# RFC0015 - Identiteit
+![header](../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > RFC is Vervallen
 > 
+
+
+# RFC0015 - Identiteit
+
 
 <font size="4">**SAMENVATTING**</font>
 
@@ -18,9 +20,9 @@ Deze RFC beschrijft hoe entiteiten in het iWlz-netwerkmodel van een verifieerbar
 
 In het iWlz-netwerkmodel worden identiteiten decentraal (DPKI) beheerd door het toepassen van de standaard Decentralized Identifers (DID). Deze RFC beschrijft de eisen aan DID-methodes, conflictoplossing en cryptografische beveiliging.
 
-Op basis van de identiteiten van deelnemers en hun dienstverleners kunnen vervolgens ook diensten voor gegevensuitwisseling (zie [RFC003](/RFC/RFC0003%20-%20Adresboek.md)) en Verifiable Credentials (zie [RFC004](/RFC/RFC0004%20-%20Verifiable%20Credentials.md)) van verifieerbare identifiers worden voorzien.
+Op basis van de identiteiten van deelnemers en hun dienstverleners kunnen vervolgens ook diensten voor gegevensuitwisseling (zie [RFC003](/RequestforComments/RFC0003%20-%20Adresboek.md)) en Verifiable Credentials (zie [RFC004](/RequestforComments/RFC0004%20-%20Verifiable%20Credentials.md)) van verifieerbare identifiers worden voorzien.
 
-![Alt text](../images/rfc0015-01-Identiteit.png)
+![Alt text](images/rfc0015-01-Identiteit.png)
 Schematische weergave van RFC002 Identiteit (blauw gemarkeerd) in relatie tot de applicatiecomponenten
 
 <font size="4">**Status RFC**</font>
@@ -66,7 +68,7 @@ Deze RFC heeft een relatie met de volgende RFC(s)
 ## 3.1 Aanmaken publieke sleutelparen voor ondertekening
 Zowel bij decentraal identiteitsbeheer als bij centraal identiteitsbeheer dient een deelnemer (of zijn dienstverlener) sleutelparen aan te maken die kunnen worden gebruikt voor elektronische ondertekening namens die deelnemer.
 
-Bij centraal identiteitsbeheer dienen de publieke sleutels die worden gebruikt voor ondertekening onderdeel te zijn van een certificate-chain met het VECOZO-certicaat van de deelnemer als root-certificaat (zie [RFC001](/RFC/RFC0001%20-%20Certificaatstructuur%20veilige%20verbinging.md) voor eisen aan dit certificaat).
+Bij centraal identiteitsbeheer dienen de publieke sleutels die worden gebruikt voor ondertekening onderdeel te zijn van een certificate-chain met het VECOZO-certicaat van de deelnemer als root-certificaat (zie [RFC001](/RequestforComments/RFC0001%20-%20Certificaatstructuur%20veilige%20verbinging.md) voor eisen aan dit certificaat).
 
 ## 3.2 Publiceren publieke sleutels voor ondertekening
 Bij centraal identiteitsbeheer dient de deelnemer de certificate-chain op te nemen in de JSON Web Signature (JWS).
@@ -76,7 +78,7 @@ Bij centraal identiteitsbeheer dient de deelnemer de certificate-chain op te nem
 ## 4.1 Aanmaken publieke sleutelparen voor ondertekening
 Zowel bij decentraal identiteitsbeheer als bij centraal identiteitsbeheer dient een deelnemer (of zijn dienstverlener) sleutelparen aan te maken die kunnen worden gebruikt voor elektronische ondertekening namens die deelnemer.
 
-Bij decentraal identiteitsbeheer dienen de publieke sleutels die worden gebruikt voor ondertekening te voldoen aan de [geldende specificaties](https://nuts-foundation.gitbook.io/v1/rfc/rfc006-distributed-registry) van de reeds bestaande DID-methode did:nuts. 
+Bij decentraal identiteitsbeheer dienen de publieke sleutels die worden gebruikt voor ondertekening te voldoen aan de [geldende specificaties](https://nuts-foundation.gitbook.io/v1/RequestforComments/RFC006-distributed-registry) van de reeds bestaande DID-methode did:nuts. 
 
 ## 3.2 Publiceren publieke sleutels voor ondertekening
-Bij decentraal identiteitsbeheer biedt de W3C-standaard [Decentralized Identifers](https://www.w3.org/TR/did-core/) een oplossing voor het publiceren van publieke sleutels door middel van zogenaamde DID-document. Hierbij dient conform de [geldende specificaties](https://nuts-foundation.gitbook.io/v1/rfc/rfc006-distributed-registry) invulling te worden gegevenaan de reeds bestaande DID-methode did:nuts.
+Bij decentraal identiteitsbeheer biedt de W3C-standaard [Decentralized Identifers](https://www.w3.org/TR/did-core/) een oplossing voor het publiceren van publieke sleutels door middel van zogenaamde DID-document. Hierbij dient conform de [geldende specificaties](https://nuts-foundation.gitbook.io/v1/RequestforComments/RFC006-distributed-registry) invulling te worden gegevenaan de reeds bestaande DID-methode did:nuts.
