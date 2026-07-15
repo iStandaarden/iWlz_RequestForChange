@@ -1,6 +1,6 @@
 ![header](../src/ZinBanner.png "template_header")
 
-# RFC0242 - Technische GraphQL security beperkingen
+# RFC26242 - Technische GraphQL security beperkingen
 
 <font size="4">**SAMENVATTING**</font>
 
@@ -18,7 +18,7 @@ Volg deze [link](https://github.com/iStandaarden/iWlz_RequestForChange/issues/24
 
 ---
 **Inhoudsopgave**
-- [\<TITEL - RFC\>](#titel---rfc)
+- [RFC26242 - Technische GraphQL security beperkingen](#rfc26242---technische-graphql-security-beperkingen)
 - [1. Inleiding](#1-inleiding)
   - [1.1. Uitgangspunten](#11-uitgangspunten)
   - [1.2 Relatie andere RFC](#12-relatie-andere-rfc)
