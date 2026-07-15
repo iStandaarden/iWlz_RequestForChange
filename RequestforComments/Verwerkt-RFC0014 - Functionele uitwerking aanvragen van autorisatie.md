@@ -1,7 +1,8 @@
 ![header](../src/ZinBanner.png "template_header")
 
-> [!NOTE]
-> Deze request for comment is **bevroren** en verwerkt in het afsprakenstelsel. Wijzigingen na dd. 07-05-2025 worden niet meer verwerkt in deze RFC
+> [!CAUTION]
+> Deze request for comment is **bevroren** en verwerkt in het afsprakenstelsel. 
+> Dat betekend dat **na dd. 07-05-2025** wijzigingen die van invloed kunnen zijn op de inhoud zijn niet meer verwerkt in deze RFC
 >
 > Ga voor de actuele uitwerking naar het Afsprakenstelsel iWlz
 
@@ -21,7 +22,7 @@ Dit document beschrijft functioneel de generieke wijze van autoriseren in het Ne
 
 **Status RFC**
 
-Volg deze [link](https://github.com/iStandaarden/iWlz-RFC/issues/9) om de actuele status van deze RFC te bekijken.
+Volg deze [link](https://github.com/iStandaarden/iWlz_RequestForChange/issues/264) om de actuele status van deze RFC te bekijken.
 
 ***
 
