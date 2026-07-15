@@ -1,9 +1,14 @@
+![header](../src/ZinBanner.png "template_header")
+
+> [!CAUTION]
+> De tekst van deze RFC is opgenomen in artikel over de dienst Identificatie & authenticatie. De RFC is gebruikt om tot overeenstemming te komen, de tekst van het artikel Identificatie & authenticatie. **De tekst van het artikel is leidend.**
+
+
 # iWlz-netwerkmodel : RFC002 Identiteit
 
 **VERSIE:** 20-03-2023
 
-> [!CAUTION]
-> De tekst van deze RFC is opgenomen in artikel over de dienst Identificatie & authenticatie. De RFC is gebruikt om tot overeenstemming te komen, de tekst van het artikel Identificatie & authenticatie. **De tekst van het artikel is leidend.**
+
 
 **Samenvatting**  
 Deze RFC beschrijft hoe entiteiten in het iWlz-netwerkmodel van een verifieerbare identiteit worden voorzien. De entiteiten die hieronder vallen zijn deelnemers en dienstverleners die namens deze deelnemers optreden. De identiteit wordt verifieerbaar door gebruik te maken van sleutelmateriaal.

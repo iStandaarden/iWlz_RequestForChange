@@ -1,11 +1,16 @@
+![header](../src/ZinBanner.png "template_header")
+
+> [!CAUTION]
+> > De tekst van deze RFC is opgenomen in artikel over de dienst [Autoriseren](). De RFC is gebruikt om tot overeenstemming te komen, **de tekst van het artikel Autoriseren is leidend.**
+
 # iWlz-netwerkmodel : RFC007 OAuth-autorisatie
 
 
 **VERSIE:** 04-03-2023 LOPENDE VERSIE  
 **STATUS:** IN PRODUCTIE
 
-> [!CAUTION]
-> De tekst van deze RFC is opgenomen in artikel over de dienst [Autoriseren](). De RFC is gebruikt om tot overeenstemming te komen, de tekst van het artikel Autoriseren is leidend.
+
+
 
 **Samenvatting**  
 Deze RFC beschrijft het autoriseren van systemen in het iWlz-netwerkmodel met behulp van het OAuth 2.0-framework. OAuth 2.0 is een algemeen geaccepteerd autorisatie framework. Het OAuth 2.0-framework is in hoge mate aanpasbaar en accepteert vele grant-types. De meest gebruikte OAuth-grant-types vereisen dat clients vooraf worden geregistreerd bij de autorisatie server of dat tokens vooraf worden overgedragen en ondersteunen geen zero-knowledge-proofs.
