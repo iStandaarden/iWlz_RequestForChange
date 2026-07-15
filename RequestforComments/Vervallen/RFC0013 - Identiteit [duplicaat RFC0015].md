@@ -10,9 +10,7 @@
 
 **Status**
 
-!!! WAARSCHUWING
 
-Dit document is een duplicaat van [RFC0015](https://github.com/iStandaarden/iWlz-RFC/blob/main/RFC/RFC0015%20-%20Identiteit.md) getiteld "Identiteit". Lezers wordt aangeraden om [RFC0015](https://github.com/iStandaarden/iWlz-RFC/blob/main/RFC/RFC0015%20-%20Identiteit.md)  te raadplegen voor de meest actuele informatie.
 
 **Huidige situatie:**
 
@@ -30,7 +28,7 @@ Decentraal identiteitsbeheer wordt ingevuld door het toepassen van de standaard 
 
 Op basis van de centrale en/of decentrale identiteiten van deelnemers en hun dienstverleners kunnen vervolgens ook diensten voor gegevensuitwisseling (zie [RFC003](/RFC/RFC0003%20-%20Adresboek.md)) en Verifiable Credentials (zie [RFC004](/RFC/RFC0004%20-%20Verifiable%20Credentials.md)) van verifieerbare identifiers worden voorzien.
 
-![Alt text](../imagesrc/rfc0013-01-Identiteit.png)
+![Alt text](../images/rfc0013-01-Identiteit.png)
 Schematische weergave van RFC002 Identiteit (blauw gemarkeerd) in relatie tot de applicatiecomponenten
 
 <font size="4">**Status RFC**</font>

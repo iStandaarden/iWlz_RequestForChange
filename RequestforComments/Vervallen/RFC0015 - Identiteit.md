@@ -20,7 +20,7 @@ In het iWlz-netwerkmodel worden identiteiten decentraal (DPKI) beheerd door het 
 
 Op basis van de identiteiten van deelnemers en hun dienstverleners kunnen vervolgens ook diensten voor gegevensuitwisseling (zie [RFC003](/RFC/RFC0003%20-%20Adresboek.md)) en Verifiable Credentials (zie [RFC004](/RFC/RFC0004%20-%20Verifiable%20Credentials.md)) van verifieerbare identifiers worden voorzien.
 
-![Alt text](../imagesrc/rfc0015-01-Identiteit.png)
+![Alt text](../images/rfc0015-01-Identiteit.png)
 Schematische weergave van RFC002 Identiteit (blauw gemarkeerd) in relatie tot de applicatiecomponenten
 
 <font size="4">**Status RFC**</font>
