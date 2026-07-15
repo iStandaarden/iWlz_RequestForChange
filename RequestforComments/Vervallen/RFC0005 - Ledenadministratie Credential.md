@@ -1,10 +1,12 @@
-![header](../imagesrc/ZinBanner.png "template_header")
+![header](../../src/ZinBanner.png "template_header")
+
+> [!WARNING]
+> **RFC is Vervallen**
+> 
 
 # RFC0005 - Ledenadministratie Credential
 
-> [!WARNING]
-> RFC is Vervallen
-> 
+
 
 <font size="4">**SAMENVATTING**</font>
 

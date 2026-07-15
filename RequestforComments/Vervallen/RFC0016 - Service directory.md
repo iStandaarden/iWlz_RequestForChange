@@ -1,4 +1,4 @@
-![header](../imagesrc/ZinBanner.png "template_header")
+![header](../../src/ZinBanner.png "template_header")
 
 # RFC0016 - Service Directory
 

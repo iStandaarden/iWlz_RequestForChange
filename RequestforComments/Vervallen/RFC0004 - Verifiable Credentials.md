@@ -1,9 +1,11 @@
-![header](../src/ZinBanner.png "template_header")
-
-# RFC0004 - Verifiable Credentials
+![header](../../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > Deze RFC is vervallen
+
+# RFC0004 - Verifiable Credentials
+
+
 
 <font size="4">**SAMENVATTING**</font>
 

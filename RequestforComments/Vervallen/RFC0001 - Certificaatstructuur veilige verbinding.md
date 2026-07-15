@@ -1,10 +1,10 @@
-![header](../imagesrc/ZinBanner.png "template_header")
-
-# RFC0001 - Certificaatstructuur veilige verbinding
+![header](../../src/ZinBanner.png "template_header")
 
 > [!WARNING]
 > RFC is Vervallen
 > 
+
+# RFC0001 - Certificaatstructuur veilige verbinding
 
 <font size="4">**SAMENVATTING**</font>
 
@@ -18,7 +18,7 @@ Deze RFC beschrijft welke certificaten binnen het iWlz-netwerkmodel worden gebru
 
 Naast het gebruik van certificaten voor een veilige verbinding maakt het iWlz-netwerkmodel voor ondertekenings- en validatiebewerkingen gebruik van een combinatie van Decentralized Identifiers, certificaten en Verifiable Credentials.
 
-![Alt text](../imagesrc/rfc0001-01-SysteemrolGegevensgids.png)
+![Alt text](../images/rfc0001-01-SysteemrolGegevensgids.png)
 
 <font size="4">**Status RFC**</font>
 
