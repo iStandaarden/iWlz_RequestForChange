@@ -6,21 +6,101 @@ Repository voor het faciliteren en volgen van het wijzigingsproces. Doormiddel v
 ## Project en status wijzigingsverzoek
 In het project [iWlz Wijzigingsverzoeken](https://github.com/orgs/iStandaarden/projects/9/) is de status van een wijzigingsverzoek te volgen of te bekijken. Het proces is hieronder schematisch weergegeven.
 
-![proces-flow][proces_flow]
+
+```mermaid
+---
+config:
+  theme: default
+  look: neo
+---
+stateDiagram-v2
+    [*] --> nieuw : 00
+
+    state "Nieuw" as nieuw
+    state "Backlog" as backlog
+
+    state grpchoice <<choice>>
+    note left of grpchoice : Bevinding of ander type?
+
+    state bevinding <<choice>>
+    note left of bevinding : Bevindingen worden direct opgelost
+
+    nieuw --> backlog : 01
+    backlog --> grpchoice : 02
+    grpchoice --> bevinding : 03b: Bevinding
+    grpchoice --> backlog: 03c : geen prio
+
+    state "Advies: Referentiegroep / Werkgroep / TAO" as adviesgrp {
+        state "Kandidaat" as kandidaat
+        state "Bespreken" as bespreken
+        state "Uitwerken" as uitwerken
+        state "Gereed" as gereed
+        state "Vervallen" as vervallen
+        
+        state refgrp <<choice>>
+        note left of refgrp : Bespreking in adviesgroep
+
+        kandidaat --> refgrp 
+        uitwerken --> bespreken
+        bespreken --> refgrp
+
+        refgrp --> gereed : 04a
+        refgrp --> uitwerken : 04b
+        refgrp --> vervallen : 04c
+     
+        vervallen --> [*] : afgesloten
+    }
+
+    state besluit <<choice>> 
+    note left of besluit : Besluit of issue in voorgestelde Publicatie (Milestone) kan worden opgenomen
+        grpchoice --> kandidaat : 03a: RFC
+        refgrp --> backlog : 04d
+        gereed --> besluit
+        besluit --> backlog : 05b
+
+    state "Akkoord" as akkoord
+    state "☑️ Gepubliceerd   ." as gepubliceerd
+    state "Besluit: Stuurgroep / Koplopersoverleg" as besluitgrp {
+        besluit --> akkoord : 05a
+        akkoord --> inplannen : 06b
+
+        inplannen: Inplannen
+        inplannen: - Implementatiemoment
+        inplannen: - Implementatiedatum
+        note right of inplannen : Partijen bepalen implementatiedatum op basis van implementatiemoment
+    }
+
+    bevinding --> gepubliceerd
+    akkoord --> gepubliceerd : 06a
+    gepubliceerd --> [*] : afgesloten
+    
+    %% kleuren
+    classDef dash_lightgreen stroke-width:4px,stroke-dasharray:5,fill:#C8E6C9,stroke:#00C853;
+    classDef grey fill:#D3D3D3,stroke:#333
+    classDef red fill:#FF4500,stroke:#333
+    classDef green fill:#3CB371,stroke:#333
+    classDef purple fill:#E1BEE7,stroke:#333
+    classDef blue fill:#BBDEFB,stroke:#333
+    
+    class nieuw dash_lightgreen
+    class backlog grey
+    class kandidaat grey
+    class uitwerken grey
+    class bespreken grey
+    class vervallen red
+    class gereed blue
+    class akkoord green
+    class gepubliceerd purple
+    class inplannen grey   
+    class bevinding red
+
+```
 
 |    # | Toelichting                                                                                                                                   |
-| ---: | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| 00 | Nieuwe meldingen worden verzameld bij iStandaarden Beheerteam |
-|   01 | Wijzigingsverzoek aandragen en inventariseren op volledigheid en relevantie. Indien aanvankelijk komt het wijzigingsverzoek op de **Backlog** |
-|   02 | Relevante wijzigingsverzoeken indelen en inbrengen bij relevante Adviesgroep om te **Bespreken**                                                               |
-|   03 | *Het Resultaat van de bespreking in de Adviesgroep kan leiden tot drie uitkomsten:*                                                         |
-|   04 | - Wijzigingsverzoek is **Gereed** (volledig en relevant) en kan worden ingepland worden voor een release                                      |
-|   05 | - Wijzigingsverzoek is nog niet volledig en moet verder **Uitgewerkt** worden zodat deze opnieuw besproken kan worden in de Referentiegroep   |
-|   06 | - Wijzigingsverzoek is niet ontvankelijk en komt definitief te **Vervallen** voor een volgende implementatie                                                               |
-|   07 | *Als een Wijzingsverzoek **Gereed** is kan bepaald worden of wijzigingsverzoek bij eerst mogelijke releasemoment doorgevoerd moet worden*     |
-|   08 | Wijzigingsverzoek is ingepland om **door te voeren**                                                             |
-|   09 | Wijzigingsverzoek is niet ingepland voor de eerst volgende release en komt weer op de **backlog**                                             |
-|   10 | Wijzigingsverzoek opnemen op [**iWlz Roadmap**](https://github.com/orgs/iStandaarden/projects/11)                                                                                          |
+| :--- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+|   00 | Nieuwe meldingen worden verzameld bij iStandaarden Beheerteam of kunnen worden aangedragen via [Nieuw issue](https://github.com/iStandaarden/iWlz_RequestForChange/issues/new/choose) en kies het juiste type                                                                                |
+|   01 | Alle issues komen op de **`Backlog`** |
+
 
 
 
@@ -30,4 +110,7 @@ Het volledige overzicht van wijzigingsverzoeken is te vinden onder [Issues](http
 ## Discussies
 Discussies over een wijzigingsverzoek staan in het betreffende [Issue](https://github.com/iStandaarden/iWlz_RequestForChange/issues) of staan onder [Discussions](https://github.com/iStandaarden/iWlz_RequestForChange/discussions) indien van toepassing op het wijzigingsverzoek.
 
-[proces_flow]: /src/Wijzigingsverzoek_flow.svg
+
+
+
+
