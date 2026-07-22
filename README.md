@@ -10,25 +10,23 @@ In het project [iWlz Wijzigingsverzoeken](https://github.com/orgs/iStandaarden/p
 ```mermaid
 ---
 config:
-  theme: default
-  look: neo
+    theme: default
+    look: neo
+
 ---
 stateDiagram-v2
-    [*] --> nieuw : 00
+direction LR
+    [*] --> backlog:01
 
-    state "Nieuw" as nieuw
     state "Backlog" as backlog
-
     state grpchoice <<choice>>
     note left of grpchoice : Bevinding of ander type?
 
-    state bevinding <<choice>>
-    note left of bevinding : Bevindingen worden direct opgelost
+    bevinding: Bevindingen worden direct opgelost
 
-    nieuw --> backlog : 01
     backlog --> grpchoice : 02
-    grpchoice --> bevinding : 03b: Bevinding
-    grpchoice --> backlog: 03c : geen prio
+    grpchoice --> bevinding : 03b - Bevinding
+    grpchoice --> backlog: 03c - geen prio
 
     state "Advies: Referentiegroep / Werkgroep / TAO" as adviesgrp {
         state "Kandidaat" as kandidaat
@@ -47,13 +45,13 @@ stateDiagram-v2
         refgrp --> gereed : 04a
         refgrp --> uitwerken : 04b
         refgrp --> vervallen : 04c
-     
+
         vervallen --> [*] : afgesloten
     }
 
     state besluit <<choice>> 
     note left of besluit : Besluit of issue in voorgestelde Publicatie (Milestone) kan worden opgenomen
-        grpchoice --> kandidaat : 03a: RFC
+        grpchoice --> kandidaat : 03a - RFC
         refgrp --> backlog : 04d
         gereed --> besluit
         besluit --> backlog : 05b
@@ -67,7 +65,6 @@ stateDiagram-v2
         inplannen: Inplannen
         inplannen: - Implementatiemoment
         inplannen: - Implementatiedatum
-        note right of inplannen : Partijen bepalen implementatiedatum op basis van implementatiemoment
     }
 
     bevinding --> gepubliceerd
@@ -82,7 +79,7 @@ stateDiagram-v2
     classDef purple fill:#E1BEE7,stroke:#333
     classDef blue fill:#BBDEFB,stroke:#333
     
-    class nieuw dash_lightgreen
+    class bevinding dash_lightgreen
     class backlog grey
     class kandidaat grey
     class uitwerken grey
@@ -92,7 +89,6 @@ stateDiagram-v2
     class akkoord green
     class gepubliceerd purple
     class inplannen grey   
-    class bevinding red
 
 ```
 
