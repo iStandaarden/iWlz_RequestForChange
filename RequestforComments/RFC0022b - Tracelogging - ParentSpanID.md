@@ -1,271 +1,186 @@
 ![header](../src/ZinBanner.png "template_header")
 
-# RFC0022b - Tracelogging - SpanID en ParentSpanID
+# RFC0022b - Tracelogging - ParentSpanId
+
+> versie 0.1 d.d. 23-09-2026 — concept
+
 <font size="4">**SAMENVATTING**</font>
 
-**Huidige situatie:**  
-Binnen het iWlz-netwerkmodel ontbreekt het aan gestandaardiseerde tracelogging, waardoor het lastig is om transacties en gebeurtenissen end-to-end te volgen en analyseren.
+**Huidige situatie:**
+Binnen het iWlz-netwerkmodel is gestandaardiseerde tracelogging ingericht met `TraceId` en `SpanId`. Een `TraceId` maakt het mogelijk om verwerkingsstappen binnen dezelfde trace aan elkaar te koppelen. Een `SpanId` identificeert een afzonderlijke verwerkingsstap. De huidige afspraken leggen echter niet expliciet vast hoe de parent-childrelatie tussen spans wordt vastgelegd.
 
-**Beoogde situatie:**  
-- **Traceerbare loggegevens over verschillende registers heen:** Door het implementeren van gestandaardiseerde tracelogging wordt het mogelijk om de volledige keten van gebeurtenissen consistent en eenduidig te volgen binnen het iWlz-netwerkmodel.  
-- **Gefaseerde uitbreiding van functionaliteit:** De implementatie van tracelogging is gepland in drie fasen. In de eerste fase ligt de focus op het introduceren van `TraceId` voor basis traceerbaarheid. In latere fasen worden `SpanId`, `ParentSpanId` en mechanismen voor het beschikbaar stellen van loggingdata toegevoegd om de traceerbaarheid en analyse verder te verdiepen.
+**Beoogde situatie**
+
+De tracelogging wordt uitgebreid door de parent-childrelatie tussen spans expliciet vast te leggen conform OpenTelemetry. Bij het aanmaken van een nieuwe span wordt de ontvangen of actieve spancontext als parent gebruikt. Hierdoor kan binnen één trace worden vastgesteld welke span uit welke voorgaande span is ontstaan.
+
+Deze RFC introduceert geen nieuwe `X-B3-ParentSpanId`-header. De parent-childrelatie wordt vastgelegd in de tracing-data volgens het OpenTelemetry-model. De bestaande `X-B3-TraceId`- en `X-B3-SpanId`-headers blijven ongewijzigd.
 
 <font size="4">**Status RFC**</font>
 
-Volg deze [link](https://github.com/iStandaarden/iWlz-RFC/issues/37) om de actuele status van deze RFC te bekijken.
+Volg deze [link](https://github.com/iStandaarden/iWlz_RequestForChange/issues/251) om de actuele status van deze RFC te bekijken.
 
 ---
 
 **Inhoudsopgave**
-- [RFC0022b - Tracelogging - SpanID en ParentSpanID](#rfc0022b---tracelogging---spanid-en-parentspanid)
+
+- [RFC0022b - Tracelogging - ParentSpanId](#rfc0022b---tracelogging---parentspanid)
 - [1. Inleiding](#1-inleiding)
   - [1.1 Uitgangspunten](#11-uitgangspunten)
-    - [📘 Fase 1: Invoering van TraceID](#-fase-1-invoering-van-traceid)
-    - [📘 Fase 2: Uitbreiding met SpanID en ParentSpanID](#-fase-2-uitbreiding-met-spanid-en-parentspanid)
-    - [📘 Fase 3: Beschikbaar stellen van tracing-data](#-fase-3-beschikbaar-stellen-van-tracing-data)
   - [1.2 Relatie andere RFC](#12-relatie-andere-rfc)
+  - [1.3 Scope](#13-scope)
+  - [1.4 Use cases](#14-use-cases)
 - [2. Terminologie](#2-terminologie)
-- [3. Traceerbaarheid](#3-traceerbaarheid)
-  - [3.1 Fase 1: Invoering van TraceID](#31-fase-1-invoering-van-traceid)
-    - [3.1.1 Standaardisatie van TraceId-generatie via OpenTelemetry:](#311-standaardisatie-van-traceid-generatie-via-opentelemetry)
-    - [3.1.2 Toevoegen aan uitgaande requests:](#312-toevoegen-aan-uitgaande-requests)
-    - [3.1.3 Randvoorwaarden voor TraceId:](#313-randvoorwaarden-voor-traceid)
-    - [3.1.4 Validatie en foutafhandeling van TraceId:](#314-validatie-en-foutafhandeling-van-traceid)
-    - [3.1.5 Flow Fase 1:](#315-flow-fase-1)
-  - [3.2 Fase 2: Uitbreiding met SpanID en ParentSpanID](#32-fase-2-uitbreiding-met-spanid-en-parentspanid)
-  - [3.3 Fase 3: Beschikbaar stellen van tracing-data](#33-fase-3-beschikbaar-stellen-van-tracing-data)
-- [4. Export](#4-export)
-
+- [3. Technische uitwerking](#3-technische-uitwerking)
+  - [3.1 Vastleggen van de parent-childrelatie](#31-vastleggen-van-de-parent-childrelatie)
+  - [3.2 Propagation](#32-propagation)
+  - [3.3 Voorbeeld](#33-voorbeeld)
+- [4. Impact](#4-impact)
+- [5. Voorgestelde wijziging afsprakenstelsel](#5-voorgestelde-wijziging-afsprakenstelsel)
+  - [Referenties](#referenties)
 
 ---
+
 # 1. Inleiding
 
-In een gedistribueerd netwerkmodel, zoals dat van iWlz, is het essentieel om gebeurtenissen (events) effectief te kunnen volgen en analyseren. Dit is cruciaal voor het waarborgen van de betrouwbaarheid, prestaties en transparantie van het systeem. Het ontbreken van gestandaardiseerde tracelogging belemmert momenteel het vermogen om transacties effectief te traceren, wat leidt tot inefficiënties en uitdagingen bij het oplossen van incidenten.​
+Binnen het iWlz-netwerkmodel is gestandaardiseerde tracelogging verplicht. RFC0022a introduceert hiervoor `TraceId` en `SpanId`. Een `TraceId` blijft gelijk binnen een trace en maakt het mogelijk gerelateerde verwerkingsstappen aan elkaar te koppelen. Voor iedere afzonderlijke verwerkingsstap wordt een `SpanId` gebruikt.
 
-Deze RFC introduceert een gestandaardiseerde aanpak voor tracelogging binnen het iWlz-netwerkmodel. Het doel is om een uniforme structuur en semantiek te definiëren voor het vastleggen van events in tracelogs, waardoor traceerbaarheid over verschillende systemen en domeinen heen mogelijk wordt. Dit zal bijdragen aan een verbeterde monitoring, foutopsporing en algemene systeemtransparantie.​
+Met alleen `TraceId` en `SpanId` kan worden vastgesteld welke spans bij dezelfde trace horen. Bij een trace met meerdere achtereenvolgende verwerkingsstappen is daardoor echter niet rechtstreeks zichtbaar welke span de parent is van een volgende span.
 
-De focus van deze RFC ligt uitsluitend op tracelogging en de bijbehorende traceerbaarheid. Aspecten zoals auditlogging en exportmechanismen worden als aparte onderwerpen beschouwd en vallen buiten de scope van dit document.​
+Deze RFC werkt de eerder in [RFC0022a](https://github.com/iStandaarden/iWlz_RequestForChange/issues/263) aangekondigde uitbreiding met `ParentSpanId` uit. De uitbreiding sluit aan op het tracingmodel van OpenTelemetry en introduceert geen iWlz-specifiek mechanisme voor het genereren of transporteren van een `ParentSpanId`.
 
 ## 1.1 Uitgangspunten
 
-De implementatie van tracelogging is gestructureerd in drie fasen, die samen zorgen voor volledige traceerbaarheid binnen het iWlz-netwerkmodel. De uitgangspunten vormen de drie fasen en geven richting aan de verdere uitwerking en implementatie daarvan.
-### 📘 Fase 1: Invoering van TraceID
+Voor deze RFC gelden de volgende uitgangspunten:
 
-- **Traceerbaarheid over domeinen heen:** Het is essentieel dat logging traceerbaar is over de registers heen, waarbij loggebeurtenissen nauwkeurig kunnen worden gevolgd en gekoppeld, ook wanneer deze gebeurtenissen zich over verschillende delen van het netwerk verspreiden.
-
-- **Uniformiteit van logging:** Logging vanuit verschillende bronnen binnen het netwerkmodel moet uniform en vergelijkbaar zijn. Dit zorgt voor consistentie en vereenvoudigt het proces van gegevensanalyse en -interpretatie.
-
-### 📘 Fase 2: Uitbreiding met SpanID en ParentSpanID
-
-- **Hiërarchische traceerbaarheid:** Door het introduceren van SpanID en ParentSpanID kan een hiërarchische structuur van de trace worden opgebouwd. Dit maakt het mogelijk om de relatie tussen verschillende events binnen een trace te begrijpen en te visualiseren.
-
-### 📘 Fase 3: Beschikbaar stellen van tracing-data
-
-- **Aanwezigheid van exportfaciliteit:** Om traceerbare loggegevens te waarborgen en de mogelijkheid te bieden voor gegevensanalyse buiten het directe netwerkmodel, moet een exportfaciliteit aanwezig zijn. Deze faciliteit stelt gebruikers in staat om loggegevens veilig en efficiënt te exporteren naar externe systemen of opslaglocaties.
-
-- **Standaardisatie van syntax en semantiek:** Bij het ontwikkelen van de exportfaciliteit is het van cruciaal belang om de syntax en semantiek van de export vast te leggen. Dit zorgt ervoor dat loggegevens op een consistente en begrijpelijke manier worden gepresenteerd, ongeacht het doel of de bestemming van de export.
-
-- **Behoud van integriteit en beveiliging:** De exportfaciliteit moet worden ontworpen met het oog op het behoud van de integriteit en beveiliging van loggegevens. Dit omvat maatregelen om de vertrouwelijkheid, beschikbaarheid en authenticiteit van de geëxporteerde gegevens te waarborgen, evenals mechanismen voor het detecteren en voorkomen van manipulatie tijdens het exportproces.
-
-*Opmerking:* Deze gefaseerde aanpak is in lijn met best practices voor het implementeren van distributed tracing, zoals aanbevolen door o.a. OpenTelemetry. De initiële implementatie met alleen een TraceId biedt al waardevolle traceerbaarheid en legt de basis voor verdere uitbreidingen. In latere fasen kunnen SpanId, ParentSpanId en exportfunctionaliteiten worden toegevoegd om de traceerbaarheid en analyse verder te verbeteren.
+* De bestaande toepassing van `TraceId` en `SpanId` uit [RFC0022a](https://github.com/iStandaarden/iWlz_RequestForChange/issues/263) blijft ongewijzigd.
+* Partijen gebruiken de OpenTelemetry SDK voor tracelogging conform de bestaande afspraken.
+* Een nieuwe span wordt aangemaakt binnen de ontvangen of actieve spancontext.
+* De ontvangen of actieve span wordt daarmee de parent van de nieuw aangemaakte span.
+* De parent-childrelatie wordt conform OpenTelemetry vastgelegd in de tracing-data.
 
 ## 1.2 Relatie andere RFC
-Deze RFC heeft een relatie met de volgende RFC(s)
-|RFC | onderwerp | relatie<sup>*</sup> | toelichting |issue |
-|:--|:--|:--| :--|:--|
-| - |  -  |  -  |  -  |
+
+Deze RFC heeft een relatie met de volgende RFC(s):
+
+| RFC      | onderwerp                        | relatie<sup>*</sup> | toelichting                                                                                                                                | issue                                                       |
+| :------- | :------------------------------- | :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------- |
+| RFC0022a | Tracelogging - TraceID en SpanID | afhankelijk         | Deze RFC bouwt voort op de in RFC0022a geïntroduceerde `TraceId` en `SpanId` en werkt de aangekondigde uitbreiding met `ParentSpanId` uit. | [issue](https://github.com/iStandaarden/iWlz-RFC/issues/37) |
 
 <sup>*</sup>voorwaardelijk, *voor andere RFC* / afhankelijk, *van andere RFC*
 
+## 1.3 Scope
+
+Binnen scope van deze RFC vallen:
+
+* het expliciet vastleggen van de parent-childrelatie tussen spans binnen één trace;
+* het gebruik van de ontvangen of actieve spancontext als parent bij het aanmaken van een nieuwe span;
+* aansluiting op het OpenTelemetry-tracingmodel;
+* verduidelijking van de relatie tussen `TraceId`, `SpanId` en `ParentSpanId`.
+
+## 1.4 Use cases
+
+* **Use case 1: opeenvolgende verwerkingsstappen:** Binnen één trace worden meerdere services aangeroepen. Door de parent-childrelatie vast te leggen kan worden vastgesteld welke span uit welke voorgaande span is ontstaan.
+* **Use case 2: incidentanalyse:** Bij analyse van een productie-incident kan niet alleen worden vastgesteld welke spans bij dezelfde trace horen, maar ook wat de onderlinge relatie tussen opeenvolgende spans is.
 
 # 2. Terminologie
-Opsomming van de in dit document gebruikte termen.
 
-| Terminologie | Omschrijving |
-| :------------ | :------------ |
-| Actie | *Verwerking* in een *informatiesysteem*, in het kader van een *gebeurtenis* |
-| Autorisatie | Het toekennen van bevoegdheden |
-| Autorisatieprotocol | Autorisatietabel, die bepaalt welke categorieën *cliënt*gegevens voor welke categorieën *zorginstellingen* toegankelijk zijn onder welke voorwaarden. |
-| Cliënt | Persoon die zorg vraagt of aan wie zorg wordt verleend of de identificeerbare persoon van wie *persoonlijke gezondheidsinformatie* wordt verwerkt |
-| Directie | Persoon of groep van personen die een organisatie op het hoogste niveau bestuurt en beheert |
-| Elektronisch patiëntdossier | Verzameling van alle elektronisch vastgelegde persoonlijke gezondheidsinformatie van een *cliënt* bij een *zorginstelling* of een andere organisatie die *persoonlijke gezondheidsinformatie* verwerkt |
-| Gebeurtenis | Voorval, activiteit of optreden van een wijziging in een *informatiesysteem* |
-| Gebruiker | Natuurlijke persoon, organisatie of proces in een informatiesysteem, betrokken bij een *actie* |
-| Identificatie | Kenmerk dat een persoon of andere entiteit identificeert |
-| Identificator | Kenmerk dat een persoon of andere entiteit identificeert |
-| Informatiedomein | Gespecificeerd gebied waarbinnen de verantwoordelijkheden voor de informatievoorziening zijn bepaald, dezelfde regels gelden voor informatiebeveiliging en dezelfde systematiek wordt gevolgd voor *identificatie* van personen, systemen en andere *objecten* |
-| Informatiesysteem | Toepassingen, diensten, informatietechnologische bedrijfsmiddelen of andere gegevensverwerkende componenten |
-| Logbeheerder | Functionaris die binnen een *zorginstelling* of andere organisatie die *persoonlijke gezondheidsinformatie* verwerkt, verantwoordelijk is voor het beheren van de logging en het uitvoeren van het door de *logverantwoordelijke* vastgestelde beleid |
-| Loggegevens | elektronisch vastgelegde gegevens die bij een bepaalde *gebeurtenis* worden gelogd |
-| Loggen | *Gebeurtenissen* chronologisch vastleggen |
-| Logging | Resultaat van het *loggen* |
-| Logverantwoordelijke | *Directie* van de organisatie die *persoonlijke gezondheidsinformatie* verwerkt |
-| Object | Zaak of persoon waarop een *actie* betrekking heeft |
-| Persoonlijke gezondheidsinformatie | Informatie over een identificeerbare persoon die verband houdt met de lichamelijke of geestelijke gesteldheid van, of de verlening van zorgdiensten aan, de persoon in kwestie |
-| Toegangspunt | Aansluiting van waaruit de *gebruiker* de *gebeurten*is in het *informatiesysteem* heeft doen plaatsvinden |
-| Toestemmingsprofiel | Vastlegging, landelijk, regionaal of lokaal, door de *cliënt* zelf bepaald, van wie in welke omstandigheden al of niet toegang mag krijgen tot bepaalde gegevens van de desbetreffende *cliënt* |
-| Toezichthouder | Functie van een persoon die binnen een zorginstelling of een andere organisatie die *persoonlijke gezondheidsinformatie* verwerkt, dan wel landelijk of regionaal toezicht houdt op de naleving van weten regelgeving rond de toegang tot *elektronische patiëntdossiers* |
-| Verantwoordelijke gebruiker | Natuurlijke persoon die verantwoordelijk is voor een *actie* |
-| Verwerking | Een bewerking of een geheel van bewerkingen met betrekking tot persoonsgegevens of een geheel van persoonsgegevens, al dan niet uitgevoerd via geautomatiseerde procedés, zoals het verzamelen, vastleggen, ordenen, structureren, opslaan, bijwerken of wijzigen, opvragen, raadplegen, gebruiken, verstrekken door middel van doorzending, verspreiden of op andere wijze ter beschikking stellen, aligneren of combineren, afschermen, wissen of vernietigen van gegevens |
-| XML‐exportfaciliteit | Dienst die de complete *logging* volgens een gevraagde selectie oplevert in de vorm van een XMLbestand waarbij alle velden herleidbaar zijn naar de in hoofdstuk 5 van deze norm benoemde gegevensvelden |
-| Zorgaanbieder | *Zorgverlener* of *zorginstelling* |
-| Zorginstelling | Rechtspersoon die bedrijfsmatig zorg verleent, alsmede een organisatorisch verband van natuurlijke personen die bedrijfsmatig zorg verlenen of doen verlenen, alsmede een natuurlijke persoon die bedrijfsmatig zorg doet verlenen, alsmede een solistisch werkende *zorgverlener* |
-| Zorgverlener | Een natuurlijke persoon die beroepsmatig zorg verleent |
+Onderstaande tabel geeft aan of een begrip al in de iWlz-begrippenlijst is opgenomen, nieuw moet worden toegevoegd of moet worden geactualiseerd.
 
-# 3. Traceerbaarheid
-Traceerbaarheid binnen het iWlz-netwerkmodel wordt geïmplementeerd in drie opeenvolgende fasen. Elke fase bouwt voort op de vorige en introduceert aanvullende functionaliteiten om de traceerbaarheid te verbeteren.
+| Terminologie        | Omschrijving                                                                                                                                                                                                                        | Status begrippenlijst |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
+| `TraceId`           | Unieke identifier die bij het starten van een ketenverzoek wordt gegenereerd en aan alle opvolgende diensten wordt doorgegeven, zodat alle logregels van hetzelfde verzoek aan elkaar te koppelen zijn.                             | Bestaand              |
+| `SpanId`            | Unieke identifier per afzonderlijke verwerkingsstap binnen een keten, waarmee de verwerking stap voor stap gevolgd kan worden.                                                                                                      | Bestaand              |
+| `ParentSpanId`      | De `SpanId` van de span die als parent geldt voor een nieuwe span. Hiermee wordt de parent-childrelatie tussen spans vastgelegd.                                                                                                    | Nieuw                 |
+| span                | Een afzonderlijke verwerkingsstap binnen een trace.                                                                                                                                                                                 | Nieuw                 |
+| spancontext         | De tracingcontext van een span, waaronder de `TraceId` en `SpanId`, die wordt gebruikt om tracing over systeem- en servicegrenzen heen voort te zetten.                                                                             | Nieuw                 |
+| parent-childrelatie | De relatie waarbij een nieuwe span voortkomt uit een bestaande span.                                                                                                                                                                | Nieuw                 |
+| OpenTelemetry       | Standaard en tooling voor onder andere distributed tracing. Binnen iWlz wordt de OpenTelemetry SDK gebruikt voor het genereren van `TraceId`- en `SpanId`-waarden en voor het vastleggen van de spancontext en parent-childrelatie. | Actualiseren          |
+| B3 Propagation      | Standaard voor het doorgeven van trace-informatie via HTTP-headers (`X-B3-TraceId` en `X-B3-SpanId`) bij elk verzoek binnen het netwerkmodel.                                                                                       | Bestaand              |
 
-## 3.1 Fase 1: Invoering van TraceID
+# 3. Technische uitwerking
 
-In de eerste fase wordt een unieke `TraceId` geïntroduceerd voor elke inkomende request. Deze `TraceId` wordt doorgegeven aan alle downstream-services, waardoor gerelateerde logregels kunnen worden gecorreleerd en een globaal overzicht van de requestflow kan worden verkregen.
+## 3.1 Vastleggen van de parent-childrelatie
 
-### 3.1.1 Standaardisatie van TraceId-generatie via OpenTelemetry:
+Bij het aanmaken van een nieuwe span wordt de ontvangen of actieve spancontext als parent gebruikt. Hierdoor wordt de parent-childrelatie tussen spans binnen dezelfde trace vastgelegd. De parent-childrelatie wordt conform OpenTelemetry vastgelegd.
 
-Om de kans op botsingen in een gedistribueerde omgeving te minimaliseren, moet de generatie plaatsvinden met een mechanisme dat voldoet aan de eisen van randomness en voldoende entropie.
+De `TraceId` blijft voor alle spans binnen dezelfde trace gelijk. Iedere nieuw aangemaakte span krijgt een eigen `SpanId`. De `SpanId` van de parent wordt als parentrelatie aan de nieuwe span gekoppeld.
 
-Alle partijen dienen gebruik te maken van dezelfde library voor het genereren van `TraceId`-waarden. Daarom wordt voorgeschreven dat alle partijen de [OpenTelemetry SDK](https://opentelemetry.io/docs/) gebruiken voor het genereren van `TraceId`-waarden. Voor vrijwel alle gangbare programmeertalen zijn OpenTelemetry-implementaties beschikbaar.
+Hierdoor kan naast correlatie op `TraceId` ook de onderlinge relatie tussen opeenvolgende spans worden gereconstrueerd.
 
-In de praktijk kan bijvoorbeeld gebruik worden gemaakt van de volgende compliant libraries:
+## 3.2 Propagation
 
-- `@opentelemetry/api` (JavaScript/Node.js)
-- `io.opentelemetry:opentelemetry-api` (Java)
-- `opentelemetry-api` (Python)
+De bestaande afspraken voor het doorgeven van tracecontext blijven van toepassing:
 
-Hiermee wordt gegarandeerd dat alle gegenereerde `TraceId`-waarden voldoen aan de juiste lengte, entropie en formatvereisten.
+* `X-B3-TraceId` bevat de `TraceId` van de trace;
+* `X-B3-SpanId` bevat de `SpanId` van de actieve span die met het verzoek wordt doorgegeven.
 
-### 3.1.2 Toevoegen aan uitgaande requests:
+Bij ontvangst van het verzoek wordt deze spancontext gebruikt als parentcontext voor de nieuwe span. Voor de nieuwe verwerkingsstap wordt een nieuwe `SpanId` aangemaakt.
 
-De `TraceId` wordt toegevoegd aan de headers van alle uitgaande requests.
-Gebruik de header `X-B3-TraceId` voor consistentie met bestaande standaarden.
+> [!IMPORTANT]
+> `ParentSpanId` beschrijft de relatie tussen spans binnen OpenTelemetry en wordt **niet** als afzonderlijke header aan het verzoek toegevoegd. Deze RFC introduceert dus geen `X-B3-ParentSpanId`-header.
 
-> Let op: HTTP-headers zijn niet hoofdlettergevoelig. Conform de B3 Propagation-standaard wordt aanbevolen de header te noteren als `X-B3-TraceId`.
+## 3.3 Voorbeeld
 
-### 3.1.3 Randvoorwaarden voor TraceId:
+Een service ontvangt een verzoek met de volgende tracecontext:
 
-Een `TraceId` moet:
-
-- Exact 16 bytes groot zijn, wat overeenkomt met 32 hexadecimale tekens (lowercase).
-- Niet uitsluitend uit nullen bestaan (bijv. 00000000000000000000000000000000 is ongeldig).
-- Uniek zijn. TraceIds dienen gegenereerd te worden met behulp van een UUID-generator of via de OpenTelemetry SDK om botsende TraceIds te voorkomen.
-
-**Voorbeeld:**
-
-```http
-X-B3-TraceId: 463ac35c9f6413ad48485a3953bb6124
+```text
+TraceId: 463ac35c9f6413ad48485a3953bb6124
+SpanId: a2fb4a1d1a96d312
 ```
 
-> Voorbeeld van een correct gegenereerde `TraceId`-header zoals gebruikt in een HTTP-request.
+Voor de eigen verwerking maakt de service een nieuwe span aan. De `TraceId` blijft gelijk en de ontvangen span wordt als parent vastgelegd:
 
-### 3.1.4 Validatie en foutafhandeling van TraceId:
-
-Bij binnenkomst wordt gecontroleerd of een `TraceId` aanwezig is:
-
-- Indien aanwezig, wordt deze gebruikt voor verdere verwerking.
-- Indien afwezig, wordt het verzoek afgewezen met de volgende foutmelding:
-
-```http
-HTTP/1.1 400 Bad Request
-{"ErrorCode": "invalid_request", "Error": "The request is missing header X-B3-TraceId"}
+```text
+TraceId: 463ac35c9f6413ad48485a3953bb6124
+SpanId: 34cfd3ee730bbe13
+ParentSpanId: a2fb4a1d1a96d312
 ```
 
-> Opmerking: Deze validatie is een aanvulling op de OpenTelemetry-specificatie. Die stelt alleen eisen aan de structuur van een `TraceId`, maar schrijft geen validatiegedrag voor aan ontvangende systemen.
+Hiermee wordt vastgelegd dat span `34cfd3ee730bbe13` een child is van span `a2fb4a1d1a96d312`.
 
-### 3.1.5 Flow Fase 1:
+De relatie kan als volgt worden weergegeven:
 
-![Flow Fase 1](plantUMLsrc/rfc0022-01-Fase1_flow.svg "Flow Fase 1")
+**TraceId:** `463ac35c9f6413ad48485a3953bb6124`
 
-
-
-## 3.2 Fase 2: Uitbreiding met SpanID en ParentSpanID
-> [!IMPORTANT]
-> Under construction
-
-<details>
-<summary>plantUML-source</summary>
-
-```plantuml
-@startuml rfc0019-01-voorbeeldflow
-' !pragma teoz true
-
-skinparam ParticipantPadding 20
-skinparam BoxPadding 10
-
-box "Deelnemer"
-    participant "Client" as Client
-end box
-
-box "nID"
-    participant "autorisatieserver" as AuthzServer
-    participant "nID Filter" as Filter
-    participant "Resource-server" as nIDResourceServer
-end box
-
-box "Register"
-    participant "Resource" as BEMRegister
-end box
-
-autonumber "<b>[000]"
-activate Client
-    Client -> AuthzServer: **Aanvragen van autorisatie**\n"scope": "registers/resource:read"\n Authenticatiemiddel\n<font color=red>X-B3-TraceId: 463ac35c9f6413ad48485a3953bb6124\n<font color=red>X-B3-SpanId: a2fb4a1d1a96d312\n<font color=red>
-    activate AuthzServer
-        AuthzServer -> AuthzServer: Valideer Authenticatiemiddel
-        AuthzServer -> AuthzServer: Run Rule-engine o.b.v. scope(s)\n<font color=red>X-B3-TraceId: 463ac35c9f6413ad48485a3953bb6124\n<font color=red>X-B3-SpanId: 34cfd3ee730bbe13\n<font color=red>X-B3-ParentSpanId: a2fb4a1d1a96d312
-        activate AuthzServer #LightGray
-            AuthzServer -> AuthzServer: Valideer autorisatie
-            AuthzServer -> AuthzServer: Genereer Access-Token\n<font color=red>X-B3-TraceId: 463ac35c9f6413ad48485a3953bb6124\n<font color=red>X-B3-SpanId: 34cfd3ee730bbe13\n<font color=red>X-B3-ParentSpanId: a2fb4a1d1a96d312
-            activate AuthzServer #LightGray
-            deactivate AuthzServer
-        deactivate AuthzServer
-        AuthzServer --> Client --: 200 Response (Access-Token)
-    deactivate AuthzServer
-deactivate Client
-
-Client -> Filter: **GraphQL Query**\nAuthenticatiemiddel + Access-Token\n<font color=red>X-B3-TraceId: 463ac35c9f6413ad48485a3953bb6124\n<font color=red>X-B3-SpanId: 2edb09379a27bfb1\n<font color=red>
-
-activate Filter
-note right of Filter: Inline filtering requests
-activate Client
-Filter -> Filter: Valideer Authenticatiemiddel
-Filter -> Filter: Valideer Access-Token
-Filter -> Filter: Valideer GraphQL
-Filter -> Filter: Valideer GraphQL request met scope(s)
-
-
-Filter -> nIDResourceServer
-deactivate Filter
-
-
-activate nIDResourceServer
-nIDResourceServer -> BEMRegister: GraphQL Request\n<font color=red>X-B3-TraceId: 463ac35c9f6413ad48485a3953bb6124\n<font color=red>X-B3-SpanId: 75c38117346fa472\n<font color=red>X-B3-ParentSpanId: 2edb09379a27bfb1
-activate BEMRegister
-
-BEMRegister --> nIDResourceServer: 200 Response (GraphQL)
-deactivate BEMRegister
-
-nIDResourceServer --> Client: 200 Response (GraphQL)
-deactivate nIDResourceServer
-
-deactivate Client
-@enduml
+```mermaid
+graph TD
+    A["SpanId: a2fb4a1d1a96d312"] --> B["SpanId: 34cfd3ee730bbe13<br/>ParentSpanId: a2fb4a1d1a96d312"]
+    B --> C["SpanId: 75c38117346fa472<br/>ParentSpanId: 34cfd3ee730bbe13"]
 ```
-</details>
 
-**Nieuwe versie:**
-![voorbeeld_flow](plantUMLsrc/rfc0022-01-voorbeeldflow_v2.svg "voorbeeld_flow")
+# 4. Impact
 
-## 3.3 Fase 3: Beschikbaar stellen van tracing-data
-> [!IMPORTANT]
-> Under construction
+De OpenTelemetry SDK is op basis van [RFC0022a](https://github.com/iStandaarden/iWlz-RFC/issues/37) reeds verplicht voor tracelogging. Deze RFC introduceert daarmee geen nieuwe technische standaard.
 
-# 4. Export
-> [!IMPORTANT]
-> Under construction
+De implementatie-impact kan per softwareleverancier verschillen. Per implementatie moet worden vastgesteld of de parent-childrelatie al conform OpenTelemetry wordt vastgelegd of dat hiervoor aanvullende configuratie of aanpassing noodzakelijk is.
 
-Een export in de vorm van een *XML-exportfaciliteit* is essentieel, waarbij de syntax en semantiek van de export moeten voldoen aan de richtlijnen uiteengezet in RFC0021.
+# 5. Voorgestelde wijziging afsprakenstelsel
 
-De *XML-exportfaciliteit* genereert een uitgebreide logging op basis van een opgegeven selectie. Alle velden in dit XML-bestand zijn herleidbaar naar de naar de gegevensvelden zoals beschreven in RFC0021.
+Voorgesteld wordt om in het onderdeel **Tracelogging**, bij de technische afspraken over OpenTelemetry, na de bestaande passage over het genereren van een nieuwe `SpanId` de volgende tekst toe te voegen:
 
+> Bij het aanmaken van een nieuwe span wordt de ontvangen of actieve spancontext als parent gebruikt. Hierdoor wordt de parent-childrelatie tussen spans binnen dezelfde trace vastgelegd. De parent-childrelatie wordt conform OpenTelemetry vastgelegd.
+>
+> **Voorbeeld**
+> Een service ontvangt een verzoek met:
+>
+> `TraceId: 463ac35c9f6413ad48485a3953bb6124`
+> `SpanId: a2fb4a1d1a96d312`
+>
+> Voor de eigen verwerking maakt de service een nieuwe span aan. De `TraceId` blijft gelijk en de ontvangen span wordt als parent vastgelegd:
+>
+> `TraceId: 463ac35c9f6413ad48485a3953bb6124`
+> `SpanId: 34cfd3ee730bbe13`
+> `ParentSpanId: a2fb4a1d1a96d312`
+>
+> Hiermee wordt vastgelegd dat span `34cfd3ee730bbe13` een child is van span `a2fb4a1d1a96d312`.
+>
+> **Let op:** `ParentSpanId` beschrijft de relatie tussen spans binnen OpenTelemetry en wordt niet als afzonderlijke header aan het verzoek toegevoegd.
 
+---
 
->```Voorbeeld export logrecord nID:```
+## Referenties
 
+* [OpenTelemetry documentation](https://opentelemetry.io/docs/)
+* [OpenTelemetry Trace API](https://opentelemetry.io/docs/specs/otel/trace/api/)
+* [OpenTelemetry Context Propagation](https://opentelemetry.io/docs/concepts/context-propagation/)
+* [B3 Propagation](https://github.com/openzipkin/b3-propagation)
