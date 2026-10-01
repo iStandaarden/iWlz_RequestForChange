@@ -161,6 +161,7 @@ Een CloudEvent-notificatie kan worden opgesteld in JSON-formaat, wat vervolgens 
   "data": {
     "afzenderID": "62253778",
     "afzenderIDType": "KVK",
+    "eventType": "NIEUWE_INDICATIE_ZORGKANTOOR",
     "ontvangerID": "5151",
     "ontvangerIDType": "UZOVI",
     "subjectList": [
