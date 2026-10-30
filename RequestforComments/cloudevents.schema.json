@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nl-istandaarden:generiek:cloudevents:v1",
+  "title": "Message",
+  "description": "JSON Schema voor Notificatie en Melding. Beide types delen de Message-definitie; Duiding verloopt via oneOf op het id-veld. LET OP: De 'id' in de CloudEvent context is een random UUID en verwijst NIET naar een record in een register. Gebruik daarvoor de waarde onder recordID.",
+  "oneOf": [
+    { "$ref": "#/$defs/Notificatie" },
+    { "$ref": "#/$defs/Melding" }
+  ],
+  "$defs": {
+    "Message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timestamp",
+        "afzenderIDType",
+        "afzenderID",
+        "ontvangerIDType",
+        "ontvangerID",
+        "eventType",
+        "subjectList"
+      ],
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Tijdstip van aanmaken, ISO-8601 compliant (GraphQL scalar DateTime)."
+        },
+        "afzenderIDType": {
+          "$ref": "#/$defs/IDTypeEnum",
+          "description": "Soort identificatietype van de afzender."
+        },
+        "afzenderID": {
+          "type": "string",
+          "description": "De identificatie van de afzender, in combinatie met afzenderIDType."
+        },
+        "ontvangerIDType": {
+          "$ref": "#/$defs/IDTypeEnum",
+          "description": "Soort identificatietype van de ontvanger."
+        },
+        "ontvangerID": {
+          "type": "string",
+          "description": "De identificatie van de ontvanger, in combinatie met ontvangerIDType."
+        },
+        "ontvangerKenmerk": {
+          "type": ["string", "null"],
+          "description": "Optioneel kenmerk van de ontvanger."
+        },
+        "eventType": {
+          "type": "string",
+          "description": "Type gebeurtenis."
+        },
+        "subjectList": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Lijst met onderwerpen (entiteiten).",
+          "items": { "$ref": "#/$defs/SubjectEntity" }
+        }
+      }
+    },
+    "Notificatie": {
+      "title": "Notificatie",
+      "description": "Gelijk aan Message, met notificatieID (UUID v4) als uniek kenmerk.",
+      "allOf": [
+        { "$ref": "#/$defs/Message" },
+        {
+          "type": "object",
+          "required": ["notificatieID"],
+          "properties": {
+            "notificatieID": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Unieke identifier van de notificatie (GraphQL scalar UUID, version 4).",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+            }
+          }
+        }
+      ]
+    },
+    "Melding": {
+      "title": "Melding",
+      "description": "Gelijk aan Message, met meldingID (UUID v4) als uniek kenmerk.",
+      "allOf": [
+        { "$ref": "#/$defs/Message" },
+        {
+          "type": "object",
+          "required": ["meldingID"],
+          "properties": {
+            "meldingID": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Unieke identifier van de melding (GraphQL scalar UUID, version 4).",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+            }
+          }
+        }
+      ]
+    },
+    "IDTypeEnum": {
+      "title": "IDTypeEnum",
+      "description": "Codelijst met toegestane typen identificatie (iWlz Codelijsten).",
+      "type": "string",
+      "enum": ["AGB", "BSN", "KVK", "OIN", "UZOVI"]
+    },
+    "SubjectEntity": {
+      "title": "SubjectEntity",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject", "recordID"],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "Identificatie van het parent-object waarover de autorisatie loopt."
+        },
+        "recordID": {
+          "type": "string",
+          "description": "De unieke identifier van het betreffende record binnen het register waarop de notificatie of melding betrekking heeft."
+        }
+      }
+    }
+  }
+}
+
+
