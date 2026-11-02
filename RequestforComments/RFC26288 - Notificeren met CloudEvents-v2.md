@@ -2,7 +2,7 @@
 
 # RFC26288 - Notificeren met CloudEvents
 
-_versie 0.2 d.d 27-10-2026_
+_versie 0.2 d.d 02-11-2026_
 
 ## Samenvatting
 
@@ -45,23 +45,31 @@ Volg deze link naar issue [#288](https://github.com/iStandaarden/iWlz_RequestFor
       - [3.2.2.3 `time`](#3223-time)
     - [3.2.3 Event Data](#323-event-data)
   - [3.3 Voorbeeld CloudEvent in Netwerkmodel](#33-voorbeeld-cloudevent-in-netwerkmodel)
-- [4. HTTP binding](#4-http-binding)
+- [4. Verzending](#4-verzending)
+  - [4.1 HTTP-transport](#41-http-transport)
+  - [4.2 Content-Type](#42-content-type)
+    - [4.2.1 `cloudevents+json`](#421-cloudeventsjson)
+    - [4.2.2 `application/cloudevents-batch+json` (toekomstig?)](#422-applicationcloudevents-batchjson-toekomstig)
+  - [4.3 Response](#43-response)
+    - [4.3.1 Geldige situatie](#431-geldige-situatie)
+    - [4.3.2 Ongeldige situatie](#432-ongeldige-situatie)
 - [5. Implementatie](#5-implementatie)
-    - [Veranderingen bij de Overstap naar CloudEvents](#veranderingen-bij-de-overstap-naar-cloudevents)
-    - [SubjectList](#subjectlist)
 - [6. Mapping `eventType` en `type`](#6-mapping-eventtype-en-type)
-  - [7.1 Vanuit Bemiddelingsregister:](#71-vanuit-bemiddelingsregister)
-  - [7.2 Vanuit Indicatieregister:](#72-vanuit-indicatieregister)
-  - [7.3 Vanuit Indicatieregister:](#73-vanuit-indicatieregister)
+  - [6.1 Vanuit Bemiddelingsregister:](#61-vanuit-bemiddelingsregister)
+  - [6.2 Vanuit Indicatieregister:](#62-vanuit-indicatieregister)
+  - [6.3 Vanuit Indicatieregister:](#63-vanuit-indicatieregister)
 - [7. Referenties](#7-referenties)
 
 
 # 1. Inleiding
 
-Het doel van een notificatie is het op de hoogte stellen van een deelnemer door een bron over nieuwe (of gewijzigde) informatie die directe of afgeleide betrekking heeft op die deelnemer en daarmee de deelnemer in staat stelt op basis van die notificatie de nieuwe informatie te raadplegen. Een notificatie verloopt altijd van bronhouder naar deelnemer. De reden voor notificatie is altijd de registratie of wijziging van gegevens in een bronregister. Dit is de notificatie-trigger en beschrijft welk CRUD-event in het register leidt tot een notificatie.
+Het doel van een notificatie is het op de hoogte stellen van een deelnemer door een bron over nieuwe (of gewijzigde) informatie die directe of afgeleide betrekking heeft op die deelnemer en daarmee de deelnemer in staat stelt op basis van die notificatie de nieuwe informatie te raadplegen. Een notificatie verloopt altijd van bronhouder naar deelnemer. De reden voor notificatie is altijd de registratie of wijziging van gegevens in een bronregister. Dit is de notificatie-trigger en beschrijft welk CRUD-event in het register leidt tot een notificatie. Deze werkwijze volgt een Event-Driven Architecture (EDA)
 
+Andersom heeft een foutmelding als doel een bronhouder op de hoogte te stellen van een fout-constatering in de data van de bronhouder door een raadpleger. 
 
-Er bestaat een CloudEvent-NL message format dat geïmplementeerd kan worden voor een uniforme berichtgeving in Nederland.
+Zowel de notificatie als de foutmelding zijn dus berichten die bedoelt zijn op de ontvanger te informeren van een gebeurtenis. Een nieuwe, gewijzigde of verwijderde registratie of een fout constatering. 
+
+Voor het doorgeven van een gebeurtenis (event) bestaat er CloudEvents waarvoor een CloudEvent-NL profiel bestaat dat geïmplementeerd kan worden voor een uniforme berichtgeving in Nederland.
 
 
 ### 1.1 Relatie andere RFC
@@ -225,13 +233,13 @@ Zie [NL GOV profile for CloudEvents - §3.3.2 source](https://gitdocumentatie.lo
 
 **specversion:** De versie van de CloudEvents-specificatie die wordt gebruikt.
 
-Zie [NL GOV profile for CloudEvents - §3.3.3 specversion](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#specversion)
-
 Vaste *verplichte* waarde: `1.0`
 
 ```json
 "specversion": "1.0"
 ```
+
+Zie [NL GOV profile for CloudEvents - §3.3.3 specversion](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#specversion)
 
 #### 3.2.1.4 `type`
 
@@ -242,9 +250,9 @@ In het **netwerkmodel** is `type` afgeleid van het `eventType` van een notificat
 Voorwaarden van het CloudEvent `type`: 
 1. moet opgebouwd worden volgens het [Reverse domain name notation](https://en.wikipedia.org/wiki/Reverse_domain_name_notation) principe. Voor het netwerkmodel zal dit `"nl.istandaarden"` zijn. 
 2. bevat bij voorkeur een verwijzing naar de data source. Voor het netwerkmodel: 
-   - `ir`: Indicatieregister, 
-   - `br`: Bemiddelingsregister, 
-   - `lr`: Leveringsregsiter
+   - `inr`: Indicatieregister, 
+   - `bmr`: Bemiddelingsregister, 
+   - `lvr`: Leveringsregsiter
 3. bevat een unieke verwijzing naar het soort event
 
 Hier zal een extra namespace aanduiding aan worden toegevoegd in de vorm van `eventtypes`. 
@@ -254,21 +262,23 @@ Voorbeeld op basis van notificatie: `eventType` : `NIEUWE_INDICATIE_ZORGKANTOOR`
 
 De CloudEvent `type` waarde in het Netwerkmodel zal dan als volgt worden opgebouwd:
 ```json
-"type": "nl.istandaarden.eventtypes.ir.nieuwe-indicatie-zorgkantoor"
+"type": "nl.istandaarden.eventtypes.inr.nieuwe-indicatie-zorgkantoor"
 ```
 
 De volledige mapping van de huidige notificatie-`eventType` en het CloudEvents-`type` staat verderop. CloudEvents-type zal als attribuut worden toegevoegd aan de notificatiebeschrijving. 
 
 Zie [NL GOV profile for CloudEvents - §3.3.4 type](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#type)
 
-> [!IMPORTANT] VRAAG:
+> [!TIP] VRAAG:
 > Formeel hoort de ontvanger niet in het CloudEvent-type. 
 > Het type uit het voorbeeld zou dan eigenlijk zijn: 
 > ```json
-> "type": "nl.istandaarden.eventtypes.ir.nieuwe-indicatie"
+> "type": "nl.istandaarden.eventtypes.inr.nieuwe-indicatie"
 > ```
 >
-> *VRAAG: Hoe willen we hier nu mee omgaan? 1-op-1 vertaling notificatie eventType naar type handhaven of zonder ontvanger. Zie de volledige mappingtabel.*
+> *VRAAG: Hoe willen we hier nu mee omgaan? 1-op-1 vertaling notificatie eventType naar type handhaven of zonder ontvanger.* 
+> *De notificatie eventTypen `NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR` en `NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER` leiden beide tot het type: `nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie`.* 
+>
 
 
 ### 3.2.2 Vulling *optionele* Context Attributes voor Netwerkmodel
@@ -296,11 +306,13 @@ Zie [NL GOV profile for CloudEvents - §3.4.1 datacontenttype](https://gitdocume
 
 Het is verplicht aanwezig omdat hier een toelichting opgenomen moet worden waarin uitgelegd is dat `id` geen documentwaarde heeft. Er is geen document met de identificatie-waarde uit `id`. (zie ook [`id`](#3211-id))
 
-In het **Netwwerkmodel** staat de eerste versie van het schema (voorlopig) op: https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json
+In het **Netwwerkmodel** staat de eerste versie van het schema (voorlopig gepland) op: https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json
 
 ```json
 "dataschema" : "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json"
 ```
+
+**NU** staat de eerste versie van het schema [hier](./cloudevents.schema.json)
 
 Zie [NL GOV profile for CloudEvents - §3.4.2 dataschema](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#dataschema)
 
@@ -355,7 +367,7 @@ Hieronder een voorbeeld van een CloudEvent op basis van de notificatie van een z
   "id": "e2d8c3c2-7453-4948-95c8-de86688461e5",
   "source": "urn:nld:uzovi:5050:events:bemiddeling",
   "specversion": "1.0",
-  "type": "nl.istandaarden.eventtypes.br.nieuwe-bemiddelingspecificatie-zorgaanbieder",
+  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder",
   "datacontenttype": "application/json",
   "dataschema": "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json",
   "time": "2024-07-02T00:00:00Z",
@@ -376,30 +388,193 @@ Hieronder een voorbeeld van een CloudEvent op basis van de notificatie van een z
 }
 ```
 
-# 4. HTTP binding
+# 4. Verzending
 
-Content Mode: Structured
+In het **Netwerkmodel** volgen we al GraphQL over HTTP. De huidige notificaties en meldingen zijn op basis van GraphQL en verlopen dus over HTTP. De laagdrempeligste keuze voor de inzet van CloudEvents is daarom transport over **HTTP**.  
 
-Dit geeft de mogelijkheid om batch te gebruiken. 
+## 4.1 HTTP-transport
 
-- `application/cloudevents+json` 
-- `application/cloudevents-batch+json`
+De CloudEvents worden verzonden in **Structured Content Mode**. Hierbij zitten de metadata (de CloudEvents-attributen) en de data (de notificatie of melding) samen in de HTTP-body als één JSON-object. 
+
+Zie [http protocol binding](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md#32-structured-content-mode)
+
+## 4.2 Content-Type
+
+Het `Content-type` is bij Structured Content Mode:  
+  - `application/cloudevents+json` 
+  - `application/cloudevents-batch+json`
+
+### 4.2.1 `cloudevents+json`
+
+Bij het gebruik van `Content-Type`: `application/cloudevents+json` bevat het CloudEvent één notificatie of melding gebeurtenis (van hetzelfde type) voor één ontvanger. De ontvanger is bijvoorbeeld één zorgkantoor of één (zorg)aanbieder. Dit sluit aan bij de huidige werking van notificeren en melden in het netwerkmodel. Een CloudEvent gaat naar één ontvanger (resource-endpoint). De inhoud van het data attribuut hoort alleen bij die ontvanger. 
+
+Bijvoorbeeld Zorgkantoor 5050 stuurt een notificatie aan Zorgaanbieder AGB01 over 2 nieuwe bemiddeingspecificaties voor die zorgaanbieder (niet-normatief): 
+
+```http
+POST /webhook HTTP/1.1
+Host: resource.end.point.zorgaanbiederAGB01
+Content-Type: application/cloudevents-batch+json
+
+{
+  "id": "e2d8c3c2-7453-4948-95c8-de86688461e5",
+  "source": "urn:nld:uzovi:5050:events:bemiddeling",
+  "specversion": "1.0",
+  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder",
+  "datacontenttype": "application/json",
+  "dataschema": "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json",
+  "time": "2024-07-02T00:00:00Z",
+  "data": [
+    {
+      "afzenderID": "5050",
+      "afzenderIDType": "UZOVI",
+      "eventType": "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER",
+      "ontvangerID": "AGB01",
+      "ontvangerIDType": "AGB",
+      "timestamp": "2024-07-02T00:00:00Z",
+      "subjectList": [
+        {
+          "subject": "Bemiddeling/bm01",
+          "recordID": "Bemiddelingspecificatie/bs01"
+        },
+        {
+          "subject": "Bemiddeling/bm02",
+          "recordID": "Bemiddelingspecificatie/bs01"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 4.2.2 `application/cloudevents-batch+json` (toekomstig?)
+
+> [!IMPORTANT]
+> Op dit moment is er in het netwerkmodel geen usecase voor het gebruik van batch en heeft een endpoint niet de benodigde functionaliteit. 
+> In de eerste release van de CloudEvent zal batch **NIET** ondersteund worden.
+>
+> Voor de volledigheid is dit wel toegevoegd aan deze RFC met een mogelijke toepassing.
+
+Een voordeel van Structured Content Mode is dat dit mogelijk maakt om meerdere notificaties aan dezelfde ontvanger te bundelen in één CloudEvent (batch). Dit kan een efficientie voordeel geven voor een softwareleverancier die meerdere ontvangers per endpoint bediend. 
+
+Omdat de CloudEvent envelop zelf geen specifieke ontvanger informatie bevat is het met dit content-type mogelijk om notificaties of meldingen van het zelfde type te bundelen en naar hetzelfde endpoint te sturen waarbij het data-object in de CE bedoelt is voor meerdere ontvangers. Bijvoorbeeld de notificatie `NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER`. Stel dat twee verschillende zorgaanbieders een resource-endpoint delen (zelfde softwareleverancier). Dan maakt dit Content-Type het mogelijk om als zorgkantoor een CloudEvent op te stellen van hetzelfde type, maar in data twee notificaties op te nemen voor verschillende aanbieders. 
+
+Bijvoorbeeld een zorgkantoor stuurt onderstaande CloudEvent naar hetzelfde endpoint en voegt twee notificaties toe. Voor zorgaanbieder AGB01 en zorgaanbieder AGB02. Elk van hetzelfde notificatie EventType. AGB01 krijgt een notificatie met verwijzingen naar twee nieuwe bemiddelingspecificaties.
+
+Voorbeeld CloudEvent via HTTP (niet normatief): 
+```http
+POST /webhook HTTP/1.1
+Host: resource.end.point.zorgaanbieders01en02
+Content-Type: application/cloudevents-batch+json
+
+{
+  "id": "e2d8c3c2-7453-4948-95c8-de86688461e5",
+  "source": "urn:nld:uzovi:5050:events:bemiddeling",
+  "specversion": "1.0",
+  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder",
+  "datacontenttype": "application/json",
+  "dataschema": "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json",
+  "time": "2024-07-02T00:00:00Z",
+  "data": [
+    {
+      "afzenderID": "5050",
+      "afzenderIDType": "UZOVI",
+      "eventType": "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER",
+      "ontvangerID": "AGB01",
+      "ontvangerIDType": "AGB",
+      "timestamp": "2024-07-02T00:00:00Z",
+      "subjectList": [
+        {
+          "subject": "Bemiddeling/bm01",
+          "recordID": "Bemiddelingspecificatie/bs01"
+        },
+        {
+          "subject": "Bemiddeling/bm02",
+          "recordID": "Bemiddelingspecificatie/bs01"
+        }
+      ]
+    },
+    {
+      "afzenderID": "5050",
+      "afzenderIDType": "UZOVI",
+      "eventType": "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER",
+      "ontvangerID": "AGB02",
+      "ontvangerIDType": "AGB",
+      "timestamp": "2024-07-02T00:00:00Z",
+      "subjectList": [
+        {
+          "subject": "Bemiddeling/bm01",
+          "recordID": "Bemiddelingspecificatie/bs02"
+        }
+      ]
+    }
+  ]
+}
+``` 
+
+Het is hierbij van belang dat:
+1. het CloudEvent attribuut`type` overeenkomt met alle opgenomen `eventType`
+2. het Endpoint functionaliteit heeft om het ontvangen CloudEvent op te splitsen naar afzonderlijke de ontvangers volgens de `ontvangerID`.
+
+
+
+## 4.3 Response
+
+De CloudEvents HTTP-binding specificatie schrijft geen specifieke response methode voor en wijst daarvoor naar de gebruikelijke HTTP-conventies. 
+
+De huidige implementatie van notificeren en melden verloopt via GraphQL over HTTP. De response van de aflevering van een notificatie volgt daarmee ook de bijbehorende HTTP-status codes. 
+
+Voorbeeld succesvol response op GraphQL notificatie:
+
+```http
+HTTP/1.1 200
+```
+```json
+{
+  "data": {
+    "zendNotificatie": {
+      "notificatieID": "e2d8c3c2-7453-4948-95c8-de86688461e5"
+    }
+  }
+```
+
+Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. Dit is de in standaard opzet van CloudEvents niet van toepassing, alhoewel dit wel is toegestaan. (De response mag bijvoorbeeld weer een eigen CloudEvent bevatten met bijvoorbeeld de data zoals uit het voorbeeld hierboven.)
+
+> [!TIP] VRAAG:
+> Wanneer het resultaat van de GraphQL mutatie niet van belang is voor de verzender, kan de body achterwege gelaten worden. Dan blijven de standaard HTTP-status codes over als response
+
+### 4.3.1 Geldige situatie
+
+Net als bij de GraphQL-mutation levert de AFLEVERING van een CloudEvent een geldige situatie. 
+
+In de regel de response bij succesvolle aflevering op het endpoint van de ontvanger:
+
+```http
+HTTP/1.1 200 OK
+```
+
+
+
+### 4.3.2 Ongeldige situatie
+
+| Situatie                                                                                    | Gebruikelijke code                                |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Body is ongeldige JSON / mist verplichte attributen (`id`, `source`, `type`, `specversion`) | `400 Bad Request`                                 |
+| Content-type wordt niet geaccepteerd                                                        | `415 Unsupported Media Type`                      |
+| Authenticatie ontbreekt/incorrect                                                           | `401 Unauthorized / 403 Forbidden`                |
+| Endpoint bestaat niet                                                                       | `404 Not Found`                                   |
+| Ontvanger tijdelijk overbelast                                                              | `429 Too Many Requests / 503 Service Unavailable` |
+| Interne verwerkingsfout                                                                     | `500 Internal Server Error`                       |
+
 
 # 5. Implementatie
 
-### Veranderingen bij de Overstap naar CloudEvents
+**Veranderingen bij de overstap naar CloudEvents**
 
-Bij de overstap van het huidige GraphQL-systeem naar CloudEvents voor het verzenden van notificaties zullen er verschillende veranderingen plaatsvinden. Ten eerste zal de structuur van de notificatie veranderen. In plaats van een GraphQL-notificatie te genereren, zal er een CloudEvent-notificatie opgesteld worden in JSON-formaat. Deze notificatie bevat gestandaardiseerde velden zoals specversion, type, source, id, time, en data, wat de interoperabiliteit tussen verschillende systemen vergemakkelijkt.
-Daarnaast zal de manier van verzenden van notificaties ook veranderen. De bronhouder kan de CloudEvent-notificatie direct verzenden naar de deelnemer via verschillende transportprotocollen, in plaats van een GraphQL-verzoek. Dit vereenvoudigt de communicatie en biedt de mogelijkheid om verschillende transportprotocollen te gebruiken, wat de flexibiliteit van het systeem vergroot.
-De autorisatie- en validatiestappen blijven bestaan, alleen het verzenden van de informatie wordt nu op een andere manier gedaan. CloudEvents biedt een meer gestandaardiseerde aanpak, waardoor het mogelijk is om notificaties efficiënter te verwerken.
-Tot slot zal het response-mechanisme veranderen. In plaats van een GraphQL 200-response zal de deelnemer een standaard HTTP-response terugsturen, zoals 200 OK of 400 Bad Request, om de status van de ontvangen CloudEvent-notificatie aan te geven. Deze veranderingen zullen bijdragen aan een meer flexibele, schaalbare en efficiënte manier van notificeren binnen het iWlz-netwerk.
+Bij de overstap van het huidige GraphQL-systeem naar CloudEvents voor het verzenden van notificaties zullen er verschillende veranderingen plaatsvinden. 
 
-### SubjectList
-
-In de huidige situatie wordt er een veld subjectList meegegeven in de notificatie. Dit betekent dat een notificatie meerdere berichten kan bevatten. Wanneer we met CloudEvents gaan werken zou dit betekenen dat er voor iedere subject in de subjectList een CloudEvent wordt aangemaakt en verzonden.
-
-
-
+1. GraphQL mutation vervangen met CloudEvent (envelop)
+2. GraphQL server endpoint vervangen door CloudEvent endpoint
+3. GraphQL response body eventueel vervangen als een notificatieID of meldingID nodig blijkt
 
 
 
@@ -408,57 +583,57 @@ In de huidige situatie wordt er een veld subjectList meegegeven in de notificati
 
 Notificatie eventtype : CloudEvent type variant 1 met ontvanger : CloudEvent type variant 2 zonder ontvanger 
 
-## 7.1 Vanuit Bemiddelingsregister:
+## 6.1 Vanuit Bemiddelingsregister:
 | Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER             | nl.istandaarden.eventtypes.br.gewijzigde-bemiddelingspecificatie-zorgaanbieder             | nl.istandaarden.eventtypes.br.gewijzigde-bemiddelingspecificatie               |
-| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR               | nl.istandaarden.eventtypes.br.gewijzigde-bemiddelingspecificatie-zorgkantoor               | nl.istandaarden.eventtypes.br.gewijzigde-bemiddelingspecificatie               |
-| GEWIJZIGDE_OVERDRACHT_ZORGKANTOOR                            | nl.istandaarden.eventtypes.br.gewijzigde-overdracht-zorgkantoor                            | nl.istandaarden.eventtypes.br.gewijzigde-overdracht                            |
-| GEWIJZIGDE_REGIEHOUDER_ZORGAANBIEDER                         | nl.istandaarden.eventtypes.br.gewijzigde-regiehouder-zorgaanbieder                         | nl.istandaarden.eventtypes.br.gewijzigde-regiehouder                           |
-| GEWIJZIGDE_REGIEHOUDER_ZORGKANTOOR                           | nl.istandaarden.eventtypes.br.gewijzigde-regiehouder-zorgkantoor                           | nl.istandaarden.eventtypes.br.gewijzigde-regiehouder                           |
-| INFORMATIEVE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER           | nl.istandaarden.eventtypes.br.informatieve-bemiddelingspecificatie-zorgaanbieder           | nl.istandaarden.eventtypes.br.informatieve-bemiddelingspecificatie             |
-| INFORMATIEVE_GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR  | nl.istandaarden.eventtypes.br.informatieve-gewijzigde-bemiddelingspecificatie-zorgkantoor  | nl.istandaarden.eventtypes.br.informatieve-gewijzigde-bemiddelingspecificatie  |
-| INFORMATIEVE_NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR      | nl.istandaarden.eventtypes.br.informatieve-nieuwe-bemiddelingspecificatie-zorgkantoor      | nl.istandaarden.eventtypes.br.informatieve-nieuwe-bemiddelingspecificatie      |
-| INFORMATIEVE_VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR | nl.istandaarden.eventtypes.br.informatieve-verwijderde-bemiddelingspecificatie-zorgkantoor | nl.istandaarden.eventtypes.br.informatieve-verwijderde-bemiddelingspecificatie |
-| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER                 | nl.istandaarden.eventtypes.br.nieuwe-bemiddelingspecificatie-zorgaanbieder                 | nl.istandaarden.eventtypes.br.nieuwe-bemiddelingspecificatie                   |
-| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR                   | nl.istandaarden.eventtypes.br.nieuwe-bemiddelingspecificatie-zorgkantoor                   | nl.istandaarden.eventtypes.br.nieuwe-bemiddelingspecificatie                   |
-| NIEUWE_OVERDRACHT_ZORGKANTOOR                                | nl.istandaarden.eventtypes.br.nieuwe-overdracht-zorgkantoor                                | nl.istandaarden.eventtypes.br.nieuwe-overdracht                                |
-| NIEUWE_REGIEHOUDER_ZORGAANBIEDER                             | nl.istandaarden.eventtypes.br.nieuwe-regiehouder-zorgaanbieder                             | nl.istandaarden.eventtypes.br.nieuwe-regiehouder                               |
-| NIEUWE_REGIEHOUDER_ZORGKANTOOR                               | nl.istandaarden.eventtypes.br.nieuwe-regiehouder-zorgkantoor                               | nl.istandaarden.eventtypes.br.nieuwe-regiehouder                               |
-| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER            | nl.istandaarden.eventtypes.br.verwijderde-bemiddelingspecificatie-zorgaanbieder            | nl.istandaarden.eventtypes.br.verwijderde-bemiddelingspecificatie              |
-| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR              | nl.istandaarden.eventtypes.br.verwijderde-bemiddelingspecificatie-zorgkantoor              | nl.istandaarden.eventtypes.br.verwijderde-bemiddelingspecificatie              |
-| VERWIJDERDE_OVERDRACHT_ZORGKANTOOR                           | nl.istandaarden.eventtypes.br.verwijderde-overdracht-zorgkantoor                           | nl.istandaarden.eventtypes.br.verwijderde-overdracht                           |
-| VERWIJDERDE_REGIEHOUDER_ZORGAANBIEDER                        | nl.istandaarden.eventtypes.br.verwijderde-regiehouder-zorgaanbieder                        | nl.istandaarden.eventtypes.br.verwijderde-regiehouder                          |
-| VERWIJDERDE_REGIEHOUDER_ZORGKANTOOR                          | nl.istandaarden.eventtypes.br.verwijderde-regiehouder-zorgkantoor                          | nl.istandaarden.eventtypes.br.verwijderde-regiehouder                          |
+| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER             | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie-zorgaanbieder             | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie               |
+| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR               | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie-zorgkantoor               | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie               |
+| GEWIJZIGDE_OVERDRACHT_ZORGKANTOOR                            | nl.istandaarden.eventtypes.bmr.gewijzigde-overdracht-zorgkantoor                            | nl.istandaarden.eventtypes.bmr.gewijzigde-overdracht                            |
+| GEWIJZIGDE_REGIEHOUDER_ZORGAANBIEDER                         | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder-zorgaanbieder                         | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder                           |
+| GEWIJZIGDE_REGIEHOUDER_ZORGKANTOOR                           | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder-zorgkantoor                           | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder                           |
+| INFORMATIEVE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER           | nl.istandaarden.eventtypes.bmr.informatieve-bemiddelingspecificatie-zorgaanbieder           | nl.istandaarden.eventtypes.bmr.informatieve-bemiddelingspecificatie             |
+| INFORMATIEVE_GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR  | nl.istandaarden.eventtypes.bmr.informatieve-gewijzigde-bemiddelingspecificatie-zorgkantoor  | nl.istandaarden.eventtypes.bmr.informatieve-gewijzigde-bemiddelingspecificatie  |
+| INFORMATIEVE_NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR      | nl.istandaarden.eventtypes.bmr.informatieve-nieuwe-bemiddelingspecificatie-zorgkantoor      | nl.istandaarden.eventtypes.bmr.informatieve-nieuwe-bemiddelingspecificatie      |
+| INFORMATIEVE_VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR | nl.istandaarden.eventtypes.bmr.informatieve-verwijderde-bemiddelingspecificatie-zorgkantoor | nl.istandaarden.eventtypes.bmr.informatieve-verwijderde-bemiddelingspecificatie |
+| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER                 | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder                 | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie                   |
+| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR                   | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgkantoor                   | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie                   |
+| NIEUWE_OVERDRACHT_ZORGKANTOOR                                | nl.istandaarden.eventtypes.bmr.nieuwe-overdracht-zorgkantoor                                | nl.istandaarden.eventtypes.bmr.nieuwe-overdracht                                |
+| NIEUWE_REGIEHOUDER_ZORGAANBIEDER                             | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder-zorgaanbieder                             | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder                               |
+| NIEUWE_REGIEHOUDER_ZORGKANTOOR                               | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder-zorgkantoor                               | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder                               |
+| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER            | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie-zorgaanbieder            | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie              |
+| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR              | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie-zorgkantoor              | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie              |
+| VERWIJDERDE_OVERDRACHT_ZORGKANTOOR                           | nl.istandaarden.eventtypes.bmr.verwijderde-overdracht-zorgkantoor                           | nl.istandaarden.eventtypes.bmr.verwijderde-overdracht                           |
+| VERWIJDERDE_REGIEHOUDER_ZORGAANBIEDER                        | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder-zorgaanbieder                        | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder                          |
+| VERWIJDERDE_REGIEHOUDER_ZORGKANTOOR                          | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder-zorgkantoor                          | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder                          |
 
 
-## 7.2 Vanuit Indicatieregister:
+## 6.2 Vanuit Indicatieregister:
 | Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GEWIJZIGDE_INDICATIE_ZORGKANTOOR                             | nl.istandaarden.eventtypes.ir.gewijzigde-indicatie-zorgkantoor                             | nl.istandaarden.eventtypes.ir.gewijzigde-indicatie                             |
-| GEWIJZIGDE_VERVALLENGELDIGHEID_ZORGKANTOOR                   | nl.istandaarden.eventtypes.ir.gewijzigde-vervallengeldigheid-zorgkantoor                   | nl.istandaarden.eventtypes.ir.gewijzigde-vervallengeldigheid                   |
-| NIEUWE_INDICATIE_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.ir.nieuwe-indicatie-zorgkantoor                                 | nl.istandaarden.eventtypes.ir.nieuwe-indicatie                                 |
-| NIEUWE_VERVALLENGELDIGHEID_ZORGKANTOOR                       | nl.istandaarden.eventtypes.ir.nieuwe-vervallengeldigheid-zorgkantoor                       | nl.istandaarden.eventtypes.ir.nieuwe-vervallengeldigheid                       |
-| VERWIJDERDE_INDICATIE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.ir.verwijderde-indicatie-zorgkantoor                            | nl.istandaarden.eventtypes.ir.verwijderde-indicatie                            |
-| VERWIJDERDE_VERVALLENGELDIGHEID_ZORGKANTOOR                  | nl.istandaarden.eventtypes.ir.verwijderde-vervallengeldigheid-zorgkantoor                  | nl.istandaarden.eventtypes.ir.verwijderde-vervallengeldigheid                  |
+| GEWIJZIGDE_INDICATIE_ZORGKANTOOR                             | nl.istandaarden.eventtypes.inr.gewijzigde-indicatie-zorgkantoor                             | nl.istandaarden.eventtypes.inr.gewijzigde-indicatie                             |
+| GEWIJZIGDE_VERVALLENGELDIGHEID_ZORGKANTOOR                   | nl.istandaarden.eventtypes.inr.gewijzigde-vervallengeldigheid-zorgkantoor                   | nl.istandaarden.eventtypes.inr.gewijzigde-vervallengeldigheid                   |
+| NIEUWE_INDICATIE_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.inr.nieuwe-indicatie-zorgkantoor                                 | nl.istandaarden.eventtypes.inr.nieuwe-indicatie                                 |
+| NIEUWE_VERVALLENGELDIGHEID_ZORGKANTOOR                       | nl.istandaarden.eventtypes.inr.nieuwe-vervallengeldigheid-zorgkantoor                       | nl.istandaarden.eventtypes.inr.nieuwe-vervallengeldigheid                       |
+| VERWIJDERDE_INDICATIE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.inr.verwijderde-indicatie-zorgkantoor                            | nl.istandaarden.eventtypes.inr.verwijderde-indicatie                            |
+| VERWIJDERDE_VERVALLENGELDIGHEID_ZORGKANTOOR                  | nl.istandaarden.eventtypes.inr.verwijderde-vervallengeldigheid-zorgkantoor                  | nl.istandaarden.eventtypes.inr.verwijderde-vervallengeldigheid                  |
 
-## 7.3 Vanuit Indicatieregister:
+## 6.3 Vanuit Indicatieregister:
 | Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GEWIJZIGD_AFSTEL_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.lr.gewijzigd-afstel-zorgkantoor                                 | nl.istandaarden.eventtypes.lr.gewijzigd-afstel                                 |
-| GEWIJZIGDE_BEHANDELINGPERIODE_ZORGKANTOOR                    | nl.istandaarden.eventtypes.lr.gewijzigde-behandelingperiode-zorgkantoor                    | nl.istandaarden.eventtypes.lr.gewijzigde-behandelingperiode                    |
-| GEWIJZIGDE_LEVERINGPERIODE_ZORGKANTOOR                       | nl.istandaarden.eventtypes.lr.gewijzigde-leveringperiode-zorgkantoor                       | nl.istandaarden.eventtypes.lr.gewijzigde-leveringperiode                       |
-| GEWIJZIGDE_UITSTELPERIODE_ZORGKANTOOR                        | nl.istandaarden.eventtypes.lr.gewijzigde-uitstelperiode-zorgkantoor                        | nl.istandaarden.eventtypes.lr.gewijzigde-uitstelperiode                        |
-| NIEUW_AFSTEL_ZORGKANTOOR                                     | nl.istandaarden.eventtypes.lr.nieuw-afstel-zorgkantoor                                     | nl.istandaarden.eventtypes.lr.nieuw-afstel                                     |
-| NIEUW_VERZOEK_ZORGKANTOOR                                    | nl.istandaarden.eventtypes.lr.nieuw-verzoek-zorgkantoor                                    | nl.istandaarden.eventtypes.lr.nieuw-verzoek                                    |
-| NIEUW_VERZOEKAANBIEDER_AANBIEDER                             | nl.istandaarden.eventtypes.lr.nieuw-verzoekaanbieder-aanbieder                             | nl.istandaarden.eventtypes.lr.nieuw-verzoekaanbieder                           |
-| NIEUWE_BEHANDELINGPERIODE_ZORGKANTOOR                        | nl.istandaarden.eventtypes.lr.nieuwe-behandelingperiode-zorgkantoor                        | nl.istandaarden.eventtypes.lr.nieuwe-behandelingperiode                        |
-| NIEUWE_LEVERINGPERIODE_ZORGKANTOOR                           | nl.istandaarden.eventtypes.lr.nieuwe-leveringperiode-zorgkantoor                           | nl.istandaarden.eventtypes.lr.nieuwe-leveringperiode                           |
-| NIEUWE_UITSTELPERIODE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.lr.nieuwe-uitstelperiode-zorgkantoor                            | nl.istandaarden.eventtypes.lr.nieuwe-uitstelperiode                            |
-| VERWIJDERD_AFSTEL_ZORGKANTOOR                                | nl.istandaarden.eventtypes.lr.verwijderd-afstel-zorgkantoor                                | nl.istandaarden.eventtypes.lr.verwijderd-afstel                                |
-| VERWIJDERDE_BEHANDELINGPERIODE_ZORGKANTOOR                   | nl.istandaarden.eventtypes.lr.verwijderde-behandelingperiode-zorgkantoor                   | nl.istandaarden.eventtypes.lr.verwijderde-behandelingperiode                   |
-| VERWIJDERDE_LEVERINGPERIODE_ZORGKANTOOR                      | nl.istandaarden.eventtypes.lr.verwijderde-leveringperiode-zorgkantoor                      | nl.istandaarden.eventtypes.lr.verwijderde-leveringperiode                      |
-| VERWIJDERDE_UITSTELPERIODE_ZORGKANTOOR                       | nl.istandaarden.eventtypes.lr.verwijderde-uitstelperiode-zorgkantoor                       | nl.istandaarden.eventtypes.lr.verwijderde-uitstelperiode                       |
+| GEWIJZIGD_AFSTEL_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.lvr.gewijzigd-afstel-zorgkantoor                                 | nl.istandaarden.eventtypes.lvr.gewijzigd-afstel                                 |
+| GEWIJZIGDE_BEHANDELINGPERIODE_ZORGKANTOOR                    | nl.istandaarden.eventtypes.lvr.gewijzigde-behandelingperiode-zorgkantoor                    | nl.istandaarden.eventtypes.lvr.gewijzigde-behandelingperiode                    |
+| GEWIJZIGDE_LEVERINGPERIODE_ZORGKANTOOR                       | nl.istandaarden.eventtypes.lvr.gewijzigde-leveringperiode-zorgkantoor                       | nl.istandaarden.eventtypes.lvr.gewijzigde-leveringperiode                       |
+| GEWIJZIGDE_UITSTELPERIODE_ZORGKANTOOR                        | nl.istandaarden.eventtypes.lvr.gewijzigde-uitstelperiode-zorgkantoor                        | nl.istandaarden.eventtypes.lvr.gewijzigde-uitstelperiode                        |
+| NIEUW_AFSTEL_ZORGKANTOOR                                     | nl.istandaarden.eventtypes.lvr.nieuw-afstel-zorgkantoor                                     | nl.istandaarden.eventtypes.lvr.nieuw-afstel                                     |
+| NIEUW_VERZOEK_ZORGKANTOOR                                    | nl.istandaarden.eventtypes.lvr.nieuw-verzoek-zorgkantoor                                    | nl.istandaarden.eventtypes.lvr.nieuw-verzoek                                    |
+| NIEUW_VERZOEKAANBIEDER_AANBIEDER                             | nl.istandaarden.eventtypes.lvr.nieuw-verzoekaanbieder-aanbieder                             | nl.istandaarden.eventtypes.lvr.nieuw-verzoekaanbieder                           |
+| NIEUWE_BEHANDELINGPERIODE_ZORGKANTOOR                        | nl.istandaarden.eventtypes.lvr.nieuwe-behandelingperiode-zorgkantoor                        | nl.istandaarden.eventtypes.lvr.nieuwe-behandelingperiode                        |
+| NIEUWE_LEVERINGPERIODE_ZORGKANTOOR                           | nl.istandaarden.eventtypes.lvr.nieuwe-leveringperiode-zorgkantoor                           | nl.istandaarden.eventtypes.lvr.nieuwe-leveringperiode                           |
+| NIEUWE_UITSTELPERIODE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.lvr.nieuwe-uitstelperiode-zorgkantoor                            | nl.istandaarden.eventtypes.lvr.nieuwe-uitstelperiode                            |
+| VERWIJDERD_AFSTEL_ZORGKANTOOR                                | nl.istandaarden.eventtypes.lvr.verwijderd-afstel-zorgkantoor                                | nl.istandaarden.eventtypes.lvr.verwijderd-afstel                                |
+| VERWIJDERDE_BEHANDELINGPERIODE_ZORGKANTOOR                   | nl.istandaarden.eventtypes.lvr.verwijderde-behandelingperiode-zorgkantoor                   | nl.istandaarden.eventtypes.lvr.verwijderde-behandelingperiode                   |
+| VERWIJDERDE_LEVERINGPERIODE_ZORGKANTOOR                      | nl.istandaarden.eventtypes.lvr.verwijderde-leveringperiode-zorgkantoor                      | nl.istandaarden.eventtypes.lvr.verwijderde-leveringperiode                      |
+| VERWIJDERDE_UITSTELPERIODE_ZORGKANTOOR                       | nl.istandaarden.eventtypes.lvr.verwijderde-uitstelperiode-zorgkantoor                       | nl.istandaarden.eventtypes.lvr.verwijderde-uitstelperiode                       |
 
 # 7. Referenties
 
@@ -466,4 +641,5 @@ Notificatie eventtype : CloudEvent type variant 1 met ontvanger : CloudEvent typ
 - [HTTP Protocol Binding for CloudEvents - Version 1.0.1](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
 - [CloudEvents-NL Guidelines](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/guidelines/)
 - [CloudEvents.io](https://cloudevents.io/)
+- [CloudEvents spec](https://github.com/cloudevents/spec)
 - [Wat is NL GOV profile for CloudEvents? - Logius](https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/nl-gov-profile-cloudevents/wat-nl-gov-profile-cloudevents)
