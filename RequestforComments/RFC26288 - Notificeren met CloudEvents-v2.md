@@ -250,7 +250,7 @@ In het **netwerkmodel** is `type` afgeleid van het `eventType` van een notificat
 Voorwaarden van het CloudEvent `type`: 
 1. moet opgebouwd worden volgens het [Reverse domain name notation](https://en.wikipedia.org/wiki/Reverse_domain_name_notation) principe. Voor het netwerkmodel zal dit `"nl.istandaarden"` zijn. 
 2. bevat bij voorkeur een verwijzing naar de data source. Voor het netwerkmodel: 
-   - `inr`: Indicatieregister, 
+   - `idr`: Indicatieregister, 
    - `bmr`: Bemiddelingsregister, 
    - `lvr`: Leveringsregsiter
 3. bevat een unieke verwijzing naar het soort event
@@ -262,7 +262,7 @@ Voorbeeld op basis van notificatie: `eventType` : `NIEUWE_INDICATIE_ZORGKANTOOR`
 
 De CloudEvent `type` waarde in het Netwerkmodel zal dan als volgt worden opgebouwd:
 ```json
-"type": "nl.istandaarden.eventtypes.inr.nieuwe-indicatie-zorgkantoor"
+"type": "nl.istandaarden.eventtypes.idr.nieuwe-indicatie-zorgkantoor"
 ```
 
 De volledige mapping van de huidige notificatie-`eventType` en het CloudEvents-`type` staat verderop. CloudEvents-type zal als attribuut worden toegevoegd aan de notificatiebeschrijving. 
@@ -273,7 +273,7 @@ Zie [NL GOV profile for CloudEvents - §3.3.4 type](https://gitdocumentatie.logi
 > Formeel hoort de ontvanger niet in het CloudEvent-type. 
 > Het type uit het voorbeeld zou dan eigenlijk zijn: 
 > ```json
-> "type": "nl.istandaarden.eventtypes.inr.nieuwe-indicatie"
+> "type": "nl.istandaarden.eventtypes.idr.nieuwe-indicatie"
 > ```
 >
 > *VRAAG: Hoe willen we hier nu mee omgaan? 1-op-1 vertaling notificatie eventType naar type handhaven of zonder ontvanger.* 
@@ -610,12 +610,12 @@ Notificatie eventtype : CloudEvent type variant 1 met ontvanger : CloudEvent typ
 ## 6.2 Vanuit Indicatieregister:
 | Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GEWIJZIGDE_INDICATIE_ZORGKANTOOR                             | nl.istandaarden.eventtypes.inr.gewijzigde-indicatie-zorgkantoor                             | nl.istandaarden.eventtypes.inr.gewijzigde-indicatie                             |
-| GEWIJZIGDE_VERVALLENGELDIGHEID_ZORGKANTOOR                   | nl.istandaarden.eventtypes.inr.gewijzigde-vervallengeldigheid-zorgkantoor                   | nl.istandaarden.eventtypes.inr.gewijzigde-vervallengeldigheid                   |
-| NIEUWE_INDICATIE_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.inr.nieuwe-indicatie-zorgkantoor                                 | nl.istandaarden.eventtypes.inr.nieuwe-indicatie                                 |
-| NIEUWE_VERVALLENGELDIGHEID_ZORGKANTOOR                       | nl.istandaarden.eventtypes.inr.nieuwe-vervallengeldigheid-zorgkantoor                       | nl.istandaarden.eventtypes.inr.nieuwe-vervallengeldigheid                       |
-| VERWIJDERDE_INDICATIE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.inr.verwijderde-indicatie-zorgkantoor                            | nl.istandaarden.eventtypes.inr.verwijderde-indicatie                            |
-| VERWIJDERDE_VERVALLENGELDIGHEID_ZORGKANTOOR                  | nl.istandaarden.eventtypes.inr.verwijderde-vervallengeldigheid-zorgkantoor                  | nl.istandaarden.eventtypes.inr.verwijderde-vervallengeldigheid                  |
+| GEWIJZIGDE_INDICATIE_ZORGKANTOOR                             | nl.istandaarden.eventtypes.idr.gewijzigde-indicatie-zorgkantoor                             | nl.istandaarden.eventtypes.idr.gewijzigde-indicatie                             |
+| GEWIJZIGDE_VERVALLENGELDIGHEID_ZORGKANTOOR                   | nl.istandaarden.eventtypes.idr.gewijzigde-vervallengeldigheid-zorgkantoor                   | nl.istandaarden.eventtypes.idr.gewijzigde-vervallengeldigheid                   |
+| NIEUWE_INDICATIE_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.idr.nieuwe-indicatie-zorgkantoor                                 | nl.istandaarden.eventtypes.idr.nieuwe-indicatie                                 |
+| NIEUWE_VERVALLENGELDIGHEID_ZORGKANTOOR                       | nl.istandaarden.eventtypes.idr.nieuwe-vervallengeldigheid-zorgkantoor                       | nl.istandaarden.eventtypes.idr.nieuwe-vervallengeldigheid                       |
+| VERWIJDERDE_INDICATIE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.idr.verwijderde-indicatie-zorgkantoor                            | nl.istandaarden.eventtypes.idr.verwijderde-indicatie                            |
+| VERWIJDERDE_VERVALLENGELDIGHEID_ZORGKANTOOR                  | nl.istandaarden.eventtypes.idr.verwijderde-vervallengeldigheid-zorgkantoor                  | nl.istandaarden.eventtypes.idr.verwijderde-vervallengeldigheid                  |
 
 ## 6.3 Vanuit Indicatieregister:
 | Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
