@@ -163,13 +163,13 @@ Meer over - [CloudEvents.io](https://cloudevents.io/)
 
 ## 3.2 NL-GOV Specificatie
 
-Voor gebruik binnen de Nederlandse overheden is er een [NL GOV profile for CloudEvents](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/) opgesteld om het gebeurtenissen en meldingen daarvan aan partijen in te richten en te standaardiseren. 
+Voor gebruik binnen de Nederlandse overheden is er een [NL GOV profile for CloudEvents](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/) opgesteld om de gebeurtenissen en meldingen daarvan aan partijen in te richten en te standaardiseren. 
 
 Deze Request for Comment gaat uit van dat profiel en geeft aan hoe de verschillende attributen uit het CloudEvent schema toepast worden in het Netwerkmodel. Het CloudEvent schema kent zowel **verplichte** als **optionele** attributen die deels conditioneel zijn. 
 
 ### 3.2.1 Vulling *verplichte* Context Attributes voor iWlz Netwerkmodel
 
-De CloudEvent specificatie kent de volgende [verplichte attibuten](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#required-attributes)
+De CloudEvent specificatie kent de volgende [verplichte attributen](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#required-attributes)
 
 - `id`
 - `source`
