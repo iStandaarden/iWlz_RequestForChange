@@ -67,7 +67,7 @@ Het doel van een notificatie is het op de hoogte stellen van een deelnemer door 
 
 Andersom heeft een foutmelding als doel een bronhouder op de hoogte te stellen van een fout-constatering in de data van de bronhouder door een raadpleger. 
 
-Zowel de notificatie als de foutmelding zijn dus berichten die bedoelt zijn op de ontvanger te informeren van een gebeurtenis. Een nieuwe, gewijzigde of verwijderde registratie of een fout constatering. 
+Zowel de notificatie als de foutmelding zijn dus berichten die bedoeld zijn om de ontvanger te informeren over een gebeurtenis. Een nieuwe, gewijzigde of verwijderde registratie of een fout constatering. 
 
 Voor het doorgeven van een gebeurtenis (event) bestaat er CloudEvents waarvoor een CloudEvent-NL profiel bestaat dat geïmplementeerd kan worden voor een uniforme berichtgeving in Nederland.
 
