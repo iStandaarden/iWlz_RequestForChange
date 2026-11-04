@@ -537,7 +537,7 @@ HTTP/1.1 200
   }
 ```
 
-Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. Dit is de in standaard opzet van CloudEvents niet van toepassing, alhoewel dit wel is toegestaan. (De response mag bijvoorbeeld weer een eigen CloudEvent bevatten met bijvoorbeeld de data zoals uit het voorbeeld hierboven.)
+Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. Dit is in de standaard opzet van CloudEvents niet van toepassing, alhoewel dit wel is toegestaan. (De response mag bijvoorbeeld weer een eigen CloudEvent bevatten met bijvoorbeeld de data zoals uit het voorbeeld hierboven.)
 
 > [!TIP] VRAAG:
 > Wanneer het resultaat van de GraphQL mutatie niet van belang is voor de verzender, kan de body achterwege gelaten worden. Dan blijven de standaard HTTP-status codes over als response
