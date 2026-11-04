@@ -262,12 +262,13 @@ Voorwaarden van het CloudEvent `type`:
 Voorbeeld op basis van de twee notificaties: 
 
 ```json
-"eventType" : "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR" of "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER"
+"eventType" : "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR",
+"eventType" : "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER"
 ```
 
 De CloudEvent `type` waarde in het Netwerkmodel zal dan als volgt worden opgebouwd:
 ```json
-"type": "nl.istandaarden.eventtypes.idr.nieuwe-indicatie"
+"type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie"
 ```
 
 De volledige mapping van de huidige notificatie-`eventType` en het CloudEvents-`type` staat verderop. CloudEvents-type zal als attribuut worden toegevoegd aan de notificatiebeschrijving. 
