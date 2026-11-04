@@ -1,6 +1,6 @@
 ![header](../src/ZinBanner.png "template_header")
 
-# RFC26288 - Notificeren met CloudEvents
+# RFC26288 - Notificeren en melden met CloudEvents
 
 _versie 0.2 d.d 02-11-2026_
 
@@ -88,7 +88,6 @@ Voor het doorgeven van een gebeurtenis (event) bestaat er CloudEvents waarvoor e
 ### Huidige Situatie
 
 De structuur van de notificatie bevat verschillende gegevens, zoals de tijdstempel, identificatie van de afzender en ontvanger, het type gebeurtenis, en een lijst met onderwerpen die betrekking hebben op de notificatie. Dit stelt de ontvanger in staat om de relevante informatie te raadplegen.
-Voorbeeld Notificatie GraphQL
 
 #### Voorbeeld Notificatie GraphQL
 
@@ -253,38 +252,37 @@ Voorwaarden van het CloudEvent `type`:
    - `idr`: Indicatieregister, 
    - `bmr`: Bemiddelingsregister, 
    - `lvr`: Leveringsregsiter
-3. bevat een unieke verwijzing naar het soort event
+3. bevat een unieke verwijzing naar het soort event. Hier zal een extra namespace aanduiding aan worden toegevoegd in de vorm van `eventtypes`. 
 
-Hier zal een extra namespace aanduiding aan worden toegevoegd in de vorm van `eventtypes`. 
+> [!CAUTION]
+> 
+> Formeel hoort de ontvanger niet in het CloudEvent-type, dit is in de specificatie van de huidige notificatie event.type wel het geval.
 
 
-Voorbeeld op basis van notificatie: `eventType` : `NIEUWE_INDICATIE_ZORGKANTOOR`
+Voorbeeld op basis van de twee notificaties: 
+
+```json
+"eventType" : "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR" of "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER"
+```
 
 De CloudEvent `type` waarde in het Netwerkmodel zal dan als volgt worden opgebouwd:
 ```json
-"type": "nl.istandaarden.eventtypes.idr.nieuwe-indicatie-zorgkantoor"
+"type": "nl.istandaarden.eventtypes.idr.nieuwe-indicatie"
 ```
 
 De volledige mapping van de huidige notificatie-`eventType` en het CloudEvents-`type` staat verderop. CloudEvents-type zal als attribuut worden toegevoegd aan de notificatiebeschrijving. 
 
 Zie [NL GOV profile for CloudEvents - §3.3.4 type](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#type)
 
-> [!CAUTION]
-> 
-> Formeel hoort de ontvanger niet in het CloudEvent-type. 
-> Het type uit het voorbeeld zou dan eigenlijk zijn: 
-> ```json
-> "type": "nl.istandaarden.eventtypes.idr.nieuwe-indicatie"
-> ```
->
-> *VRAAG: Hoe willen we hier nu mee omgaan? 1-op-1 vertaling notificatie eventType naar type handhaven of zonder ontvanger.* 
-> *De notificatie eventTypen `NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR` en `NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER` leiden beide tot het type: `nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie`.* 
->
-
 
 ### 3.2.2 Vulling *optionele* Context Attributes voor Netwerkmodel
 
 Naast de verplichte CloudEvents Context Attributes zijn er ook een aantal optionele attributen die **WEL** verplicht zijn voor het Netwerkmodel. Reden is dat de huidige notificatie en melding structuur ondergebracht worden in een CloudEvent. Hiervoor is het nodig gebruik te maken van het attribuut `data`. Met het gebruik van `data` zijn een aantal optionele context attributen verplicht. 
+
+Het gaat om de volgende attributen:
+- `datacontenttype`
+- `dataschema`
+- `time`
 
 Hieronder volgt de specificatie van de benodigde Context Attributes die daarmee **VERPLICHT** worden in het Netwerkmodel.
 
@@ -368,7 +366,7 @@ Hieronder een voorbeeld van een CloudEvent op basis van de notificatie van een z
   "id": "e2d8c3c2-7453-4948-95c8-de86688461e5",
   "source": "urn:nld:uzovi:5050:events:bemiddeling",
   "specversion": "1.0",
-  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder",
+  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie",
   "datacontenttype": "application/json",
   "dataschema": "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json",
   "time": "2024-07-02T00:00:00Z",
@@ -420,7 +418,7 @@ Content-Type: application/cloudevents-batch+json
   "id": "e2d8c3c2-7453-4948-95c8-de86688461e5",
   "source": "urn:nld:uzovi:5050:events:bemiddeling",
   "specversion": "1.0",
-  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder",
+  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie",
   "datacontenttype": "application/json",
   "dataschema": "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json",
   "time": "2024-07-02T00:00:00Z",
@@ -471,7 +469,7 @@ Content-Type: application/cloudevents-batch+json
   "id": "e2d8c3c2-7453-4948-95c8-de86688461e5",
   "source": "urn:nld:uzovi:5050:events:bemiddeling",
   "specversion": "1.0",
-  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder",
+  "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie",
   "datacontenttype": "application/json",
   "dataschema": "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json",
   "time": "2024-07-02T00:00:00Z",
@@ -543,7 +541,7 @@ In uitwerking hieronder is de GraphQL response body niet meegenomen.
 > [!CAUTION] 
 > Wanneer het resultaat van de GraphQL mutatie niet van belang is voor de verzender, kan de body achterwege gelaten worden. Dan blijven de standaard HTTP-status codes over als response.
 >
-> VRAAG: Is de GraphQL response body nodig?
+> ***VRAAG**: Is de GraphQL response body nodig?* Zo nee, dan kan deze volledig vervallen bij CloudEvents.
 
 ### 4.3.1 Geldige situatie
 
@@ -587,56 +585,56 @@ Bij de overstap van het huidige GraphQL-systeem naar CloudEvents voor het verzen
 Notificatie eventtype : CloudEvent type variant 1 met ontvanger : CloudEvent type variant 2 zonder ontvanger 
 
 ## 6.1 Vanuit Bemiddelingsregister:
-| Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER             | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie-zorgaanbieder             | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie               |
-| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR               | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie-zorgkantoor               | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie               |
-| GEWIJZIGDE_OVERDRACHT_ZORGKANTOOR                            | nl.istandaarden.eventtypes.bmr.gewijzigde-overdracht-zorgkantoor                            | nl.istandaarden.eventtypes.bmr.gewijzigde-overdracht                            |
-| GEWIJZIGDE_REGIEHOUDER_ZORGAANBIEDER                         | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder-zorgaanbieder                         | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder                           |
-| GEWIJZIGDE_REGIEHOUDER_ZORGKANTOOR                           | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder-zorgkantoor                           | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder                           |
-| INFORMATIEVE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER           | nl.istandaarden.eventtypes.bmr.informatieve-bemiddelingspecificatie-zorgaanbieder           | nl.istandaarden.eventtypes.bmr.informatieve-bemiddelingspecificatie             |
-| INFORMATIEVE_GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR  | nl.istandaarden.eventtypes.bmr.informatieve-gewijzigde-bemiddelingspecificatie-zorgkantoor  | nl.istandaarden.eventtypes.bmr.informatieve-gewijzigde-bemiddelingspecificatie  |
-| INFORMATIEVE_NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR      | nl.istandaarden.eventtypes.bmr.informatieve-nieuwe-bemiddelingspecificatie-zorgkantoor      | nl.istandaarden.eventtypes.bmr.informatieve-nieuwe-bemiddelingspecificatie      |
-| INFORMATIEVE_VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR | nl.istandaarden.eventtypes.bmr.informatieve-verwijderde-bemiddelingspecificatie-zorgkantoor | nl.istandaarden.eventtypes.bmr.informatieve-verwijderde-bemiddelingspecificatie |
-| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER                 | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgaanbieder                 | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie                   |
-| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR                   | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie-zorgkantoor                   | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie                   |
-| NIEUWE_OVERDRACHT_ZORGKANTOOR                                | nl.istandaarden.eventtypes.bmr.nieuwe-overdracht-zorgkantoor                                | nl.istandaarden.eventtypes.bmr.nieuwe-overdracht                                |
-| NIEUWE_REGIEHOUDER_ZORGAANBIEDER                             | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder-zorgaanbieder                             | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder                               |
-| NIEUWE_REGIEHOUDER_ZORGKANTOOR                               | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder-zorgkantoor                               | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder                               |
-| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER            | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie-zorgaanbieder            | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie              |
-| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR              | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie-zorgkantoor              | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie              |
-| VERWIJDERDE_OVERDRACHT_ZORGKANTOOR                           | nl.istandaarden.eventtypes.bmr.verwijderde-overdracht-zorgkantoor                           | nl.istandaarden.eventtypes.bmr.verwijderde-overdracht                           |
-| VERWIJDERDE_REGIEHOUDER_ZORGAANBIEDER                        | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder-zorgaanbieder                        | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder                          |
-| VERWIJDERDE_REGIEHOUDER_ZORGKANTOOR                          | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder-zorgkantoor                          | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder                          |
+| Notificatie eventtype                                        | CloudEvent type                                                                 |
+|--------------------------------------------------------------|---------------------------------------------------------------------------------|
+| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER             | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie               |
+| GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR               | nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie               |
+| GEWIJZIGDE_OVERDRACHT_ZORGKANTOOR                            | nl.istandaarden.eventtypes.bmr.gewijzigde-overdracht                            |
+| GEWIJZIGDE_REGIEHOUDER_ZORGAANBIEDER                         | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder                           |
+| GEWIJZIGDE_REGIEHOUDER_ZORGKANTOOR                           | nl.istandaarden.eventtypes.bmr.gewijzigde-regiehouder                           |
+| INFORMATIEVE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER           | nl.istandaarden.eventtypes.bmr.informatieve-bemiddelingspecificatie             |
+| INFORMATIEVE_GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR  | nl.istandaarden.eventtypes.bmr.informatieve-gewijzigde-bemiddelingspecificatie  |
+| INFORMATIEVE_NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR      | nl.istandaarden.eventtypes.bmr.informatieve-nieuwe-bemiddelingspecificatie      |
+| INFORMATIEVE_VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR | nl.istandaarden.eventtypes.bmr.informatieve-verwijderde-bemiddelingspecificatie |
+| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER                 | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie                   |
+| NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR                   | nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie                   |
+| NIEUWE_OVERDRACHT_ZORGKANTOOR                                | nl.istandaarden.eventtypes.bmr.nieuwe-overdracht                                |
+| NIEUWE_REGIEHOUDER_ZORGAANBIEDER                             | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder                               |
+| NIEUWE_REGIEHOUDER_ZORGKANTOOR                               | nl.istandaarden.eventtypes.bmr.nieuwe-regiehouder                               |
+| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER            | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie              |
+| VERWIJDERDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR              | nl.istandaarden.eventtypes.bmr.verwijderde-bemiddelingspecificatie              |
+| VERWIJDERDE_OVERDRACHT_ZORGKANTOOR                           | nl.istandaarden.eventtypes.bmr.verwijderde-overdracht                           |
+| VERWIJDERDE_REGIEHOUDER_ZORGAANBIEDER                        | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder                          |
+| VERWIJDERDE_REGIEHOUDER_ZORGKANTOOR                          | nl.istandaarden.eventtypes.bmr.verwijderde-regiehouder                          |
 
 
 ## 6.2 Vanuit Indicatieregister:
-| Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GEWIJZIGDE_INDICATIE_ZORGKANTOOR                             | nl.istandaarden.eventtypes.idr.gewijzigde-indicatie-zorgkantoor                             | nl.istandaarden.eventtypes.idr.gewijzigde-indicatie                             |
-| GEWIJZIGDE_VERVALLENGELDIGHEID_ZORGKANTOOR                   | nl.istandaarden.eventtypes.idr.gewijzigde-vervallengeldigheid-zorgkantoor                   | nl.istandaarden.eventtypes.idr.gewijzigde-vervallengeldigheid                   |
-| NIEUWE_INDICATIE_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.idr.nieuwe-indicatie-zorgkantoor                                 | nl.istandaarden.eventtypes.idr.nieuwe-indicatie                                 |
-| NIEUWE_VERVALLENGELDIGHEID_ZORGKANTOOR                       | nl.istandaarden.eventtypes.idr.nieuwe-vervallengeldigheid-zorgkantoor                       | nl.istandaarden.eventtypes.idr.nieuwe-vervallengeldigheid                       |
-| VERWIJDERDE_INDICATIE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.idr.verwijderde-indicatie-zorgkantoor                            | nl.istandaarden.eventtypes.idr.verwijderde-indicatie                            |
-| VERWIJDERDE_VERVALLENGELDIGHEID_ZORGKANTOOR                  | nl.istandaarden.eventtypes.idr.verwijderde-vervallengeldigheid-zorgkantoor                  | nl.istandaarden.eventtypes.idr.verwijderde-vervallengeldigheid                  |
+| Notificatie eventtype                       | CloudEvent type                                                |
+|---------------------------------------------|----------------------------------------------------------------|
+| GEWIJZIGDE_INDICATIE_ZORGKANTOOR            | nl.istandaarden.eventtypes.idr.gewijzigde-indicatie            |
+| GEWIJZIGDE_VERVALLENGELDIGHEID_ZORGKANTOOR  | nl.istandaarden.eventtypes.idr.gewijzigde-vervallengeldigheid  |
+| NIEUWE_INDICATIE_ZORGKANTOOR                | nl.istandaarden.eventtypes.idr.nieuwe-indicatie                |
+| NIEUWE_VERVALLENGELDIGHEID_ZORGKANTOOR      | nl.istandaarden.eventtypes.idr.nieuwe-vervallengeldigheid      |
+| VERWIJDERDE_INDICATIE_ZORGKANTOOR           | nl.istandaarden.eventtypes.idr.verwijderde-indicatie           |
+| VERWIJDERDE_VERVALLENGELDIGHEID_ZORGKANTOOR | nl.istandaarden.eventtypes.idr.verwijderde-vervallengeldigheid |
 
 ## 6.3 Vanuit Indicatieregister:
-| Notificatie eventtype                                        | variant 1                                                                                  | variant 2  (zonder ontvanger)                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GEWIJZIGD_AFSTEL_ZORGKANTOOR                                 | nl.istandaarden.eventtypes.lvr.gewijzigd-afstel-zorgkantoor                                 | nl.istandaarden.eventtypes.lvr.gewijzigd-afstel                                 |
-| GEWIJZIGDE_BEHANDELINGPERIODE_ZORGKANTOOR                    | nl.istandaarden.eventtypes.lvr.gewijzigde-behandelingperiode-zorgkantoor                    | nl.istandaarden.eventtypes.lvr.gewijzigde-behandelingperiode                    |
-| GEWIJZIGDE_LEVERINGPERIODE_ZORGKANTOOR                       | nl.istandaarden.eventtypes.lvr.gewijzigde-leveringperiode-zorgkantoor                       | nl.istandaarden.eventtypes.lvr.gewijzigde-leveringperiode                       |
-| GEWIJZIGDE_UITSTELPERIODE_ZORGKANTOOR                        | nl.istandaarden.eventtypes.lvr.gewijzigde-uitstelperiode-zorgkantoor                        | nl.istandaarden.eventtypes.lvr.gewijzigde-uitstelperiode                        |
-| NIEUW_AFSTEL_ZORGKANTOOR                                     | nl.istandaarden.eventtypes.lvr.nieuw-afstel-zorgkantoor                                     | nl.istandaarden.eventtypes.lvr.nieuw-afstel                                     |
-| NIEUW_VERZOEK_ZORGKANTOOR                                    | nl.istandaarden.eventtypes.lvr.nieuw-verzoek-zorgkantoor                                    | nl.istandaarden.eventtypes.lvr.nieuw-verzoek                                    |
-| NIEUW_VERZOEKAANBIEDER_AANBIEDER                             | nl.istandaarden.eventtypes.lvr.nieuw-verzoekaanbieder-aanbieder                             | nl.istandaarden.eventtypes.lvr.nieuw-verzoekaanbieder                           |
-| NIEUWE_BEHANDELINGPERIODE_ZORGKANTOOR                        | nl.istandaarden.eventtypes.lvr.nieuwe-behandelingperiode-zorgkantoor                        | nl.istandaarden.eventtypes.lvr.nieuwe-behandelingperiode                        |
-| NIEUWE_LEVERINGPERIODE_ZORGKANTOOR                           | nl.istandaarden.eventtypes.lvr.nieuwe-leveringperiode-zorgkantoor                           | nl.istandaarden.eventtypes.lvr.nieuwe-leveringperiode                           |
-| NIEUWE_UITSTELPERIODE_ZORGKANTOOR                            | nl.istandaarden.eventtypes.lvr.nieuwe-uitstelperiode-zorgkantoor                            | nl.istandaarden.eventtypes.lvr.nieuwe-uitstelperiode                            |
-| VERWIJDERD_AFSTEL_ZORGKANTOOR                                | nl.istandaarden.eventtypes.lvr.verwijderd-afstel-zorgkantoor                                | nl.istandaarden.eventtypes.lvr.verwijderd-afstel                                |
-| VERWIJDERDE_BEHANDELINGPERIODE_ZORGKANTOOR                   | nl.istandaarden.eventtypes.lvr.verwijderde-behandelingperiode-zorgkantoor                   | nl.istandaarden.eventtypes.lvr.verwijderde-behandelingperiode                   |
-| VERWIJDERDE_LEVERINGPERIODE_ZORGKANTOOR                      | nl.istandaarden.eventtypes.lvr.verwijderde-leveringperiode-zorgkantoor                      | nl.istandaarden.eventtypes.lvr.verwijderde-leveringperiode                      |
-| VERWIJDERDE_UITSTELPERIODE_ZORGKANTOOR                       | nl.istandaarden.eventtypes.lvr.verwijderde-uitstelperiode-zorgkantoor                       | nl.istandaarden.eventtypes.lvr.verwijderde-uitstelperiode                       |
+| Notificatie eventtype                      | CloudEvents type                                              |
+|--------------------------------------------|---------------------------------------------------------------|
+| GEWIJZIGD_AFSTEL_ZORGKANTOOR               | nl.istandaarden.eventtypes.lvr.gewijzigd-afstel               |
+| GEWIJZIGDE_BEHANDELINGPERIODE_ZORGKANTOOR  | nl.istandaarden.eventtypes.lvr.gewijzigde-behandelingperiode  |
+| GEWIJZIGDE_LEVERINGPERIODE_ZORGKANTOOR     | nl.istandaarden.eventtypes.lvr.gewijzigde-leveringperiode     |
+| GEWIJZIGDE_UITSTELPERIODE_ZORGKANTOOR      | nl.istandaarden.eventtypes.lvr.gewijzigde-uitstelperiode      |
+| NIEUW_AFSTEL_ZORGKANTOOR                   | nl.istandaarden.eventtypes.lvr.nieuw-afstel                   |
+| NIEUW_VERZOEK_ZORGKANTOOR                  | nl.istandaarden.eventtypes.lvr.nieuw-verzoek                  |
+| NIEUW_VERZOEKAANBIEDER_AANBIEDER           | nl.istandaarden.eventtypes.lvr.nieuw-verzoekaanbieder         |
+| NIEUWE_BEHANDELINGPERIODE_ZORGKANTOOR      | nl.istandaarden.eventtypes.lvr.nieuwe-behandelingperiode      |
+| NIEUWE_LEVERINGPERIODE_ZORGKANTOOR         | nl.istandaarden.eventtypes.lvr.nieuwe-leveringperiode         |
+| NIEUWE_UITSTELPERIODE_ZORGKANTOOR          | nl.istandaarden.eventtypes.lvr.nieuwe-uitstelperiode          |
+| VERWIJDERD_AFSTEL_ZORGKANTOOR              | nl.istandaarden.eventtypes.lvr.verwijderd-afstel              |
+| VERWIJDERDE_BEHANDELINGPERIODE_ZORGKANTOOR | nl.istandaarden.eventtypes.lvr.verwijderde-behandelingperiode |
+| VERWIJDERDE_LEVERINGPERIODE_ZORGKANTOOR    | nl.istandaarden.eventtypes.lvr.verwijderde-leveringperiode    |
+| VERWIJDERDE_UITSTELPERIODE_ZORGKANTOOR     | nl.istandaarden.eventtypes.lvr.verwijderde-uitstelperiode     |
 
 # 7. Referenties
 
