@@ -283,7 +283,7 @@ Zie [NL GOV profile for CloudEvents - §3.3.4 type](https://gitdocumentatie.logi
 
 ### 3.2.2 Vulling *optionele* Context Attributes voor Netwerkmodel
 
-Naast de verplichte CloudEvents Context Attributes zijn er ook een aantal optionele attributen die **WEL** verplicht zijn voor het Netwerkmodel. Reden is dat de huidige notificatie en melding structuur ondergebracht worden  willen in een CloudEvent. Hiervoor is het nodig gebruik te maken van het attribuut `data`. Met het gebruik van `data` zijn een aantal optionele context attributen verplicht. 
+Naast de verplichte CloudEvents Context Attributes zijn er ook een aantal optionele attributen die **WEL** verplicht zijn voor het Netwerkmodel. Reden is dat de huidige notificatie en melding structuur ondergebracht worden in een CloudEvent. Hiervoor is het nodig gebruik te maken van het attribuut `data`. Met het gebruik van `data` zijn een aantal optionele context attributen verplicht. 
 
 Hieronder volgt de specificatie van de benodigde Context Attributes die daarmee **VERPLICHT** worden in het Netwerkmodel.
 
@@ -291,7 +291,7 @@ Hieronder volgt de specificatie van de benodigde Context Attributes die daarmee 
 
 **datacontenttype:** Het type van de gegevens die in de data-sectie zijn opgenomen. 
 
-In het **Neterkmodel** zijn de notificatie en de melding zijn beide opgesteld als JSON. De waarde voor `datacontenttype` is voor het Netwerkmodel daarom:
+In het **Neterkmodel** zijn de notificatie en de melding beide opgesteld als JSON. De waarde voor `datacontenttype` is voor het Netwerkmodel daarom:
 
 ```json
 "datacontenttype": "application/json"
