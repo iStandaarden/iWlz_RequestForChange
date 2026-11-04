@@ -269,7 +269,8 @@ De volledige mapping van de huidige notificatie-`eventType` en het CloudEvents-`
 
 Zie [NL GOV profile for CloudEvents - §3.3.4 type](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#type)
 
-> [!TIP] VRAAG:
+> [!CAUTION]
+> 
 > Formeel hoort de ontvanger niet in het CloudEvent-type. 
 > Het type uit het voorbeeld zou dan eigenlijk zijn: 
 > ```json
@@ -525,9 +526,7 @@ De huidige implementatie van notificeren en melden verloopt via GraphQL over HTT
 
 Voorbeeld succesvol response op GraphQL notificatie:
 
-```http
-HTTP/1.1 200
-```
+
 ```json
 {
   "data": {
@@ -539,8 +538,12 @@ HTTP/1.1 200
 
 Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. Dit is in de standaard opzet van CloudEvents niet van toepassing, alhoewel dit wel is toegestaan. (De response mag bijvoorbeeld weer een eigen CloudEvent bevatten met bijvoorbeeld de data zoals uit het voorbeeld hierboven.)
 
-> [!TIP] VRAAG:
-> Wanneer het resultaat van de GraphQL mutatie niet van belang is voor de verzender, kan de body achterwege gelaten worden. Dan blijven de standaard HTTP-status codes over als response
+In uitwerking hieronder is de GraphQL response body niet meegenomen. 
+
+> [!CAUTION] 
+> Wanneer het resultaat van de GraphQL mutatie niet van belang is voor de verzender, kan de body achterwege gelaten worden. Dan blijven de standaard HTTP-status codes over als response.
+>
+> VRAAG: Is de GraphQL response body nodig?
 
 ### 4.3.1 Geldige situatie
 
