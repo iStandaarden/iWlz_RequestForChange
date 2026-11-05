@@ -4,8 +4,7 @@
 <font size="4">**SAMENVATTING**</font>
 
 **Huidige situatie:**  
-Binnen het iWlz-netwerkmodel ontbreekt het aan gestandaardiseerde tracelogging, waardoor het lastig is om transacties en gebeurtenissen end-to-end te volgen en analyseren.
+Met TraceId en SpanId kunnen ketenpartijen verwerkingsstappen binnen één interactie terugvinden. Het onderdeel Tracelogging specificeert nog geen gemeenschappelijke gegevensset waarmee zij die stappen kunnen vergelijken.
 
 **Beoogde situatie:**  
-- **Traceerbare loggegevens over verschillende registers heen:** Door het implementeren van gestandaardiseerde tracelogging wordt het mogelijk om de volledige keten van gebeurtenissen consistent en eenduidig te volgen binnen het iWlz-netwerkmodel.  
-- **Gefaseerde uitbreiding van functionaliteit:** De implementatie van tracelogging is gepland in drie fasen. In de eerste fase ligt de focus op het introduceren van `TraceId` voor basis traceerbaarheid. In latere fasen worden `SpanId`, `ParentSpanId` en mechanismen voor het beschikbaar stellen van loggingdata toegevoegd om de traceerbaarheid en analyse verder te verdiepen.
+Bij een incident kunnen ketenpartijen per stap de dienst, de bewerking, de duur en een eventuele technische fout bepalen. De ketenbreed beschikbare gegevens blijven beperkt tot wat voor die analyse nodig is.
