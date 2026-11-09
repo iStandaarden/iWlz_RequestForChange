@@ -2,7 +2,7 @@
 
 # RFC26288 - Notificeren en melden met CloudEvents
 
-_versie 0.2 d.d 02-11-2026_
+_versie 0.3 d.d 09-11-2026_
 
 ## Samenvatting
 
@@ -20,7 +20,7 @@ Volg deze link naar issue [#288](https://github.com/iStandaarden/iWlz_RequestFor
 
 ## Inhoudsopgave
 
-- [RFC26288 - Notificeren met CloudEvents](#rfc26288---notificeren-met-cloudevents)
+- [RFC26288 - Notificeren en melden met CloudEvents](#rfc26288---notificeren-en-melden-met-cloudevents)
   - [Samenvatting](#samenvatting)
     - [Huidige situatie](#huidige-situatie)
     - [Beoogde situatie](#beoogde-situatie)
@@ -521,10 +521,30 @@ Het is hierbij van belang dat:
 
 De CloudEvents HTTP-binding specificatie schrijft geen specifieke response methode voor en wijst daarvoor naar de gebruikelijke HTTP-conventies. 
 
+
+
+### 4.3.1 Geldige situatie
+
+Net als bij de GraphQL-mutation levert de succesvolle **AFLEVERING** van een CloudEvent bij het resource-endpoint een geldige situatie. 
+
+De response bij een succesvolle aflevering op het endpoint van de ontvanger is:
+
+```http
+HTTP/1.1 200 OK
+Content-Length: 0
+```
+of
+```http
+HTTP/1.1 204 No Content
+```
+
+Daarmee is de ontvangst van de notificatie BEVESTIGD.
+
+**Huidige implementatie**
+
 De huidige implementatie van notificeren en melden verloopt via GraphQL over HTTP. De response van de aflevering van een notificatie volgt daarmee ook de bijbehorende HTTP-status codes. 
 
 Voorbeeld succesvol response op GraphQL notificatie:
-
 
 ```json
 {
@@ -535,28 +555,18 @@ Voorbeeld succesvol response op GraphQL notificatie:
   }
 ```
 
-Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. Dit is in de standaard opzet van CloudEvents niet van toepassing, alhoewel dit wel is toegestaan. (De response mag bijvoorbeeld weer een eigen CloudEvent bevatten met bijvoorbeeld de data zoals uit het voorbeeld hierboven.)
-
-In uitwerking hieronder is de GraphQL response body niet meegenomen. 
+Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. Dit is in de standaard opzet van CloudEvents niet van toepassing, alhoewel het wel is toegestaan om een responsebody terug te geven. (De response mag bijvoorbeeld weer een eigen CloudEvent bevatten met bijvoorbeeld de data zoals uit het voorbeeld hierboven.)
 
 > [!CAUTION] 
 > Wanneer het resultaat van de GraphQL mutatie niet van belang is voor de verzender, kan de body achterwege gelaten worden. Dan blijven de standaard HTTP-status codes over als response.
 >
 > ***VRAAG**: Is de GraphQL response body nodig?* Zo nee, dan kan deze volledig vervallen bij CloudEvents.
 
-### 4.3.1 Geldige situatie
-
-Net als bij de GraphQL-mutation levert de AFLEVERING van een CloudEvent een geldige situatie. 
-
-In de regel de response bij succesvolle aflevering op het endpoint van de ontvanger:
-
-```http
-HTTP/1.1 200 OK
-```
-
 
 
 ### 4.3.2 Ongeldige situatie
+
+In het geval dat het CloudEvent niet succesvol is ontvangen of kan worden geinterpreteerd, stuurt de Resource-server afhankelijk van de een `4xx` of `500` HTTP status-code.
 
 | Situatie                                                                                    | Gebruikelijke code                                |
 | ------------------------------------------------------------------------------------------- | ------------------------------------------------- |
