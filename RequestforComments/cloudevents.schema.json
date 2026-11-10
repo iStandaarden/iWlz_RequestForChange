@@ -13,28 +13,11 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "timestamp",
-        "afzenderIDType",
-        "afzenderID",
         "ontvangerIDType",
         "ontvangerID",
-        "eventType",
         "subjectList"
       ],
       "properties": {
-        "timestamp": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Tijdstip van aanmaken, ISO-8601 compliant (GraphQL scalar DateTime)."
-        },
-        "afzenderIDType": {
-          "$ref": "#/$defs/IDTypeEnum",
-          "description": "Soort identificatietype van de afzender."
-        },
-        "afzenderID": {
-          "type": "string",
-          "description": "De identificatie van de afzender, in combinatie met afzenderIDType."
-        },
         "ontvangerIDType": {
           "$ref": "#/$defs/IDTypeEnum",
           "description": "Soort identificatietype van de ontvanger."
@@ -46,10 +29,6 @@
         "ontvangerKenmerk": {
           "type": ["string", "null"],
           "description": "Optioneel kenmerk van de ontvanger."
-        },
-        "eventType": {
-          "type": "string",
-          "description": "Type gebeurtenis. Notificatie.eventType of Melding.eventType. "
         },
         "subjectList": {
           "type": "array",

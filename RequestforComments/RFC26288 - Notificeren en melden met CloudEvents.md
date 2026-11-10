@@ -479,7 +479,7 @@ Een voordeel van Structured Content Mode is dat dit het mogelijk maakt om meerde
 Bijvoorbeeld voor een zorgaanbieder registreert het zorgkantoor twee nieuwe bemiddelingspecificaties en wijzigt een bemiddelingspecificatie (onder een andere Bemiddeling). 
 
 Voorbeeld met batch CloudEvent: 
-```http
+```json
 POST /webhook HTTP/1.1
 Host: resource.end.point.zorgaanbieders01en02
 Content-Type: application/cloudevents-batch+json
