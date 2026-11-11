@@ -158,7 +158,7 @@ HTTP/1.1 200
 
 CloudEvents is een specificatie die is ontworpen om de interoperabiliteit van event-gedreven systemen te verbeteren. Het biedt een gestandaardiseerde uniforme structuur om gebeurtenissen (events) te beschrijven die plaatsvinden binnen een systeem of tussen verschillende systemen. Dit is vooral nuttig in cloud-native omgevingen, waar verschillende applicaties en diensten met elkaar moeten communiceren.
 
-**Abonnementendienst en notificatie catalogus**
+**Abonnementendienst en notificatie catalogus**  
 In het verlengde daarvan biedt CloudEvents met die uniforme structuur de elementen om een gestandaardiseerde abonnementservice en notificatiecatalogus te specificeren — twee onderdelen die nu nog ontbreken in het netwerkmodel. De context-attributen uit die structuur vormen de basis voor het zoeken en filteren van notificaties enerzijds, en voor het registreren van abonnementen (subscriptions) anderzijds.
 
 Meer over - [CloudEvents.io](https://cloudevents.io/)
