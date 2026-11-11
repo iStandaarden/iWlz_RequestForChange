@@ -42,7 +42,7 @@
       "title": "IDTypeEnum",
       "description": "Codelijst met toegestane typen identificatie (iWlz Codelijsten).",
       "type": "string",
-      "enum": ["AGB", "BSN", "KVK", "OIN", "UZOVI"]
+      "enum": ["agb", "bsn", "kvk", "oin", "uzovi"]
     },
     "SubjectEntity": {
       "title": "SubjectEntity",

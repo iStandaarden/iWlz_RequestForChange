@@ -2,7 +2,7 @@
 
 # RFC26288 - Notificeren en melden met CloudEvents
 
-_versie 0.4 d.d 10-11-2026_
+_versie 0.4 d.d 11-11-2026_
 
 ## Samenvatting
 
@@ -56,7 +56,7 @@ Volg deze link naar issue [#288](https://github.com/iStandaarden/iWlz_RequestFor
 - [6. Mapping `eventType` en `type`](#6-mapping-eventtype-en-type)
   - [6.1 Vanuit Bemiddelingsregister:](#61-vanuit-bemiddelingsregister)
   - [6.2 Vanuit Indicatieregister:](#62-vanuit-indicatieregister)
-  - [6.3 Vanuit Indicatieregister:](#63-vanuit-indicatieregister)
+  - [6.3 Vanuit Leveringsregister:](#63-vanuit-leveringsregister)
   - [6.4 iWlz foutmelding](#64-iwlz-foutmelding)
 - [7. Referenties](#7-referenties)
 
@@ -564,6 +564,8 @@ Daarmee is de ontvangst van de notificatie BEVESTIGD.
 
 De huidige implementatie van notificeren en melden verloopt via GraphQL over HTTP. De response van de aflevering van een notificatie volgt daarmee ook de bijbehorende HTTP-status codes. 
 
+Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. 
+
 Voorbeeld succesvol response op GraphQL notificatie:
 
 ```json
@@ -574,11 +576,8 @@ Voorbeeld succesvol response op GraphQL notificatie:
 }
 ```
 
-Omdat de  huidige notificatie met een GraphQL mutation is vormgegeven stuurt de ontvangende GraphQL-server naast de HTTP-status code een extra response body in de vorm van een notificatieID. Dit is in de standaard opzet van CloudEvents niet van toepassing, alhoewel het wel is toegestaan om een responsebody terug te geven. (De response mag bijvoorbeeld weer een eigen CloudEvent bevatten met bijvoorbeeld de data zoals uit het voorbeeld hierboven.)Wanneer het resultaat van de GraphQL mutatie niet van belang is voor de verzender, kan de body achterwege gelaten worden. Dan blijven de standaard HTTP-status codes over als response.
+In het geval van de op CloudEvents gebaseerde notificatie zit de `notificatieID` al in de POST body als [`id`](#3211-id). De bepaling van de identificatie verschuift daarmee naar de verzender in plaats van de ontvanger!
 
-> [!CAUTION] 
->
-> ***VRAAG**: Is de GraphQL response body nodig?* Zo nee, dan kan deze volledig vervallen bij CloudEvents.
 
 
 
@@ -649,7 +648,7 @@ Notificatie eventtype : CloudEvent type
 | `VERWIJDERDE_INDICATIE_ZORGKANTOOR`           | `nl.istandaarden.eventtypes.idr.verwijderde-indicatie`           |
 | `VERWIJDERDE_VERVALLENGELDIGHEID_ZORGKANTOOR` | `nl.istandaarden.eventtypes.idr.verwijderde-vervallengeldigheid` |
 
-## 6.3 Vanuit Indicatieregister:
+## 6.3 Vanuit Leveringsregister:
 | Notificatie eventtype                        | CloudEvents type                                                |
 | -------------------------------------------- | --------------------------------------------------------------- |
 | `GEWIJZIGD_AFSTEL_ZORGKANTOOR`               | `nl.istandaarden.eventtypes.lvr.gewijzigd-afstel`               |
@@ -677,8 +676,7 @@ Notificatie eventtype : CloudEvent type
 - [NL-GOV profile for CloudEvents](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/)
 - [Guidelines for NL-GOV profile CloudEvents 1.0](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/guidelines/)
 - [HTTP Protocol Binding for CloudEvents - Version 1.0.1](https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md)
-- [CloudEvents-NL Guidelines](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/guidelines/)
 - [CloudEvents.io](https://cloudevents.io/)
 - [CloudEvents spec](https://github.com/cloudevents/spec)
-- [Wat is NL GOV profile for CloudEvents? - Logius](https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/nl-gov-profile-cloudevents/wat-nl-gov-profile-cloudevents)
+
 
