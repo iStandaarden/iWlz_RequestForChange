@@ -89,18 +89,18 @@ Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de s
 
 | Veld | Verplichting | Datatype | Beschrijving | Voorbeeld |
 | :-- | :-- | :-- | :-- | :-- |
-| `traceId` | Verplicht | `string` (hexadecimaal) | Identifier van de trace (16 bytes). Zie ook [RFC0022a][rfc22a]. | `463ac35c9f6413ad48485a3953bb6124` |
-| `spanId` | Verplicht | `string` (hexadecimaal) | Identifier van de span (8 bytes). Zie ook [RFC0022a][rfc22a]. | `a2fb4a1d1a96d312` |
-| `parentSpanId` | Conditioneel verplicht: als de span een parent heeft. | `string` (hexadecimaal) | Identifier van de parent (8 bytes). Bij een rootspan wordt dit veld weggelaten. Zie ook [RFC0022b][rfc22b]. | `a2fb4a1d1a96d312` |
-| `name` | Verplicht | `string` | Naam van de bewerking die de span beschrijft, conform [OpenTelemetry Span][api]. Voor HTTP-spans gelden de [HTTP-naamgevingsconventies][http-name]. | `POST` |
+| `traceId` | Verplicht | `string` (hexadecimaal) | Identifier van de trace (16 bytes). Zie ook [RFC0022a][rfc22a]. | `"463ac35c9f6413ad48485a3953bb6124"` |
+| `spanId` | Verplicht | `string` (hexadecimaal) | Identifier van de span (8 bytes). Zie ook [RFC0022a][rfc22a]. | `"a2fb4a1d1a96d312"` |
+| `parentSpanId` | Conditioneel verplicht: als de span een parent heeft. | `string` (hexadecimaal) | Identifier van de parent (8 bytes). Bij een rootspan wordt dit veld weggelaten. Zie ook [RFC0022b][rfc22b]. | `"a2fb4a1d1a96d312"` |
+| `name` | Verplicht | `string` | Naam van de bewerking die de span beschrijft, conform [OpenTelemetry Span][api]. Voor HTTP-spans gelden de [HTTP-naamgevingsconventies][http-name]. | `"POST"` |
 | `kind` | Verplicht | `number` (geheel getal) | Rol van de span conform [OpenTelemetry SpanKind][kind]. Toegestane waarden volgens de [OTLP-enum SpanKind][proto] zijn `1` INTERNAL, `2` SERVER, `3` CLIENT, `4` PRODUCER en `5` CONSUMER. | `3` |
 | `startTimeUnixNano` | Verplicht | `string` (decimaal getal) | Starttijd van de span, conform `start_time_unix_nano` in de [OTLP-spandefinitie][proto], gecodeerd volgens [OTLP/JSON][json]. | `"1794916800000000000"` |
 | `endTimeUnixNano` | Verplicht | `string` (decimaal getal) | Eindtijd van de span, conform `end_time_unix_nano` in de [OTLP-spandefinitie][proto], gecodeerd volgens [OTLP/JSON][json]. De eindtijd is gelijk aan of later dan de starttijd. | `"1794916800250000000"` |
 | `status.code` | Verplicht; de standaardwaarde UNSET mag volgens OTLP/JSON worden weggelaten. | `number` (geheel getal) | Spanstatus conform [OpenTelemetry Set Status][status]. De [OTLP-definitie Status.StatusCode][proto] bepaalt de waarden: `0` UNSET, `1` OK en `2` ERROR. Voor HTTP-spans gelden de [HTTP-statusconventies][http-status]. | `2` |
-| `service.namespace` | Verplicht | `string` | Resource-attribuut dat de namespace van `service.name` bepaalt, conform [OpenTelemetry Service Namespace][namespace]. De invulling sluit aan op de organisatie-identificatie uit [RFC26288 §3.2.1.2][rfc26288-source]. | `urn:nld:agb:12345678` |
-| `service.name` | Verplicht | `string` | Logische naam van de dienst, uniek binnen `service.namespace`, conform [OpenTelemetry Service][service]. | `zorgadministratie` |
-| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `int` (in OTLP/JSON als decimale string in `intValue`) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. | `"200"` |
-| `error.type` | Conditioneel verplicht: als de HTTP-aanroep volgens de HTTP-conventies met een fout is geëindigd. | `string` | Foutklasse of de toepasselijke HTTP-code als tekenreeks, conform [Error attributes][error] en de toepassingsregels uit [HTTP spans][http]. | `timeout`; `500` |
+| `service.namespace` | Verplicht | `string` | Resource-attribuut dat de namespace van `service.name` bepaalt, conform [OpenTelemetry Service Namespace][namespace]. De invulling sluit aan op de organisatie-identificatie uit [RFC26288 §3.2.1.2][rfc26288-source]. | `{ "stringValue": "urn:nld:agb:12345678" }` |
+| `service.name` | Verplicht | `string` | Logische naam van de dienst, uniek binnen `service.namespace`, conform [OpenTelemetry Service][service]. | `{ "stringValue": "zorgadministratie" }` |
+| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `int` (in OTLP/JSON als decimale string in `intValue`) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. | `{ "intValue": "200" }` |
+| `error.type` | Conditioneel verplicht: als de HTTP-aanroep volgens de HTTP-conventies met een fout is geëindigd. | `string` | Foutklasse of de toepasselijke HTTP-code als tekenreeks, conform [Error attributes][error] en de toepassingsregels uit [HTTP spans][http]. | `{ "stringValue": "timeout" }`; `{ "stringValue": "500" }` |
 
 De tabel bepaalt welke gegevens ketenbreed worden gedeeld. Voor de lokale vastlegging kunnen de OpenTelemetry HTTP-conventies aanvullende attributen vereisen.
 
