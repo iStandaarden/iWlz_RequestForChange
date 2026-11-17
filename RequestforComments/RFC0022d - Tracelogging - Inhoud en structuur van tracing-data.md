@@ -100,9 +100,7 @@ Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de s
 | `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `string` (decimaal getal) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. | `"200"` |
 | `error.type` | Conditioneel verplicht: als de HTTP-aanroep volgens de HTTP-conventies met een fout is geëindigd. | `string` | Foutklasse of de toepasselijke HTTP-code als tekenreeks, conform [Error attributes][error] en de toepassingsregels uit [HTTP spans][http]. | `timeout`; `500` |
 
-`kind` onderscheidt bijvoorbeeld een uitgaande aanroep (CLIENT), de verwerking bij de ontvanger (SERVER) en een interne bewerking (INTERNAL). Hiermee kan de operationeel netwerkbeheerder de rol van de betrokken spans bepalen.
-
-De tabel bepaalt de selectie voor ketenbreed gebruik. De HTTP-conventies kunnen voor de oorspronkelijke instrumentatie aanvullende attributen voorschrijven.
+De tabel bepaalt welke gegevens ketenbreed worden gedeeld. Voor de lokale vastlegging kunnen de OpenTelemetry HTTP-conventies aanvullende attributen vereisen.
 
 ## 3.2 Gegevensminimalisatie
 
