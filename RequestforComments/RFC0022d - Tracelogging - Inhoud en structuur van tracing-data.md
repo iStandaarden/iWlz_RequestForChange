@@ -84,7 +84,8 @@ De onderstaande tabel bepaalt welke gegevens per afgeronde span worden vastgeleg
 
 OTLP/JSON gebruikt het Protobuf-schema als gegevensmodel en de [OTLP/JSON-regels][json] voor de JSON-weergave.
 
-Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de span vastgelegd. Bij een HTTP-aanroep wordt de ontvangen statuscode vastgelegd in de span van die aanroep.
+
+Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de span vastgelegd. Bij een HTTP-aanroep of -verwerking wordt de ontvangen of verzonden statuscode vastgelegd in de betreffende span.
 
 | Veld | Verplichting | Datatype | Beschrijving | Voorbeeld |
 | :-- | :-- | :-- | :-- | :-- |
@@ -98,7 +99,7 @@ Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de s
 | `status.code` | Verplicht; de standaardwaarde UNSET mag volgens OTLP/JSON worden weggelaten. | `number` (geheel getal) | Spanstatus conform [OpenTelemetry Set Status][status]. De [OTLP-definitie Status.StatusCode][proto] bepaalt de waarden: `0` UNSET, `1` OK en `2` ERROR. Voor HTTP-spans gelden de [HTTP-statusconventies][http-status]. | `2` |
 | `service.namespace` | Verplicht | `string` | Resource-attribuut dat de namespace van `service.name` bepaalt, conform [OpenTelemetry Service Namespace][namespace]. De invulling sluit aan op de organisatie-identificatie uit [RFC26288 §3.2.1.2][rfc26288-source]. | `urn:nld:agb:12345678` |
 | `service.name` | Verplicht | `string` | Logische naam van de dienst, uniek binnen `service.namespace`, conform [OpenTelemetry Service][service]. | `zorgadministratie` |
-| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `string` (decimaal getal) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. | `"200"` |
+| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `int` (in OTLP/JSON als decimale string in `intValue`) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. | `"200"` |
 | `error.type` | Conditioneel verplicht: als de HTTP-aanroep volgens de HTTP-conventies met een fout is geëindigd. | `string` | Foutklasse of de toepasselijke HTTP-code als tekenreeks, conform [Error attributes][error] en de toepassingsregels uit [HTTP spans][http]. | `timeout`; `500` |
 
 De tabel bepaalt welke gegevens ketenbreed worden gedeeld. Voor de lokale vastlegging kunnen de OpenTelemetry HTTP-conventies aanvullende attributen vereisen.
