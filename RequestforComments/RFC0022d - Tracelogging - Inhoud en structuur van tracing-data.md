@@ -51,6 +51,7 @@ Deze RFC heeft een relatie met de volgende RFC’s:
 | RFC0022a | Tracelogging - TraceID en SpanID | Afhankelijk | RFC0022d gebruikt de in RFC0022a beschreven trace- en spanidentificatie. | [#37](https://github.com/iStandaarden/iWlz-RFC/issues/37) |
 | RFC0022b | Tracelogging - ParentSpanId | Afhankelijk | RFC0022d sluit aan op de parentrelatie zoals voorgesteld in RFC0022b. | [#251](https://github.com/iStandaarden/iWlz_RequestForChange/issues/251) |
 | RFC0022c | Tracelogging - Beschikbaar stellen van tracing-data | Voorwaardelijk | RFC0022d bepaalt de inhoud, structuur en codering. RFC0022c werkt de wijze van beschikbaar stellen uit. | [#49](https://github.com/iStandaarden/iWlz-RequestForComment/issues/49) |
+| RFC26288 | Notificeren en melden met CloudEvents | Gerelateerd | Voor de invulling van `service.namespace` sluit RFC0022d aan op de organisatie-identificatie uit §3.2.1.2 van RFC26288. | [#288](https://github.com/iStandaarden/iWlz_RequestForChange/issues/288) |
 
 \* *Afhankelijk* betekent dat deze RFC voortbouwt op de genoemde RFC. *Voorwaardelijk* betekent dat de genoemde RFC op deze RFC voortbouwt.
 
