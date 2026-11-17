@@ -95,12 +95,14 @@ Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de s
 | `startTimeUnixNano` | Verplicht | `string` (decimaal getal) | Starttijd van de span, conform `start_time_unix_nano` in de [OTLP-spandefinitie][proto], gecodeerd volgens [OTLP/JSON][json]. | `"1794916800000000000"` |
 | `endTimeUnixNano` | Verplicht | `string` (decimaal getal) | Eindtijd van de span, conform `end_time_unix_nano` in de [OTLP-spandefinitie][proto], gecodeerd volgens [OTLP/JSON][json]. De eindtijd is gelijk aan of later dan de starttijd. | `"1794916800250000000"` |
 | `status.code` | Verplicht; de standaardwaarde UNSET mag volgens OTLP/JSON worden weggelaten. | `number` (geheel getal) | Spanstatus conform [OpenTelemetry Set Status][status]. De [OTLP-definitie Status.StatusCode][proto] bepaalt de waarden: `0` UNSET, `1` OK en `2` ERROR. Voor HTTP-spans gelden de [HTTP-statusconventies][http-status]. | `2` |
-| `service.namespace` | Verplicht | `string` | Resource-attribuut dat de groep diensten onderscheidt waarbinnen `service.name` uniek is, conform [OpenTelemetry Service Namespace][namespace]. | N.t.b. |
+| `service.namespace` | Verplicht | `string` | Resource-attribuut dat de groep diensten onderscheidt waarbinnen `service.name` uniek is, conform [OpenTelemetry Service Namespace][namespace]. De waarde bestaat uit `urn:nld:<identificatietype>:<organisatie-ID>`, aansluitend op de organisatie-identificatie uit [RFC26288 §3.2.1.2][rfc26288-source]. | `urn:nld:agb:12345678` |
 | `service.name` | Verplicht | `string` | Logische naam van de dienst, uniek binnen `service.namespace`, conform [OpenTelemetry Service][service]. | `zorgadministratie` |
 | `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `string` (decimaal getal) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. | `"200"` |
 | `error.type` | Conditioneel verplicht: als de HTTP-aanroep volgens de HTTP-conventies met een fout is geëindigd. | `string` | Foutklasse of de toepasselijke HTTP-code als tekenreeks, conform [Error attributes][error] en de toepassingsregels uit [HTTP spans][http]. | `timeout`; `500` |
 
 De tabel bepaalt welke gegevens ketenbreed worden gedeeld. Voor de lokale vastlegging kunnen de OpenTelemetry HTTP-conventies aanvullende attributen vereisen.
+
+Voor `service.namespace` sluiten we aan op de organisatie-identificatie uit [RFC26288 §3.2.1.2][rfc26288-source]. We gebruiken het deel `urn:nld:<identificatietype>:<organisatie-ID>` van de daar beschreven `source`. Het onderdeel `:events:…` wordt niet overgenomen.
 
 ## 3.2 Gegevensminimalisatie
 
@@ -126,8 +128,8 @@ Ketenpartijen en softwareleveranciers moeten hun tracelogging waar nodig aanvull
 [service]: https://opentelemetry.io/docs/specs/semconv/resource/service/#service
 [namespace]: https://opentelemetry.io/docs/specs/semconv/resource/service/#service-namespace
 [error]: https://opentelemetry.io/docs/specs/semconv/registry/attributes/error/#error-attributes
-
 [rfc22a]: https://github.com/iStandaarden/iWlz-RFC/issues/37
 [rfc22b]: https://github.com/iStandaarden/iWlz_RequestForChange/issues/251
 [http-attribute]: https://opentelemetry.io/docs/specs/semconv/registry/attributes/http/
 [http-statuscodes]: https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes
+[rfc26288-source]: https://github.com/iStandaarden/iWlz_RequestForChange/blob/main/RequestforComments/RFC26288%20-%20Notificeren%20en%20melden%20met%20CloudEvents.md#3212-source
