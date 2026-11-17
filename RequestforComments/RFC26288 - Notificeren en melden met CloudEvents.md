@@ -200,16 +200,16 @@ Zie [NL GOV profile for CloudEvents - §3.3.1 id](https://gitdocumentatie.logius
 
 #### 3.2.1.2 `source`
 
-**source:** De bron van de gebeurtenis, in een uniek URN-formaat dat de afzender identificeert.
+**source:** De bron van de gebeurtenis, in een uniek URN-formaat ([Uniform Resource Name](https://nl.wikipedia.org/wiki/Uniform_resource_name)) dat de afzender identificeert.
 
 In het **Netwerkmodel** zijn momenteel de volgende organisatie-identifiers afgesproken: 
 
 | Code  | Omschrijving                         | Referentie     | Toepassing                            |
 |-------|--------------------------------------|----------------|---------------------------------------|
-| AGB   | AGB-code                             | AGB-register   | identificatie Zorgaanbieder           |
-| KVK   | Kamer van Koophandel                 | KVK-register   | identificatie Ondernemer ( voor CIZ*) |
-| OIN   | Organisatie Identificatienummer      | OIN-register   | identificatie CIZ (toekomstig*)       |
-| UZOVI | Unieke ZorgVerzekeraarsIdentificatie | UZOVI-register | identificatie Zorgkantoren            |
+| agb   | AGB-code                             | AGB-register   | identificatie Zorgaanbieder           |
+| kvk   | Kamer van Koophandel                 | KVK-register   | identificatie Ondernemer ( voor CIZ*) |
+| oin   | Organisatie Identificatienummer      | OIN-register   | identificatie CIZ (toekomstig*)       |
+| uzovi | Unieke ZorgVerzekeraarsIdentificatie | UZOVI-register | identificatie Zorgkantoren            |
 
 (zie: [Afsprakenstelsel iWlz > Notificeren en Melden - §2.2.1 Code afzenderIDtype of ontvangerIDType](https://istandaarden.github.io/Afsprakenstelsel-iWlz/current/applicatie/diensten/notificeren-en-melden/#221-code-afzenderidtype-of-ontvangeridtype))
 
@@ -309,8 +309,6 @@ Zie [NL GOV profile for CloudEvents - §3.4.1 datacontenttype](https://gitdocume
 
 Het is verplicht aanwezig omdat hier een toelichting opgenomen moet worden waarin uitgelegd is dat `id` geen documentwaarde heeft. Er is geen document met de identificatie-waarde uit `id`. (zie ook [`id`](#3211-id))
 
-In het **Netwwerkmodel** staat de eerste versie van het schema (voorlopig gepland) op: https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json
-
 ```json
 "dataschema" : "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json"
 ```
@@ -341,7 +339,7 @@ Zie [NL GOV profile for CloudEvents - §3.4.4 time](https://gitdocumentatie.logi
 
 In het **Netwerkmodel** bestaat de Notificatie (of Melding) JSON uit de volgende attributen: 
 
-bijvoorbeeld: 
+Voorbeeld notificatie: 
 ```json
 {
   "afzenderID": "5050",
@@ -370,14 +368,14 @@ Een aantal van de attributen in het notificatie/melding JSON-object zitten ook a
 | `afzenderID`                    | [`source`](#3212-source)      |
 | `afzenderIDType`                | [`source`](#3212-source)      |
 | `eventType`                     | [`type`](#3214-type)          |
-| `ontvangerID`                   | handhaven (is dit nodig?)     |
-| `ontvangerIDType`               | handhaven (is dit nodig?)     |
+| `ontvangerID`                   | is dit nodig? -> vervallen    |
+| `ontvangerIDType`               | is dit nodig? -> vervallen    |
 | `timestamp`                     | [`time`](#3223-time)          |
 | `subjectList`                   | handhaven                     |
 | `subject`                       | handhaven                     |
 | `recordID`                      | handhaven                     |
 
-Voorbeeld JSON-data notificatie in CloudEvent:
+Voorbeeld JSON notificatie-data in CloudEvent op basis van eerder notificatie voorbeeld:
 ```json
 {
   "ontvangerID": "12345678",
@@ -391,7 +389,7 @@ Voorbeeld JSON-data notificatie in CloudEvent:
 }
 ```
 
-Voorbeeld CloudEvent met notificatie:
+Voorbeeld CloudEvent met notificatie-data:
 
 ```json
 {
