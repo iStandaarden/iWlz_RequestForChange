@@ -339,7 +339,7 @@ Zie [NL GOV profile for CloudEvents - §3.4.4 time](https://gitdocumentatie.logi
 
 In het **Netwerkmodel** bestaat de Notificatie (of Melding) JSON uit de volgende attributen: 
 
-bijvoorbeeld: 
+Voorbeeld notificatie: 
 ```json
 {
   "afzenderID": "5050",
@@ -368,14 +368,14 @@ Een aantal van de attributen in het notificatie/melding JSON-object zitten ook a
 | `afzenderID`                    | [`source`](#3212-source)      |
 | `afzenderIDType`                | [`source`](#3212-source)      |
 | `eventType`                     | [`type`](#3214-type)          |
-| `ontvangerID`                   | handhaven (is dit nodig?)     |
-| `ontvangerIDType`               | handhaven (is dit nodig?)     |
+| `ontvangerID`                   | is dit nodig? -> vervallen    |
+| `ontvangerIDType`               | is dit nodig? -> vervallen    |
 | `timestamp`                     | [`time`](#3223-time)          |
 | `subjectList`                   | handhaven                     |
 | `subject`                       | handhaven                     |
 | `recordID`                      | handhaven                     |
 
-Voorbeeld JSON-data notificatie in CloudEvent:
+Voorbeeld JSON notificatie-data in CloudEvent op basis van eerder notificatie voorbeeld:
 ```json
 {
   "ontvangerID": "12345678",
@@ -389,7 +389,7 @@ Voorbeeld JSON-data notificatie in CloudEvent:
 }
 ```
 
-Voorbeeld CloudEvent met notificatie:
+Voorbeeld CloudEvent met notificatie-data:
 
 ```json
 {
