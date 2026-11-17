@@ -309,8 +309,6 @@ Zie [NL GOV profile for CloudEvents - §3.4.1 datacontenttype](https://gitdocume
 
 Het is verplicht aanwezig omdat hier een toelichting opgenomen moet worden waarin uitgelegd is dat `id` geen documentwaarde heeft. Er is geen document met de identificatie-waarde uit `id`. (zie ook [`id`](#3211-id))
 
-In het **Netwwerkmodel** staat de eerste versie van het schema (voorlopig gepland) op: https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json
-
 ```json
 "dataschema" : "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json"
 ```
