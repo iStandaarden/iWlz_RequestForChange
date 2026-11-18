@@ -2,8 +2,6 @@
 
 # RFC0022d - Tracelogging - Inhoud en structuur van tracing-data
 
-> versie 0.1 d.d. 16-11-2026 — concept
-
 <font size="4">**SAMENVATTING**</font>
 
 **Huidige situatie:**
@@ -13,6 +11,13 @@ Met `TraceId` en `SpanId` kunnen ketenpartijen verwerkingsstappen binnen één i
 **Beoogde situatie:**
 
 Bij een incident kunnen ketenpartijen per stap de dienst, de bewerking, de duur en een eventuele technische fout bepalen. De ketenbreed beschikbare gegevens blijven beperkt tot wat voor die analyse nodig is.
+
+<font size="4">**CHANGELOG**</font>
+
+| Versie | Datum | Wijzigingen |
+| :-- | :-- | :-- |
+| 0.2 | 18-11-2026 | §3.1: datatype `http.response.status_code` gecorrigeerd van `string` naar `int` (OTLP/JSON: `intValue`), met verwijzing naar `AnyValue`.<br>§3.1: tekst boven de tabel aangevuld met "ontvangen of verzonden" statuscode.<br>§3.1: voorbeelden tonen nu de OTLP/JSON-weergave. |
+| 0.1 | 16-11-2026 | Eerste concept. |
 
 ---
 
@@ -99,7 +104,7 @@ Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de s
 | `status.code` | Verplicht; de standaardwaarde UNSET mag volgens OTLP/JSON worden weggelaten. | `number` (geheel getal) | Spanstatus conform [OpenTelemetry Set Status][status]. De [OTLP-definitie Status.StatusCode][proto] bepaalt de waarden: `0` UNSET, `1` OK en `2` ERROR. Voor HTTP-spans gelden de [HTTP-statusconventies][http-status]. | `2` |
 | `service.namespace` | Verplicht | `string` | Resource-attribuut dat de namespace van `service.name` bepaalt, conform [OpenTelemetry Service Namespace][namespace]. De invulling sluit aan op de organisatie-identificatie uit [RFC26288 §3.2.1.2][rfc26288-source]. | `{ "stringValue": "urn:nld:agb:12345678" }` |
 | `service.name` | Verplicht | `string` | Logische naam van de dienst, uniek binnen `service.namespace`, conform [OpenTelemetry Service][service]. | `{ "stringValue": "zorgadministratie" }` |
-| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `int` (in OTLP/JSON als decimale string in `intValue`) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. | `{ "intValue": "200" }` |
+| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `int` (in OTLP/JSON als decimale string in `intValue`) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. Codering van intValue volgens [AnyValue][anyvalue]. | `{ "intValue": "200" }` |
 | `error.type` | Conditioneel verplicht: als de HTTP-aanroep volgens de HTTP-conventies met een fout is geëindigd. | `string` | Foutklasse of de toepasselijke HTTP-code als tekenreeks, conform [Error attributes][error] en de toepassingsregels uit [HTTP spans][http]. | `{ "stringValue": "timeout" }`; `{ "stringValue": "500" }` |
 
 De tabel bepaalt welke gegevens ketenbreed worden gedeeld. Voor de lokale vastlegging kunnen de OpenTelemetry HTTP-conventies aanvullende attributen vereisen.
@@ -120,7 +125,6 @@ Ketenpartijen en softwareleveranciers moeten hun tracelogging waar nodig aanvull
 [api]: https://opentelemetry.io/docs/specs/otel/trace/api/#span
 [status]: https://opentelemetry.io/docs/specs/otel/trace/api/#set-status
 [kind]: https://opentelemetry.io/docs/specs/otel/trace/api/#spankind
-[timestamp]: https://opentelemetry.io/docs/specs/otel/trace/api/#timestamp
 [json]: https://opentelemetry.io/docs/specs/otlp/#json-protobuf-encoding
 [proto]: https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/trace/v1/trace.proto
 [anyvalue]: https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/common/v1/common.proto
