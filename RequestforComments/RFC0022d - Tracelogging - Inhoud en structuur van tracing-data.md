@@ -2,6 +2,8 @@
 
 # RFC0022d - Tracelogging - Inhoud en structuur van tracing-data
 
+> versie 0.2 d.d. 18-11-2026 - concept
+
 <font size="4">**SAMENVATTING**</font>
 
 **Huidige situatie:**
@@ -104,7 +106,7 @@ Bij afronding van de verwerkingsstap worden de eindtijd en het resultaat in de s
 | `status.code` | Verplicht; de standaardwaarde UNSET mag volgens OTLP/JSON worden weggelaten. | `number` (geheel getal) | Spanstatus conform [OpenTelemetry Set Status][status]. De [OTLP-definitie Status.StatusCode][proto] bepaalt de waarden: `0` UNSET, `1` OK en `2` ERROR. Voor HTTP-spans gelden de [HTTP-statusconventies][http-status]. | `2` |
 | `service.namespace` | Verplicht | `string` | Resource-attribuut dat de namespace van `service.name` bepaalt, conform [OpenTelemetry Service Namespace][namespace]. De invulling sluit aan op de organisatie-identificatie uit [RFC26288 §3.2.1.2][rfc26288-source]. | `{ "stringValue": "urn:nld:agb:12345678" }` |
 | `service.name` | Verplicht | `string` | Logische naam van de dienst, uniek binnen `service.namespace`, conform [OpenTelemetry Service][service]. | `{ "stringValue": "zorgadministratie" }` |
-| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `int` (in OTLP/JSON als decimale string in `intValue`) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. Codering van intValue volgens [AnyValue][anyvalue]. | `{ "intValue": "200" }` |
+| `http.response.status_code` | Conditioneel verplicht: als een HTTP-statuscode is ontvangen of verzonden. | `int` (in OTLP/JSON als decimale string in `intValue`) | [HTTP-responsstatuscode][http-statuscodes], conform de [OpenTelemetry HTTP-attribuutdefinitie][http-attribute]. Codering van `intValue` volgens [AnyValue][anyvalue]. | `{ "intValue": "200" }` |
 | `error.type` | Conditioneel verplicht: als de HTTP-aanroep volgens de HTTP-conventies met een fout is geëindigd. | `string` | Foutklasse of de toepasselijke HTTP-code als tekenreeks, conform [Error attributes][error] en de toepassingsregels uit [HTTP spans][http]. | `{ "stringValue": "timeout" }`; `{ "stringValue": "500" }` |
 
 De tabel bepaalt welke gegevens ketenbreed worden gedeeld. Voor de lokale vastlegging kunnen de OpenTelemetry HTTP-conventies aanvullende attributen vereisen.
