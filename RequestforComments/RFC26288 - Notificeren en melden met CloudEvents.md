@@ -421,6 +421,10 @@ Voorbeeld CloudEvents met notificatie-data:
 > Ontvanger informatie behouden via een CloudEvents Extension:
 > - context attribute: `nlreceiver`
 > - aanduiding: `urn`  definitie zoals `source`
+>   - volgt de opbouw van [`source`](#3212-source) onderdelen 1,2 en 3
+>     1. vaste waarde: `nld`
+>     2. identificatie code
+>     3. identificatie
 >   - Bijvoorbeeld: `"nlreceiver": "urn:nld:agb:12345678"`
 > - `source` = de afzender
 > - `nlreceiver` = de ontvanger
