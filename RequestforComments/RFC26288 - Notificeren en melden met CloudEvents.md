@@ -2,7 +2,7 @@
 
 # RFC26288 - Notificeren en melden met CloudEvents
 
-_versie 0.4 d.d 11-11-2026_
+_versie 0.5 d.d 19-11-2026_
 
 ## Samenvatting
 
@@ -167,11 +167,11 @@ Meer over - [CloudEvents.io](https://cloudevents.io/)
 
 Voor gebruik binnen de Nederlandse overheden is er een [NL GOV profile for CloudEvents](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/) opgesteld om de gebeurtenissen en meldingen daarvan aan partijen in te richten en te standaardiseren. 
 
-Deze Request for Comment gaat uit van dat profiel en geeft aan hoe de verschillende attributen uit het CloudEvent schema toepast worden in het Netwerkmodel. Het CloudEvent schema kent zowel **verplichte** als **optionele** attributen die deels conditioneel zijn. 
+Deze Request for Comment gaat uit van dat profiel en geeft aan hoe de verschillende attributen uit het CloudEvents schema toepast worden in het Netwerkmodel. Het CloudEvents schema kent zowel **verplichte** als **optionele** attributen die deels conditioneel zijn. 
 
 ### 3.2.1 Vulling *verplichte* Context Attributes voor iWlz Netwerkmodel
 
-De CloudEvent specificatie kent de volgende [verplichte attributen](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#required-attributes)
+De CloudEvents specificatie kent de volgende [verplichte attributen](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#required-attributes)
 
 - `id`
 - `source`
@@ -184,11 +184,11 @@ Hieronder de specificatie voor gebruik binnen het Netwerkmodel.
 
 **id:** De unieke identificatie van de specifieke gebeurtenis (event).
 
-In het **Netwerkmodel** zal CloudEvents ingezet worden om de diensten Notificeren en Melden te standaardiseren. Een notificatie of melding bevat een `recordID` en `subject` die gelijk blijven voor elke notificatie soort of melding op dat record. Geen van beide id's komen daarmee in aanmerking om gebruikt te worden voor vulling in `id` omdat het CloudEvent met geen van de id's (in combinatie met de source) uniek is te identificeren, wat het doel is van `id`.
+In het **Netwerkmodel** zal CloudEvents ingezet worden om de diensten Notificeren en Melden te standaardiseren. Een notificatie of melding bevat een `recordID` en `subject` die gelijk blijven voor elke notificatie soort of melding op dat record. Geen van beide id's komen daarmee in aanmerking om gebruikt te worden voor vulling in `id` omdat het CloudEvents met geen van de id's (in combinatie met de source) uniek is te identificeren, wat het doel is van `id`.
 
 Daarom geldt voor het Netwerkmodel het volgende: 
-  - Het CloudEvent `id` **MOET** daarom gevuld worden met een uniek UUID. In de praktijk zal dit een UUID versie 4 zijn. 
-  - Daarnaast **MOET** er in het CloudEvent een verwijzing opgenomen worden naar het dataschema waarin duidelijk is gemaakt dat het `id` gevuld wordt met een random waarde die niet gebruikt kan worden om het desbetreffende record op te vragen. Hiervoor zal het attribuut `dataschema` worden toegevoegd met de verwijzing naar de uitleg van het onderdeel in het attribuut `data`.
+  - Het CloudEvents `id` **MOET** daarom gevuld worden met een uniek UUID. In de praktijk zal dit een UUID versie 4 zijn. 
+  - Daarnaast **MOET** er in het CloudEvents een verwijzing opgenomen worden naar het dataschema waarin duidelijk is gemaakt dat het `id` gevuld wordt met een random waarde die niet gebruikt kan worden om het desbetreffende record op te vragen. Hiervoor zal het attribuut `dataschema` worden toegevoegd met de verwijzing naar de uitleg van het onderdeel in het attribuut `data`.
 
 Voorbeeld:
 ```json
@@ -216,7 +216,7 @@ In het **Netwerkmodel** zijn momenteel de volgende organisatie-identifiers afges
 Daarom geldt voor Netwerkmodel het volgende voor de opbouw van de URN voor `source`: `urn:1:2:3:4:5`
 1. Vaste waarde: `nld` (Verplicht volgens NL GOV profile for CloudEvents) 
 2. Variabele waarde: de code van organisatie-identifier zoals hierboven is aangegeven
-3. Variabele waarde: de unieke ID van de organisatie die de CloudEvent verstuurd
+3. Variabele waarde: de unieke ID van de organisatie die de CloudEvents verstuurd
 4. Vaste waarde: `events` 
 5. Variabele waarde: Gekoppeld aan afzender. 
    1. Voor CIZ: `indicatie`
@@ -224,7 +224,7 @@ Daarom geldt voor Netwerkmodel het volgende voor de opbouw van de URN voor `sour
    3. Voor Aanbieder: `levering`  
   *N.b. het is niet toegestaan hier te verwijzen naar een externe data bron. Vandaar geen register.*
 
-Voorbeeld voor cloudevent vanuit een (zorg-)aanbieder:
+Voorbeeld voor CloudEvents vanuit een (zorg-)aanbieder:
 ```json
 "source" : "urn:nld:agb:12345678:events:levering"
 ```
@@ -247,9 +247,9 @@ Zie [NL GOV profile for CloudEvents - §3.3.3 specversion](https://gitdocumentat
 
 **type:** Referentie naar de soort gebeurtenis (event).  
 
-In het **netwerkmodel** is `type` afgeleid van het `eventType` van een notificatie of melding. Zo zijn de huidig gedefinieerde notificatie eventtypen direct te gebruiken voor het CloudEvent type. 
+In het **netwerkmodel** is `type` afgeleid van het `eventType` van een notificatie of melding. Zo zijn de huidig gedefinieerde notificatie eventtypen direct te gebruiken voor het CloudEvents type. 
 
-Voorwaarden van het CloudEvent `type`: 
+Voorwaarden van het CloudEvents `type`: 
 1. moet opgebouwd worden volgens het [Reverse domain name notation](https://en.wikipedia.org/wiki/Reverse_domain_name_notation) principe. Voor het netwerkmodel zal dit `"nl.istandaarden"` zijn. 
 2. bevat bij voorkeur een verwijzing naar de data source. Voor het netwerkmodel: 
    - `idr`: Indicatieregister, 
@@ -269,7 +269,7 @@ Voorbeeld op basis van de twee notificaties:
 "eventType" : "NIEUWE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER"
 ```
 
-De CloudEvent `type` waarde in het Netwerkmodel zal dan als volgt worden opgebouwd:
+De CloudEvents `type` waarde in het Netwerkmodel zal dan als volgt worden opgebouwd:
 ```json
 "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie"
 ```
@@ -323,7 +323,7 @@ Zie [NL GOV profile for CloudEvents - §3.4.2 dataschema](https://gitdocumentati
 
 In het **Netwerkmodel** toegevoegd om de volgorde van de ontvangen CloudEvents te bepalen. In de huidige specificatie van de notificatie en de melding is `timestamp` gedefinieerd als respectievelijk "Tijdstip waarop de notificatie is aangemaakt", Tijdstip waarop de melding is aangemaakt". Dit kan anders zijn dan het moment waarop de gebeurtenis (bijvoorbeeld de registratie nieuwe indicatie). Daarnaast is in dit RFC ook het voorstel opgenomen om notificaties van hetzelfde type te bundelen in één CloudEvent. 
 
-De waarde van `time` is daarom gebaseerd op **het moment waarop de CloudEvent is aangemaakt**.
+De waarde van `time` is daarom gebaseerd op **het moment waarop de CloudEvents is aangemaakt**.
 
 Voorbeeld:
 ```json
@@ -363,19 +363,19 @@ Dit hele JSON-object *kan* in `data` worden geplaatst, maar dan zitten er een aa
 
 Een aantal van de attributen in het notificatie/melding JSON-object zitten ook al in de CloudEvent-header en kunnen daarom worden vervangen door een CloudEvent-attribuut: 
 
-| Notifictie of Melding attribuut | Vervangen door CloudEvent met |
+| Notifictie of Melding attribuut | Vervangen door CloudEvents met |
 | :------------------------------ | :---------------------------- |
 | `afzenderID`                    | [`source`](#3212-source)      |
 | `afzenderIDType`                | [`source`](#3212-source)      |
 | `eventType`                     | [`type`](#3214-type)          |
-| `ontvangerID`                   | is dit nodig? -> vervallen    |
-| `ontvangerIDType`               | is dit nodig? -> vervallen    |
+| `ontvangerID`                   | is dit nodig? -> vervallen / edit d.d. 19-11-2026 `nlreceiver` (zie [Note](#aanvulling-na-tao-dd-18-11-2026) verderop)  |
+| `ontvangerIDType`               | is dit nodig? -> vervallen / edit d.d. 19-11-2026 `nlreceiver`   |   
 | `timestamp`                     | [`time`](#3223-time)          |
 | `subjectList`                   | handhaven                     |
 | `subject`                       | handhaven                     |
 | `recordID`                      | handhaven                     |
 
-Voorbeeld JSON notificatie-data in CloudEvent op basis van eerder notificatie voorbeeld:
+Voorbeeld JSON notificatie-data in CloudEvents op basis van eerder notificatie voorbeeld:
 ```json
 {
   "ontvangerID": "12345678",
@@ -389,7 +389,7 @@ Voorbeeld JSON notificatie-data in CloudEvent op basis van eerder notificatie vo
 }
 ```
 
-Voorbeeld CloudEvent met notificatie-data:
+Voorbeeld CloudEvents met notificatie-data:
 
 ```json
 {
@@ -413,6 +413,42 @@ Voorbeeld CloudEvent met notificatie-data:
 }
 ```
 
+> [!NOTE]
+> #### **Aanvulling na TAO d.d. 18-11-2026**
+> 
+> Tijdens het TAO is kort de noodzaak voor het behouden van de ontvanger informatie (ontvangerID en ontvangerIDType). Daaruit >  bleek al dat er een voorkeur is voor het behouden ervan. Daarom deze aanvulling zodat deze alvast in de review kan worden > meegenomen. 
+> 
+> Ontvanger informatie behouden via een CloudEvents Extension:
+> - context attribute: `nlreceiver`
+> - aanduiding: `urn`  definitie zoals `source`
+>   - Bijvoorbeeld: `"nlreceiver": "urn:nld:agb:12345678"`
+> - `source` = de afzender
+> - `nlreceiver` = de ontvanger
+> 
+> Het CloudEvents voorbeeld met notificatie-data van hierboven wordt dan:  
+> ```json
+> {
+>   "id": "e2d8c3c2-7453-4948-95c8-de86688461e5",
+>   "source": "urn:nld:uzovi:5050:events:bemiddeling",
+>   "specversion": "1.0",
+>   "type": "nl.istandaarden.eventtypes.bmr.nieuwe-bemiddelingspecificatie",
+>   "nlreceiver": "urn:nld:agb:12345678",
+>   "datacontenttype": "application/json",
+>   "dataschema": "https://github.com/iStandaarden/generiek/blob/main/cloudevents/v1.json",
+>   "time": "2024-07-02T00:00:00Z",
+>   "data": {
+>     "subjectList": [
+>       {
+>         "subject": "Bemiddeling/ef88ce35-58fa-4e6d-ac7a-6e298dd211d6",
+>         "recordID": "Bemiddelingspecificatie/ef88ce35-58fa-4e6d-ac7a-6e298dd211d6"
+>       }
+>     ]
+>   }
+> }
+> ```
+> 
+> N.b. de ontvanger (receiver) krijgt de prefix `nl` om aan te geven dat dit geen onderdeel is het formele CloudEvents profiel >  maar een extensie is binnen Nederland.
+
 Zie [NL GOV profile for CloudEvents - §4 Event Data](https://gitdocumentatie.logius.nl/publicatie/notificatieservices/cloudevents-nl/1.1/#event-data)
 
 # 4. Verzending
@@ -435,7 +471,7 @@ Het `Content-type` is bij Structured Content Mode:
 
 ### 4.2.1 `cloudevents+json`
 
-Bij het gebruik van `Content-Type`: `application/cloudevents+json` bevat het CloudEvent één notificatie of melding gebeurtenis (van hetzelfde type) voor één ontvanger. De ontvanger is bijvoorbeeld één zorgkantoor of één (zorg)aanbieder. Dit sluit aan bij de huidige werking van notificeren en melden in het netwerkmodel. Een CloudEvent gaat naar één ontvanger (resource-endpoint). De inhoud van het data attribuut hoort alleen bij die ontvanger. 
+Bij het gebruik van `Content-Type`: `application/cloudevents+json` bevat het CloudEvents één notificatie of melding gebeurtenis (van hetzelfde type) voor één ontvanger. De ontvanger is bijvoorbeeld één zorgkantoor of één (zorg)aanbieder. Dit sluit aan bij de huidige werking van notificeren en melden in het netwerkmodel. Een CloudEvents gaat naar één ontvanger (resource-endpoint). De inhoud van het data attribuut hoort alleen bij die ontvanger. 
 
 Bijvoorbeeld Zorgkantoor 5050 stuurt een notificatie aan Zorgaanbieder AGB01 over 2 nieuwe bemiddeingspecificaties voor die zorgaanbieder (niet-normatief): 
 
@@ -469,7 +505,7 @@ Content-Type: application/cloudevents+json
 ### 4.2.2 `application/cloudevents-batch+json` (toekomstig?)
 
 > [!IMPORTANT]
-> In de eerste release van de CloudEvent zal batch **NIET** ondersteund worden. Hier zijn aanvullende afspraken voor nodig.
+> In de eerste release van de CloudEvents zal batch **NIET** ondersteund worden. Hier zijn aanvullende afspraken voor nodig.
 >
 > Voor de volledigheid is dit wel toegevoegd aan deze RFC met een mogelijke toepassing.
 
@@ -538,13 +574,13 @@ De zorgaanbieder ontvangt hiermee twee notificaties.
 De CloudEvents HTTP-binding specificatie schrijft geen specifieke response methode voor en wijst daarvoor naar de gebruikelijke HTTP-conventies. 
 
 > [!WARNING]
-> De hier beschreven response geldt voor de resource-server. Het verkeer verloopt altijd via een PEP. De PEP die controleert op de autorisatie kan ook een afzonderlijke HTTP response genereren. Bijvoorbeeld als de verzender niet gerechtigd is het type notificatie te versturen (Bijvoorbeeld het zorgkantoor verstuurd een notificatie met betrekking tot een nieuwe indicatie). De mogelijk HTTP response vanuit de PEP op een CloudEvent zal in een andere RFC met betrekking tot autorisatie en de introductie van AuthZEN worden beschreven.
+> De hier beschreven response geldt voor de resource-server. Het verkeer verloopt altijd via een PEP. De PEP die controleert op de autorisatie kan ook een afzonderlijke HTTP response genereren. Bijvoorbeeld als de verzender niet gerechtigd is het type notificatie te versturen (Bijvoorbeeld het zorgkantoor verstuurd een notificatie met betrekking tot een nieuwe indicatie). De mogelijk HTTP response vanuit de PEP op een CloudEvents zal in een andere RFC met betrekking tot autorisatie en de introductie van AuthZEN worden beschreven.
 > 
 
 
 ### 4.3.1 Geldige situatie
 
-Net als bij de GraphQL-mutation levert de succesvolle **AFLEVERING** van een CloudEvent bij het resource-endpoint een geldige situatie. 
+Net als bij de GraphQL-mutation levert de succesvolle **AFLEVERING** van een CloudEvents bij het resource-endpoint een geldige situatie. 
 
 De response bij een succesvolle aflevering op het endpoint van de ontvanger is:
 
@@ -582,7 +618,7 @@ In het geval van de op CloudEvents gebaseerde notificatie zit de `notificatieID`
 
 ### 4.3.2 Ongeldige situatie
 
-In het geval dat het CloudEvent niet succesvol is ontvangen of kan worden geinterpreteerd, stuurt de Resource-server afhankelijk van de een `4xx` of `500` HTTP status-code.
+In het geval dat het CloudEvents niet succesvol is ontvangen of kan worden geinterpreteerd, stuurt de Resource-server afhankelijk van de een `4xx` of `500` HTTP status-code.
 
 | Situatie                                                                                    | Gebruikelijke code                                |
 | ------------------------------------------------------------------------------------------- | ------------------------------------------------- |
@@ -600,10 +636,10 @@ In het geval dat het CloudEvent niet succesvol is ontvangen of kan worden geinte
 
 Bij de overstap van het huidige GraphQL-systeem naar CloudEvents voor het verzenden van notificaties zullen er verschillende veranderingen plaatsvinden. Onder andere:
 
-1. GraphQL mutation vervangen met CloudEvent (envelop)
+1. GraphQL mutation vervangen met CloudEvents (envelop)
    1. eventType in de notificatie vervangen met CloudEvent.type
    2. timestamp in de notificatie vervangen met CloudEvent.time
-2. GraphQL server endpoint vervangen door CloudEvent endpoint. Nu worden de notificaties en meldingen (vermoedelijk) aan het register endpoint verzonden. 
+2. GraphQL server endpoint vervangen door CloudEvents endpoint. Nu worden de notificaties en meldingen (vermoedelijk) aan het register endpoint verzonden. 
 3. Als een notificatieID of meldingID nodig blijkt dan moet de CloudEvents body daarop aangepast worden
 
 
@@ -611,10 +647,10 @@ Bij de overstap van het huidige GraphQL-systeem naar CloudEvents voor het verzen
 
 # 6. Mapping `eventType` en `type`
 
-Notificatie eventtype : CloudEvent type 
+Notificatie eventtype : CloudEvents type 
 
 ## 6.1 Vanuit Bemiddelingsregister:
-| Notificatie eventtype                                          | CloudEvent type                                                                   |
+| Notificatie eventtype                                          | CloudEvents type                                                                   |
 | -------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | `GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGAANBIEDER`             | `nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie`               |
 | `GEWIJZIGDE_BEMIDDELINGSPECIFICATIE_ZORGKANTOOR`               | `nl.istandaarden.eventtypes.bmr.gewijzigde-bemiddelingspecificatie`               |
@@ -638,7 +674,7 @@ Notificatie eventtype : CloudEvent type
 
 
 ## 6.2 Vanuit Indicatieregister:
-| Notificatie eventtype                         | CloudEvent type                                                  |
+| Notificatie eventtype                         | CloudEvents type                                                  |
 | --------------------------------------------- | ---------------------------------------------------------------- |
 | `GEWIJZIGDE_INDICATIE_ZORGKANTOOR`            | `nl.istandaarden.eventtypes.idr.gewijzigde-indicatie`            |
 | `GEWIJZIGDE_VERVALLENGELDIGHEID_ZORGKANTOOR`  | `nl.istandaarden.eventtypes.idr.gewijzigde-vervallengeldigheid`  |
